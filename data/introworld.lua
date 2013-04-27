@@ -40,17 +40,11 @@ data.portals = {
   { x = 984 , destination = 'data.emptyroom' , dx = 50  },
   { x = 2371, destination = 'data.introworld2', dx = 50 }
 }
-data.regions = {
-  { name = 'region1', x = 300, w = 10 }
-}
 
 data.triggers = {}
 
 function data.triggers.onEnter(context)
   context.showMessage('hey', 5)
-end
-
-function data.triggers.onEnterRegion(context, r)
 end
 
 return data
