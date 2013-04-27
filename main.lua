@@ -16,6 +16,12 @@ function love.draw()
 end
 
 function love.update(dt)
-  p.x = p.x + 1
+  local k = love.keyboard
+  if k.isDown('left') then
+    p.x = p.x - 300 * dt
+  end
+  if k.isDown('right') then
+    p.x = p.x + 300 * dt
+  end
   p.y = w:y(p.x)
 end
