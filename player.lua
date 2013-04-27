@@ -13,7 +13,7 @@ end
 function player:draw()
   local g = love.graphics
   g.setColor(255, 255, 255)
-  g.rectangle('fill', self.x, self.y - self.h, self.w, self.h)
+  g.rectangle('fill', self.x - self.w / 2, self.y - self.h, self.w, self.h)
 end
 
 return player
