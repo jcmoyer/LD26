@@ -13,12 +13,16 @@ function world.new(name)
   instance.portals = {}
   instance.triggers = data.triggers
   instance.regions = {}
+  instance.switches = {}
   -- Create actual portal objects from the data
   for i,p in ipairs(data.portals or {}) do
     instance.portals[i] = portal.new(instance, p.x, p.destination, p.dx)
   end
   for i,r in ipairs(data.regions or {}) do
     instance.regions[i] = region.new(r.name, r.x, r.w)
+  end
+  for i,s in ipairs(data.switches or {}) do
+    instance.switches[i] = switch.new(s.name, s.x, s.ud)
   end
 
   return instance
