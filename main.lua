@@ -5,6 +5,8 @@ local mathex = require('mathex')
 local message = require('message')
 local gamecontext = require('gamecontext')
 
+local switchSnd = love.audio.newSource('data/switch.ogg', 'static')
+
 local p = player.new()
 local w = nil
 local c = camera.new(800, 600)
@@ -96,7 +98,9 @@ function love.update(dt)
   end
 
   -- activate switches at the player's location
-  w:activateAt(p.x, context)
+  if w:activateAt(p.x, context) then
+    love.audio.play(switchSnd)
+  end
   
   if m then
     m:update(dt)
