@@ -17,6 +17,10 @@ function makecontext()
   function ctx.showMessage(text, duration)
     m = message.new(text, duration)
   end
+  function ctx.changeWorld(name, x)
+    changeworld(name)
+    p.x = x or p.x
+  end
   return ctx
 end
 
