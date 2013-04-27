@@ -42,4 +42,14 @@ function data.triggers.onEnterRegion(context, r)
   end
 end
 
+function data.triggers.onEnterPortal(context, p)
+  if p.destination == 'data.introworld3' then
+    if context.getVar('introworld3.continue') then
+      context.changeWorld('data.introworld4', 50)
+      return false
+    end
+  end
+  return true
+end
+
 return data
