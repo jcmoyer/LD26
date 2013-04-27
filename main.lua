@@ -28,6 +28,9 @@ function makecontext()
   function ctx.addRegion(name, x, width)
     w:addRegion(name, x, width)
   end
+  function ctx.y(x)
+    return w:y(x)
+  end
   return ctx
 end
 
