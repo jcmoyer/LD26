@@ -1,6 +1,6 @@
 local data = {}
 
-data.background = { 255, 255, 255 }
+data.background = { 215, 215, 215 }
 
 data.lines = {
   0,   300,
@@ -15,13 +15,13 @@ data.lines = {
 }
 
 data.portals = {
-  { x = 1400, destination = 'data.introworld2', dx = 50 }
+  { x = 1400, destination = 'data.introworld', dx = 50 }
 }
 
 data.triggers = {}
 
 function data.triggers.onEnter(context)
-  context.showMessage('hey', 5)
+  context.showMessage('don\'t you know it\s dangerous?', 10)
 end
 
 return data

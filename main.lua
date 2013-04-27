@@ -76,7 +76,7 @@ function love.keypressed(key, unicode)
       enteredportal = true
       p.x = portal.dx
       if portal.destination ~= w.name then
-        w = world.new(portal.destination)
+        changeworld(portal.destination)
         -- Instant pan when the world is different
         p.x = mathex.clamp(p.x, w:left(), w:right())
         p.y = w:y(p.x)
