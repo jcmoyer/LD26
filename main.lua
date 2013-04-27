@@ -21,6 +21,9 @@ function makecontext()
     changeworld(name)
     p.x = x or p.x
   end
+  function ctx.addPortal(x, d, dx)
+    w:addPortal(x, d, dx)
+  end
   return ctx
 end
 

@@ -7,6 +7,8 @@ function gamecontext.new()
   end
   function instance.changeWorld(name, x)
   end
+  function instance.addPortal(x, d, dx)
+  end
   return setmetatable(instance, { __index = gamecontext })
 end
 
