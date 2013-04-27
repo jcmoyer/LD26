@@ -7,37 +7,24 @@ data.lines = {
   400,230
 }
 
-data.portals = {
-  { x = 50, destination = 'data.introworld', dx = 984 }
-}
-
-data.regions = {
-  { name = 'switch', x = 350, w = 16 }
+data.switches = {
+  { name = 'switch', x = 350, gvar = 'emptyroom.switch' }
 }
 
 data.triggers = {}
 
-function data.triggers.onEnterRegion(context, r)
-  if r.name == 'switch' then
-    context.setVar('emptyroom.switch', true)
+function spawnExitPortal(context)
+  context.addPortal(50, 'data.introworld', 984)
+end
+
+function data.triggers.onEnter(context)
+  if context.getVar('emptyroom.switch') then
+    spawnExitPortal(context)
   end
 end
 
-function data.triggers.onDraw(context)
-  local g = love.graphics
-  local switchReg = data.regions[1]
-  local status    = context.getVar('emptyroom.switch')
-  if status then
-    local hw = switchReg.w / 2
-    local y  = context.y(switchReg.x)
-    g.setColor(context.preferredColor())
-    g.rectangle('fill', switchReg.x - hw, y - 2, switchReg.w, 2)
-  else
-    local hw = switchReg.w / 2
-    local y  = context.y(switchReg.x)
-    g.setColor(context.preferredColor())
-    g.rectangle('fill', switchReg.x - hw, y - 8, switchReg.w, 8)
-  end
+function data.triggers.onSwitchChanged(context, s)
+  spawnExitPortal(context)
 end
 
 return data
