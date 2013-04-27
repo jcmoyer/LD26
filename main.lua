@@ -60,6 +60,8 @@ function love.draw()
     m.y = p.y - p.h - f:getHeight() - 8
     m:draw()
   end
+
+  w:scriptDraw(makecontext())
 end
 
 function love.update(dt)
@@ -85,6 +87,8 @@ function love.update(dt)
   if m then
     m:update(dt)
   end
+
+  w:scriptUpdate(makecontext(), dt)
 
   c:panCenter(p.x, p.y, dt)
 end

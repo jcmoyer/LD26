@@ -52,6 +52,9 @@ function world:right()
   return self.lines[#self.lines - 1]
 end
 
+function world:update(dt)
+end
+
 function world:draw()
   local g = love.graphics
   --g.setColor(255, 255, 255)
@@ -60,6 +63,21 @@ function world:draw()
 
   for i,p in ipairs(self.portals) do
     p:draw()
+  end
+
+end
+
+function world:scriptUpdate(context, dt)
+  local t = self.triggers or {}
+  if t.onUpdate then
+    t.onUpdate(context, dt)
+  end
+end
+
+function world:scriptDraw(context)
+  local t = self.triggers or {}
+  if t.onDraw then
+    t.onDraw(context)
   end
 end
 
