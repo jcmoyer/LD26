@@ -17,11 +17,18 @@ data.lines = {
 data.portals = {
   { x = 1400, destination = 'data.introworld2', dx = 50 }
 }
+data.regions = {
+  { x = 300, w = 10 }
+}
 
 data.triggers = {}
 
 function data.triggers.onEnter(context)
   context.showMessage('hey', 5)
+end
+
+function data.triggers.onEnterRegion(context, r)
+  context.showMessage('in region', 5)
 end
 
 return data

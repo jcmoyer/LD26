@@ -10,6 +10,7 @@ local w = nil
 local c = camera.new(800, 600)
 
 local m = nil
+local lastregion = nil
 
 function makecontext()
   local ctx = gamecontext.new()
@@ -61,6 +62,12 @@ function love.update(dt)
   end
   p.x = mathex.clamp(p.x, w:left(), w:right())
   p.y = w:y(p.x)
+
+  local r = w:regionAt(p.x)
+  if r ~= lastregion then
+    w:onEnterRegion(makecontext(), r)
+    lastregion = r
+  end
   
   if m then
     m:update(dt)

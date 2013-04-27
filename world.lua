@@ -1,5 +1,6 @@
 local mathex = require('mathex')
 local portal = require('portal')
+local region = require('region')
 local world = {}
 
 function world.new(name)
@@ -11,9 +12,13 @@ function world.new(name)
   instance.lines   = data.lines
   instance.portals = {}
   instance.triggers = data.triggers
+  instance.regions = {}
   -- Create actual portal objects from the data
-  for i,p in ipairs(data.portals) do
+  for i,p in ipairs(data.portals or {}) do
     instance.portals[i] = portal.new(instance, p.x, p.destination, p.dx)
+  end
+  for i,r in ipairs(data.regions or {}) do
+    instance.regions[i] = region.new(r.x, r.w)
   end
 
   return instance
@@ -65,6 +70,12 @@ function world:portalAt(x)
   end
 end
 
+function world:regionAt(x)
+  for i,r in ipairs(self.regions) do
+    if r:contains(x) then return r end
+  end
+end
+
 function world:oppositeColor()
   local c = self.background
   return { 255 - c[1], 255 - c[2], 255 - c[3] }
@@ -72,6 +83,10 @@ end
 
 function world:onEnter(context)
   self.triggers.onEnter(context)
+end
+
+function world:onEnterRegion(context, r)
+  self.triggers.onEnterRegion(context, r)
 end
 
 return world
