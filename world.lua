@@ -80,6 +80,10 @@ function world:addPortal(x, destination, dx)
   self.portals[#self.portals + 1] = portal.new(self, x, destination, dx)
 end
 
+function world:addRegion(name, x, w)
+  self.regions[#self.regions + 1] = region.new(name, x, w)
+end
+
 function world:oppositeColor()
   local c = self.background
   return { 255 - c[1], 255 - c[2], 255 - c[3] }

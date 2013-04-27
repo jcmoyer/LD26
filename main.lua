@@ -24,6 +24,9 @@ function makecontext()
   function ctx.addPortal(x, d, dx)
     w:addPortal(x, d, dx)
   end
+  function ctx.addRegion(name, x, width)
+    w:addRegion(name, x, width)
+  end
   return ctx
 end
 

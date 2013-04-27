@@ -9,6 +9,8 @@ function gamecontext.new()
   end
   function instance.addPortal(x, d, dx)
   end
+  function instance.addRegion(name, x, w)
+  end
   return setmetatable(instance, { __index = gamecontext })
 end
 
