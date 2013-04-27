@@ -42,7 +42,7 @@ end
 
 function changeworld(name)
   w = world.new(name, context)
-  w:onEnter(makecontext())
+  w:onEnter(context)
 end
 
 function love.load()
