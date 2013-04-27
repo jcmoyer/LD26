@@ -18,7 +18,7 @@ function world.new(name)
     instance.portals[i] = portal.new(instance, p.x, p.destination, p.dx)
   end
   for i,r in ipairs(data.regions or {}) do
-    instance.regions[i] = region.new(r.x, r.w)
+    instance.regions[i] = region.new(r.name, r.x, r.w)
   end
 
   return instance

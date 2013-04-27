@@ -1,7 +1,8 @@
 local region = {}
 
-function region.new(x, w)
+function region.new(name, x, w)
   local instance = {
+    name = name,
     x = x,
     w = w
   }

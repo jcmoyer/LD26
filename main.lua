@@ -69,7 +69,10 @@ function love.update(dt)
 
   local r = w:regionAt(p.x)
   if r ~= lastregion then
-    w:onEnterRegion(makecontext(), r)
+    -- if r is nil then we've left a region
+    if r then
+      w:onEnterRegion(makecontext(), r)
+    end
     lastregion = r
   end
   
