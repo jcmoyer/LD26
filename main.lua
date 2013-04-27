@@ -3,15 +3,30 @@ local world = require('world')
 local camera = require('camera')
 local mathex = require('mathex')
 local message = require('message')
+local gamecontext = require('gamecontext')
 
 local p = player.new()
-local w = world.new('data.introworld')
+local w = nil
 local c = camera.new(800, 600)
 
-local m = message.new("Test", 5)
+local m = nil
+
+function makecontext()
+  local ctx = gamecontext.new()
+  function ctx.showMessage(text, duration)
+    m = message.new(text, duration)
+  end
+  return ctx
+end
+
+function changeworld(name)
+  w = world.new(name)
+  w:onEnter(makecontext())
+end
 
 function love.load()
   love.graphics.setFont(love.graphics.newFont(18))
+  changeworld('data.introworld')
 end
 
 function love.draw()
@@ -25,7 +40,7 @@ function love.draw()
   p.color = w:oppositeColor()
   p:draw()
 
-  if m:visible() then
+  if (m and m:visible()) then
     m.color = w:oppositeColor()
 
     local f = g.getFont()
@@ -46,7 +61,10 @@ function love.update(dt)
   end
   p.x = mathex.clamp(p.x, w:left(), w:right())
   p.y = w:y(p.x)
-  m:update(dt)
+  
+  if m then
+    m:update(dt)
+  end
 
   c:panCenter(p.x, p.y, dt)
 end

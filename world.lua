@@ -10,6 +10,7 @@ function world.new(name)
   instance.name    = name
   instance.lines   = data.lines
   instance.portals = {}
+  instance.triggers = data.triggers
   -- Create actual portal objects from the data
   for i,p in ipairs(data.portals) do
     instance.portals[i] = portal.new(instance, p.x, p.destination, p.dx)
@@ -67,6 +68,10 @@ end
 function world:oppositeColor()
   local c = self.background
   return { 255 - c[1], 255 - c[2], 255 - c[3] }
+end
+
+function world:onEnter(context)
+  self.triggers.onEnter(context)
 end
 
 return world

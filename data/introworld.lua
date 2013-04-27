@@ -19,4 +19,10 @@ data.portals = {
   { x = 600, destination = 'data.introworld', dx = 250 }
 }
 
+data.triggers = {}
+
+function data.triggers.onEnter(context)
+  context.showMessage('hey', 5)
+end
+
 return data
