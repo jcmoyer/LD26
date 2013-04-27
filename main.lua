@@ -115,7 +115,6 @@ function love.keypressed(key, unicode)
   if key == 'up' then
     local portal = w:portalAt(p.x)
     if portal then
-      enteredportal = true
       p.x = portal.dx
       if portal.destination ~= w.name then
         changeworld(portal.destination)
