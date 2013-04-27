@@ -1,9 +1,10 @@
 local mathex = require('mathex')
 local portal = require('portal')
 local region = require('region')
+local switch = require('switch')
 local world = {}
 
-function world.new(name)
+function world.new(name, context)
   local data = require(name)
   -- Build a world object from the data
   local instance = setmetatable({}, { __index = world })
@@ -22,7 +23,11 @@ function world.new(name)
     instance.regions[i] = region.new(r.name, r.x, r.w)
   end
   for i,s in ipairs(data.switches or {}) do
-    instance.switches[i] = switch.new(s.name, s.x, s.ud)
+    instance.switches[i] = switch.new(instance, s.name, s.x, s.ud, s.gvar)
+    if s.gvar then
+      local status = context.getVar(s.gvar)
+      instance.switches[i].status = status or false
+    end
   end
 
   return instance
@@ -65,6 +70,10 @@ function world:draw()
   g.setColor(self:oppositeColor())
   g.line(self.lines)
 
+  for i,s in ipairs(self.switches) do
+    s:draw()
+  end
+
   for i,p in ipairs(self.portals) do
     p:draw()
   end
@@ -98,6 +107,17 @@ function world:regionAt(x)
   end
 end
 
+function world:activateAt(x, context)
+  for i,s in ipairs(self.switches) do
+    if s:contains(x) then
+      if not s.status then
+        s.status = true
+        self:onSwitchChanged(context, s)
+      end
+    end
+  end
+end
+
 function world:addPortal(x, destination, dx)
   self.portals[#self.portals + 1] = portal.new(self, x, destination, dx)
 end
@@ -122,6 +142,18 @@ function world:onEnterRegion(context, r)
   local t = self.triggers or {}
   if t.onEnterRegion then
     t.onEnterRegion(context, r)
+  end
+end
+
+function world:onSwitchChanged(context, s)
+  -- update the global variable this switch is linked to
+  if s.gvar then
+    context.setVar(s.gvar, s.status)
+  end
+
+  local t = self.triggers or {}
+  if t.onSwitchChanged then
+    t.onSwitchChanged(context, s)
   end
 end
 

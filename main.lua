@@ -38,7 +38,7 @@ function makecontext()
 end
 
 function changeworld(name)
-  w = world.new(name)
+  w = world.new(name, context)
   w:onEnter(makecontext())
 end
 
@@ -91,6 +91,9 @@ function love.update(dt)
     end
     lastregion = r
   end
+
+  -- activate switches at the player's location
+  w:activateAt(p.x, context)
   
   if m then
     m:update(dt)
