@@ -1,5 +1,6 @@
 local player = require('player')
 local world = require('world')
+local mathex = require('mathex')
 
 local p = player.new()
 local w = world.new('data.introworld')
@@ -23,5 +24,6 @@ function love.update(dt)
   if k.isDown('right') then
     p.x = p.x + 300 * dt
   end
+  p.x = mathex.clamp(p.x, w:left(), w:right())
   p.y = w:y(p.x)
 end
