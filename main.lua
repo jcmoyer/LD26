@@ -21,8 +21,13 @@ function makecontext()
     m = message.new(text, duration)
   end
   function ctx.changeWorld(name, x)
-    changeworld(name)
     p.x = x or p.x
+    if name ~= w.name then
+      changeworld(name)
+      p.x = mathex.clamp(p.x, w:left(), w:right())
+      p.y = w:y(p.x)
+      c:center(p.x, p.y)
+    end
   end
   function ctx.addPortal(x, d, dx)
     w:addPortal(x, d, dx)
@@ -50,7 +55,7 @@ end
 function love.load()
   context = makecontext()
   love.graphics.setFont(love.graphics.newFont(18))
-  changeworld('data.introworld')
+  changeworld('data.introworld3')
 end
 
 function love.draw()
