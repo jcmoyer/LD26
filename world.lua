@@ -3,17 +3,18 @@ local portal = require('portal')
 local world = {}
 
 function world.new(name)
-  -- this is probably scary
-  local instance = require(name)
-  instance.name = name
-  local worldinst = setmetatable(instance, { __index = world }) 
-
-  worldinst.portalData = {}
-  for i,p in ipairs(worldinst.portals) do
-    worldinst.portalData[i] = portal.new(worldinst, p.x, p.destination, p.dx)
+  local data = require(name)
+  -- Build a world object from the data
+  local instance = setmetatable({}, { __index = world })
+  instance.name    = name
+  instance.lines   = data.lines
+  instance.portals = {}
+  -- Create actual portal objects from the data
+  for i,p in ipairs(data.portals) do
+    instance.portals[i] = portal.new(instance, p.x, p.destination, p.dx)
   end
 
-  return worldinst
+  return instance
 end
 
 function world:y(x)
@@ -49,14 +50,14 @@ function world:draw()
   g.setColor(255, 255, 255)
   g.line(self.lines)
 
-  for i,p in ipairs(self.portalData) do
+  for i,p in ipairs(self.portals) do
     p:draw()
   end
 end
 
 function world:portalAt(x)
   local y = self:y(x)
-  for i,p in ipairs(self.portalData) do
+  for i,p in ipairs(self.portals) do
     if p:contains(x) then return p end
   end
 end
