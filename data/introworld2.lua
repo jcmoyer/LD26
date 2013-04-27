@@ -104,7 +104,7 @@ data.lines = {
 }
 
 data.portals = {
-  { x = 2750, destination = 'data.introworld3', dx = 100 }
+  { x = 2750, destination = 'data.introworld3', dx = 50 }
 }
 data.regions = {
   { name = 'r_noidea', x = 1286, w = 20 }
