@@ -51,7 +51,6 @@ function data.triggers.onEnter(context)
 end
 
 -- Correct order is 3-1-4-2
-local nextSwitch  = 3
 local switchIndex = 1
 local switchOrder = { 3, 1, 4, 2 }
 function data.triggers.onSwitchChanged(context, s)
