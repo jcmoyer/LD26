@@ -2,12 +2,16 @@ local player = require('player')
 local world = require('world')
 local camera = require('camera')
 local mathex = require('mathex')
+local message = require('message')
 
 local p = player.new()
 local w = world.new('data.introworld')
 local c = camera.new(800, 600)
 
+local m = message.new("Test", 5)
+
 function love.load()
+  love.graphics.setFont(love.graphics.newFont(18))
 end
 
 function love.draw()
@@ -20,6 +24,16 @@ function love.draw()
 
   p.color = w:oppositeColor()
   p:draw()
+
+  if m:visible() then
+    m.color = w:oppositeColor()
+
+    local f = g.getFont()
+    local width = f:getWidth(m.text)
+    m.x = p.x - width / 2
+    m.y = p.y - p.h - f:getHeight() - 8
+    m:draw()
+  end
 end
 
 function love.update(dt)
@@ -32,6 +46,7 @@ function love.update(dt)
   end
   p.x = mathex.clamp(p.x, w:left(), w:right())
   p.y = w:y(p.x)
+  m:update(dt)
 
   c:panCenter(p.x, p.y, dt)
 end
