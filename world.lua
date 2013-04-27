@@ -27,6 +27,14 @@ function world:y(x)
   end
 end
 
+function world:left()
+  return self.lines[1]
+end
+
+function world:right()
+  return self.lines[#self.lines - 1]
+end
+
 function world:draw()
   local g = love.graphics
   g.setColor(255, 255, 255)
