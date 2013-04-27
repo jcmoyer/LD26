@@ -6,6 +6,7 @@ function world.new(name)
   local data = require(name)
   -- Build a world object from the data
   local instance = setmetatable({}, { __index = world })
+  instance.background = data.background or { 0, 0, 0 }
   instance.name    = name
   instance.lines   = data.lines
   instance.portals = {}
@@ -47,7 +48,8 @@ end
 
 function world:draw()
   local g = love.graphics
-  g.setColor(255, 255, 255)
+  --g.setColor(255, 255, 255)
+  g.setColor(self:oppositeColor())
   g.line(self.lines)
 
   for i,p in ipairs(self.portals) do
@@ -60,6 +62,11 @@ function world:portalAt(x)
   for i,p in ipairs(self.portals) do
     if p:contains(x) then return p end
   end
+end
+
+function world:oppositeColor()
+  local c = self.background
+  return { 255 - c[1], 255 - c[2], 255 - c[3] }
 end
 
 return world

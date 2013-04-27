@@ -1,5 +1,7 @@
 local data = {}
 
+data.background = { 255, 255, 255 }
+
 data.lines = {
   0,   300,
   300, 300,

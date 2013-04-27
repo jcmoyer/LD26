@@ -12,10 +12,13 @@ end
 
 function love.draw()
   local g = love.graphics
+  g.setBackgroundColor(w.background)
   g.clear()
 
   g.translate(c.x, c.y)
   w:draw()
+
+  p.color = w:oppositeColor()
   p:draw()
 end
 
