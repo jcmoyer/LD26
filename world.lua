@@ -82,11 +82,17 @@ function world:oppositeColor()
 end
 
 function world:onEnter(context)
-  self.triggers.onEnter(context)
+  local t = self.triggers or {}
+  if t.onEnter then
+    t.onEnter(context)
+  end
 end
 
 function world:onEnterRegion(context, r)
-  self.triggers.onEnterRegion(context, r)
+  local t = self.triggers or {}
+  if t.onEnterRegion then
+    t.onEnterRegion(context, r)
+  end
 end
 
 return world
