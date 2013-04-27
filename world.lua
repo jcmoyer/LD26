@@ -108,14 +108,17 @@ function world:regionAt(x)
 end
 
 function world:activateAt(x, context)
+  local r = false
   for i,s in ipairs(self.switches) do
     if s:contains(x) then
       if not s.status then
+        r = true
         s.status = true
         self:onSwitchChanged(context, s)
       end
     end
   end
+  return r
 end
 
 function world:addPortal(x, destination, dx)
