@@ -11,6 +11,7 @@ local c = camera.new(800, 600)
 
 local m = nil
 local lastregion = nil
+local context = nil
 
 function makecontext()
   local ctx = gamecontext.new()
@@ -36,6 +37,7 @@ function changeworld(name)
 end
 
 function love.load()
+  context = makecontext()
   love.graphics.setFont(love.graphics.newFont(18))
   changeworld('data.introworld')
 end
@@ -61,7 +63,7 @@ function love.draw()
     m:draw()
   end
 
-  w:scriptDraw(makecontext())
+  w:scriptDraw(context)
 end
 
 function love.update(dt)
@@ -79,7 +81,7 @@ function love.update(dt)
   if r ~= lastregion then
     -- if r is nil then we've left a region
     if r then
-      w:onEnterRegion(makecontext(), r)
+      w:onEnterRegion(context, r)
     end
     lastregion = r
   end
@@ -88,7 +90,7 @@ function love.update(dt)
     m:update(dt)
   end
 
-  w:scriptUpdate(makecontext(), dt)
+  w:scriptUpdate(context, dt)
 
   c:panCenter(p.x, p.y, dt)
 end
