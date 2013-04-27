@@ -31,6 +31,9 @@ function makecontext()
   function ctx.y(x)
     return w:y(x)
   end
+  function ctx.preferredColor()
+    return w:oppositeColor()
+  end
   return ctx
 end
 
