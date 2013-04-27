@@ -154,6 +154,16 @@ function world:onEnterRegion(context, r)
   end
 end
 
+-- A script should return false to disable standard portal processing
+-- True means the portal operates as normal after the trigger returns
+function world:onEnterPortal(context, p)
+  local t = self.triggers or {}
+  if t.onEnterPortal then
+    return t.onEnterPortal(context, p)
+  end
+  return true
+end
+
 function world:onSwitchChanged(context, s)
   -- update the global variable this switch is linked to
   if s.gvar then
