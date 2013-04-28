@@ -191,6 +191,7 @@ function processGroupThreeSwitch(context, s)
     p3Sequence[3] == 2 and
     p3Sequence[4] == 1 then
     context.setVar('puzzleworld1_2.solved', true)
+    context.shakeCamera(5, 10)
     context.addPortal('part3', 500, 'data.puzzleworld1', 50)
   end
 end
