@@ -22,16 +22,28 @@ data.lines = {
 }
 
 data.portals = {
-  { x = 100, destination = 'data.introworld5', dx = 700 },
-  { x = 700, destination = 'data.introworld5', dx = 1300 },
-  { x = 1300, destination = 'data.introworld5', dx = 100 }
+  { name = 'p1', x = 100, destination = 'data.introworld4', dx = 1350 },
+  { name = 'p2', x = 700, destination = 'data.introworld5', dx = 1300 },
+  { name = 'p3', x = 1300, destination = 'data.introworld6', dx = -50 }
 }
 
 data.switches = {
-  { name = 'sw1', x = 248  },
-  { name = 'sw2', x = 448 },
-  { name = 'sw3', x = 948 },
-  { name = 'sw4', x = 1148 }
+  { name = 'sw1', x = 248, ud = 'p1'  },
+  { name = 'sw2', x = 448, ud = 'p2'  },
+  --{ name = 'sw3', x = 948, ud = 'p3'  },
+  { name = 'sw4', x = 1148, ud = 'p4' }
 }
+
+data.triggers = {}
+function data.triggers.onSwitchChanged(context, s)
+  if s.name == 'sw1' then
+    context.showMessage('hohoho i warned you', 5)
+  elseif s.name == 'sw2' then
+    context.showMessage('now what will you do?', 5)
+  elseif s.name == 'sw4' then
+    context.showMessage('...false alarm', 5)
+  end
+  context.removePortal(s.ud)
+end
 
 return data
