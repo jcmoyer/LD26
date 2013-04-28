@@ -16,11 +16,8 @@ function switch:draw()
   local g  = love.graphics
   local w  = 16
   local y  = self.owner:y(self.x)
-  if self.status then
-    g.rectangle('fill', self.x - w / 2, y - 2, w, 2)
-  else
-    g.rectangle('fill', self.x - w / 2, y - 8, w, 8)
-  end
+  local h  = self.status and 2 or 8
+  g.rectangle('fill', self.x - w / 2, y - h, w, h)
 end
 
 function switch:contains(x)
