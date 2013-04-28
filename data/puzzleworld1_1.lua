@@ -94,16 +94,17 @@ local switchTimers = {}
 
 function data.triggers.onSwitchChanged(context, s)
   switchTimers[s.name] = 5
-end
 
-function data.triggers.onUpdate(context, dt)
   local lstat = context.getSwitchStatus('swl')
   local rstat = context.getSwitchStatus('swr')
   if lstat and rstat then
     context.setVar('puzzleworld1_1.solved', true)
-    return
+    context.shakeCamera(5, 5)
   end
+end
 
+function data.triggers.onUpdate(context, dt)
+  if context.getVar('puzzleworld1_1.solved') then return end
   for k,v in pairs(switchTimers) do
     local t = switchTimers[k] - dt
     switchTimers[k] = t
