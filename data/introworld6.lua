@@ -11,19 +11,32 @@ data.lines = {
   600, 50,
   700, 60,
   800, 60,
-  800, 1000,
-  1000, 1000
+  900, 70,
+  1000, 80,
+  1100, 90,
+  1150, 90,
+  1200, 90
+}
+data.portals  = {
+  { x = 1150, destination = 'data.puzzleworld1', dx = 0 }
 }
 
-data.portals  = {
-  { x = 900, destination = 'data.puzzleworld1', dx = 0 }
+data.regions = {
+  { name = 'warning', x = 800, w = 50 }
 }
 
 data.triggers = {}
+function data.triggers.onEnterRegion(context, r)
+  if not context.getVar('introworld6.warning') then
+    context.showMessage('you\'re finished', 5)
+    context.setVar('introworld6.warning', true)
+  end
+end
+
 function data.triggers.onEnter(context)
   if not context.getVar('introworld6.entered') then
     context.showMessage('there\'s no going back now', 5)
-    context.setVar('introworld6.entered')
+    context.setVar('introworld6.entered', true)
   end
 end
 return data
