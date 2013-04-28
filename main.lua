@@ -88,7 +88,7 @@ function makecontext()
     playSwitchSnd()
   end
   function ctx.shakeCamera(d, m)
-    love.audio.play(pickShiftSnd())
+    love.audio.play(pickShiftSnd(m))
     c:shake(d, m)
   end
   return ctx
