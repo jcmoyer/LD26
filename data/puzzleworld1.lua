@@ -24,7 +24,7 @@ local t = 0
 local puzzlesLeft = 3
 
 function data.triggers.onEnter(context)
-  puzzlesLeft = 0
+  puzzlesLeft = 3
 
   if not context.getVar('puzzleworld1.entered') then
     context.showMessage('now you have to solve some really hard puzzles!', 10)
