@@ -24,11 +24,11 @@ function world.new(name, context)
   for i,r in ipairs(data.regions or {}) do
     instance.regions[i] = region.new(r.name, r.x, r.w)
   end
-  for i,s in ipairs(data.switches or {}) do
-    instance.switches[i] = switch.new(instance, s.name, s.x, s.ud, s.gvar)
+  for _,s in ipairs(data.switches or {}) do
+    instance.switches[s.name] = switch.new(instance, s.name, s.x, s.ud, s.gvar)
     if s.gvar then
       local status = context.getVar(s.gvar)
-      instance.switches[i].status = status or false
+      instance.switches[s.name].status = status or false
     end
   end
   for i,e in ipairs(data.enemies or {}) do
@@ -78,7 +78,7 @@ function world:draw()
   g.setColor(self:oppositeColor())
   g.line(self.lines)
 
-  for i,s in ipairs(self.switches) do
+  for _,s in pairs(self.switches) do
     s:draw()
   end
 
@@ -128,7 +128,7 @@ end
 
 function world:activateAt(x, context)
   local r = false
-  for i,s in ipairs(self.switches) do
+  for _,s in pairs(self.switches) do
     if s:contains(x) then
       if not s.status then
         r = true
@@ -162,16 +162,17 @@ function world:oppositeColor()
 end
 
 function world:getSwitchStatus(name)
-  for i,s in ipairs(self.switches) do
-    if s.name == name then return s.status end
+  local s = self.switches[name]
+  if s then
+    return s.status
+  else
+    return false
   end
-  return false
 end
 
 function world:setSwitchStatus(name, status)
-  for i,s in ipairs(self.switches) do
-    if s.name == name then s.status = status end
-  end
+  local s = self.switches[name]
+  if s then s.status = status end
 end
 
 function world:onEnter(context)
