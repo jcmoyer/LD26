@@ -70,6 +70,9 @@ function makecontext()
   function ctx.playSwitchSound()
     playSwitchSnd()
   end
+  function ctx.shakeCamera(d, m)
+    c:shake(d, m)
+  end
   return ctx
 end
 
