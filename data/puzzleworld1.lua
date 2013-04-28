@@ -59,7 +59,7 @@ end
 
 function data.triggers.onUpdate(context, dt)
   -- make time flow backwards when all puzzles have been solved
-  t = t + dt * (puzzlesLeft - 1)
+  t = t + dt * 4 * (puzzlesLeft - 1)
 end
 
 function data.triggers.onDraw(context)
