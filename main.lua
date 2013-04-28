@@ -7,7 +7,11 @@ local gamecontext = require('gamecontext')
 
 local switchSnd = love.audio.newSource('data/switch.ogg', 'static')
 local portalSnd = love.audio.newSource('data/Portal.ogg', 'static')
-local shiftSnd  = love.audio.newSource('data/shifting.ogg', 'static')
+
+local shift05Snd = love.audio.newSource('data/Shifting05.ogg', 'static')
+local shift10Snd = love.audio.newSource('data/Shifting10.ogg', 'static')
+local shift15Snd = love.audio.newSource('data/Shifting15.ogg', 'static')
+local shift20Snd = love.audio.newSource('data/Shifting20.ogg', 'static')
 
 local p = player.new()
 local w = nil
@@ -23,6 +27,18 @@ local context = nil
 local gameoverFont = nil
 local gameoverSubFont = nil
 local gameover = false
+
+function pickShiftSnd(magnitude)
+  if magnitude < 5 then
+    return shift05Snd
+  elseif magnitude < 10 then
+    return shift10Snd
+  elseif magnitude < 15 then
+    return shift15Snd
+  else
+    return shift20Snd
+  end
+end
 
 function playSwitchSnd()
   love.audio.stop(switchSnd)
@@ -72,7 +88,7 @@ function makecontext()
     playSwitchSnd()
   end
   function ctx.shakeCamera(d, m)
-    love.audio.play(shiftSnd)
+    love.audio.play(pickShiftSnd())
     c:shake(d, m)
   end
   return ctx
