@@ -20,8 +20,8 @@ function camera:panCenter(x, y, dt)
   local cx = self.x
   local cy = self.y
   self:center(x, y)
-  self.x = mathex.lerp(cx, self.x, dt * 2)
-  self.y = mathex.lerp(cy, self.y, dt * 2)
+  self.x = mathex.lerp(cx, self.x, dt * 3)
+  self.y = mathex.lerp(cy, self.y, dt * 3)
 end
 
 return camera
