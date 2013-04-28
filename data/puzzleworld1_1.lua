@@ -91,7 +91,7 @@ function data.triggers.onEnter(context)
 end
 
 function data.triggers.onPlayerDeath(context)
-  context.changeWorld('data.puzzleworld1', 50)
+  context.changeWorld('data.puzzleworld1', 250)
 end
 
 local switchTimers = {}

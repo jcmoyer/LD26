@@ -129,7 +129,7 @@ function data.triggers.onEnterPortal(context, p)
 end
 
 function data.triggers.onPlayerDeath(context)
-  context.changeWorld('data.puzzleworld1', 50)
+  context.changeWorld('data.puzzleworld1', 450)
 end
 
 
@@ -192,7 +192,7 @@ function processGroupThreeSwitch(context, s)
     p3Sequence[4] == 1 then
     context.setVar('puzzleworld1_2.solved', true)
     context.shakeCamera(5, 10)
-    context.addPortal('part3', 500, 'data.puzzleworld1', 50)
+    context.addPortal('part3', 500, 'data.puzzleworld1', 450)
   end
 end
 
