@@ -27,7 +27,7 @@ function world.new(name, context)
     instance.portals[p.name or i] = portal.new(instance, p.name, p.x, p.destination, p.dx)
   end
   for i,r in ipairs(data.regions or {}) do
-    instance.regions[i] = region.new(r.name, r.x, r.w)
+    instance.regions[r.name or i] = region.new(r.name, r.x, r.w)
   end
   for _,s in ipairs(data.switches or {}) do
     instance.switches[s.name] = switch.new(instance, s.name, s.x, s.ud, s.gvar)
@@ -121,7 +121,7 @@ function world:portalAt(x)
 end
 
 function world:regionAt(x)
-  for i,r in ipairs(self.regions) do
+  for _,r in pairs(self.regions) do
     if r:contains(x) then return r end
   end
 end
@@ -155,7 +155,7 @@ function world:removePortal(name)
 end
 
 function world:addRegion(name, x, w)
-  self.regions[#self.regions + 1] = region.new(name, x, w)
+  self.regions[name] = region.new(name, x, w)
 end
 
 function world:oppositeColor()
