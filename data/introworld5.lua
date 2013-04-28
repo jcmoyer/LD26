@@ -22,16 +22,16 @@ data.lines = {
 }
 
 data.portals = {
-  { x = 25 *4, destination = 'data.introworld5', dx = 175*4 },
-  { x = 175*4, destination = 'data.introworld5', dx = 325*4 },
-  { x = 325*4, destination = 'data.introworld5', dx = 25 *4 }
+  { x = 100, destination = 'data.introworld5', dx = 700 },
+  { x = 700, destination = 'data.introworld5', dx = 1300 },
+  { x = 1300, destination = 'data.introworld5', dx = 100 }
 }
 
 data.switches = {
-  { name = 'sw1', x = 62*4  },
-  { name = 'sw2', x = 112*4 },
-  { name = 'sw3', x = 237*4 },
-  { name = 'sw4', x = 287*4 }
+  { name = 'sw1', x = 248  },
+  { name = 'sw2', x = 448 },
+  { name = 'sw3', x = 948 },
+  { name = 'sw4', x = 1148 }
 }
 
 return data
