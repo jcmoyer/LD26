@@ -121,6 +121,7 @@ data.lines = {
 }
 
 data.portals = {
+  { x = 50  , destination = 'data.introworld' , dx = 2371 },
   { x = 2750, destination = 'data.introworld3', dx = 50 }
 }
 data.regions = {
