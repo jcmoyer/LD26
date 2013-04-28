@@ -143,6 +143,7 @@ function love.update(dt)
 
   -- check for death conditions
   if w:enemyAt(p.x) then
+    w:onPlayerDeath(context)
   end
   
   if m then

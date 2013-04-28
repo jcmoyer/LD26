@@ -203,4 +203,11 @@ function world:onSwitchChanged(context, s)
   end
 end
 
+function world:onPlayerDeath(context)
+  local t = self.triggers or {}
+  if t.onPlayerDeath then
+    t.onPlayerDeath(context)
+  end
+end
+
 return world
