@@ -34,7 +34,7 @@ data.lines = {
 }
 
 data.portals = {
-  { x = 1350, destination = 'data.introworld5', dx = 0 }
+  { x = 1350, destination = 'data.introworld5', dx = 100 }
 }
 
 function data.triggers.onEnter(context)
