@@ -84,6 +84,7 @@ function world:draw()
   end
 
   for _,s in pairs(self.switches) do
+    g.setColor(self:oppositeColor())
     s:draw()
   end
 
