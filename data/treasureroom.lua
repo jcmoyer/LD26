@@ -1,5 +1,6 @@
 local data = {}
-data.background = { 240, 240, 100 }
+
+data.background = { 255, 255, 255 }
 data.lines = {
   0, 0,
   100, 0,
@@ -130,14 +131,15 @@ data.lines = {
   1080, -240
 }
 
-data.regions = {
-  { name = 'winzone', x = 980, w = 50 }
+data.portals = {
+  { name = 'winportal', x = 980 }
 }
 
 data.triggers = {}
-function data.triggers.onEnterRegion(context, s)
-  if s.name == 'winzone' then
+function data.triggers.onEnterPortal(context, p)
+  if p.name == 'winportal' then
     context.win()
+    return false
   end
 end
 
