@@ -18,7 +18,7 @@ data.lines = {
   1200, 90
 }
 data.portals  = {
-  { x = 1150, destination = 'data.puzzleworld1', dx = 0 }
+  { x = 1150, destination = 'data.puzzleworld1', dx = 50 }
 }
 
 data.regions = {
