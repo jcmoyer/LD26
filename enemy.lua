@@ -9,20 +9,22 @@ function enemy.new(owner, x, patrol)
     owner = owner,
     x = x,
     size = 1,
+    speed = 50,
     patrol = patrol,
     direction = 'right'
   }
+  return setmetatable(instance, { __index = enemy })
 end
 
 function enemy:update(dt)
-  if self.direction = 'right' then
-    self.x = self.x + dt * 150
-    if self.x >= patrol.right then
+  if self.direction == 'right' then
+    self.x = self.x + dt * self.speed
+    if self.x >= self.patrol.right then
       self.direction = 'left'
     end
-  elseif self.direction = 'left' then
-    self.x = self.x - dt * 150
-    if self.x <= patrol.left then
+  elseif self.direction == 'left' then
+    self.x = self.x - dt * self.speed
+    if self.x <= self.patrol.left then
       self.direction = 'right'
     end
   end
@@ -30,7 +32,7 @@ end
 
 function enemy:draw()
   local g = love.graphics
-  local y = owner:y(x)
+  local y = self.owner:y(self.x)
   local w, h = calculatePixelSize(self)
   local hw = w / 2
   g.polygon('fill', self.x, y, self.x - hw, y - h, self.x + hw, y - h)

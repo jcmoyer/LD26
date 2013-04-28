@@ -140,11 +140,16 @@ function love.update(dt)
   if w:activateAt(p.x, context) then
     love.audio.play(switchSnd)
   end
+
+  -- check for death conditions
+  if w:enemyAt(p.x) then
+  end
   
   if m then
     m:update(dt)
   end
 
+  w:update(dt)
   w:scriptUpdate(context, dt)
 
   c:panCenter(p.x, p.y, dt)

@@ -2,6 +2,7 @@ local mathex = require('mathex')
 local portal = require('portal')
 local region = require('region')
 local switch = require('switch')
+local enemy = require('enemy')
 local world = {}
 
 function world.new(name, context)
@@ -15,6 +16,7 @@ function world.new(name, context)
   instance.triggers = data.triggers
   instance.regions = {}
   instance.switches = {}
+  instance.enemies = {}
   -- Create actual portal objects from the data
   for i,p in ipairs(data.portals or {}) do
     instance.portals[i] = portal.new(instance, p.name, p.x, p.destination, p.dx)
@@ -28,6 +30,9 @@ function world.new(name, context)
       local status = context.getVar(s.gvar)
       instance.switches[i].status = status or false
     end
+  end
+  for i,e in ipairs(data.enemies or {}) do
+    instance.enemies[i] = enemy.new(instance, e.x, e.patrol)
   end
 
   return instance
@@ -62,6 +67,9 @@ function world:right()
 end
 
 function world:update(dt)
+  for _,e in ipairs(self.enemies) do
+    e:update(dt)
+  end
 end
 
 function world:draw()
@@ -79,6 +87,10 @@ function world:draw()
     p:draw()
   end
 
+  for i,e in ipairs(self.enemies) do
+    g.setColor(self:oppositeColor())
+    e:draw()
+  end
 end
 
 function world:scriptUpdate(context, dt)
@@ -105,6 +117,12 @@ end
 function world:regionAt(x)
   for i,r in ipairs(self.regions) do
     if r:contains(x) then return r end
+  end
+end
+
+function world:enemyAt(x)
+  for i,e in ipairs(self.enemies) do
+    if e:contains(x) then return e end
   end
 end
 
