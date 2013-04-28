@@ -43,6 +43,7 @@ function data.triggers.onEnter(context)
 
   -- If all three puzzles have been solved, open the gate to puzzleworld2
   if puzzlesLeft == 0 then
+    context.setVar('puzzleworld1.solved', true)
     context.addPortal('next', 50, 'data.treasureroom', 50)
   end
 end
