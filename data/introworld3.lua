@@ -37,7 +37,7 @@ end
 local r_question_triggered = false
 function data.triggers.onEnterRegion(context, r)
   if (r.name == 'question' and not question_triggered) then
-    context.showMessage('just go away', 10)
+    context.showMessage('just go away', 5)
     r_question_triggered = true
   end
 end
