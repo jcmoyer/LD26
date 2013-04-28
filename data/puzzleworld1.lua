@@ -24,7 +24,7 @@ local t = 0
 local puzzlesLeft = 3
 
 function data.triggers.onEnter(context)
-  puzzlesLeft = 3
+  puzzlesLeft = 0
 
   if not context.getVar('puzzleworld1.entered') then
     context.showMessage('now you have to solve some really hard puzzles!', 10)
@@ -44,7 +44,7 @@ function data.triggers.onEnter(context)
   -- If all three puzzles have been solved, open the gate to puzzleworld2
   if puzzlesLeft == 0 then
     context.setVar('puzzleworld1.solved', true)
-    context.addPortal('next', 50, 'data.treasureroom', 50)
+    context.addPortal('next', 50, 'data.introworld6', 1150)
   end
 end
 

@@ -38,5 +38,8 @@ function data.triggers.onEnter(context)
     context.showMessage('there\'s no going back now', 5)
     context.setVar('introworld6.entered', true)
   end
+  if context.getVar('puzzleworld1.solved') then
+    context.addPortal('backtrack', -50, 'data.introworld5', 1300, true)
+  end
 end
 return data

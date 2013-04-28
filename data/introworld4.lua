@@ -3,6 +3,7 @@ local data = {}
 data.background = { 200, 200, 200 }
 
 data.lines = {
+  -100, 300,
   0, 300,
   92, 316,
   210, 349,
@@ -41,6 +42,9 @@ data.portals = {
 data.triggers = {}
 function data.triggers.onEnter(context)
   context.showMessage('turn back while you still can', 10)
+  if context.getVar('puzzleworld1.solved') then
+    context.addPortal('winroom', -50, 'data.treasureroom', 50, true)
+  end
 end
 
 return data

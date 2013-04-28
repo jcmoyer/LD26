@@ -28,13 +28,19 @@ data.portals = {
 }
 
 data.switches = {
-  { name = 'sw1', x = 248, ud = 'p1'  },
-  { name = 'sw2', x = 448, ud = 'p2'  },
+  { name = 'sw1', x = 248, ud = 'p1', gvar = 'introworld5.sw1' },
+  { name = 'sw2', x = 448, ud = 'p2', gvar = 'introworld5.sw2' },
   --{ name = 'sw3', x = 948, ud = 'p3'  },
-  { name = 'sw4', x = 1148, ud = 'p4' }
+  { name = 'sw4', x = 1148, ud = 'p4',gvar = 'introworld5.sw4' }
 }
 
 data.triggers = {}
+function data.triggers.onEnter(context)
+  if context.getVar('puzzleworld1.solved') then
+    context.removePortal('p2')
+  end
+end
+
 function data.triggers.onSwitchChanged(context, s)
   if s.name == 'sw1' then
     context.showMessage('hohoho i warned you', 5)
