@@ -44,7 +44,10 @@ data.portals = {
 data.triggers = {}
 
 function data.triggers.onEnter(context)
-  context.showMessage('hey', 5)
+  if not context.getVar('introworld.entered') then
+    context.showMessage('hey', 5)
+    context.setVar('introworld.entered', true)
+  end
 end
 
 return data
