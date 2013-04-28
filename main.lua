@@ -110,6 +110,12 @@ function makecontext()
   function ctx.right()
     return w:right()
   end
+  function ctx.setBackground(rgb)
+    w.background = rgb
+  end
+  function ctx.setForeground(rgb)
+    w.foreground = rgb
+  end
   return ctx
 end
 

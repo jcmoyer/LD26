@@ -8,13 +8,17 @@ data.lines = {
 }
 
 data.switches = {
-  { name = 'switch', x = 350, gvar = 'emptyroom.switch' }
+  { name = 'switch', x = 350 }
 }
 
 data.triggers = {}
 
 function spawnExitPortal(context)
   context.addPortal('exit', 50, 'data.introworld', 984)
+end
+
+function spawnSwitchPalacePortal(context)
+  context.addPortal('sp', s.x, 'data.switchpalace1', 50)
 end
 
 function data.triggers.onEnter(context)
@@ -24,8 +28,13 @@ function data.triggers.onEnter(context)
 end
 
 function data.triggers.onSwitchChanged(context, s)
-  context.showMessage('watch it buddy', 5)
-  spawnExitPortal(context)
+  if context.getVar('puzzleworld1.solved') then
+    context.showMessage('?!', 5)
+    spawnSwitchPalacePortal(context)
+  else
+    context.showMessage('watch it buddy', 5)
+    spawnExitPortal(context)
+  end
 end
 
 return data
