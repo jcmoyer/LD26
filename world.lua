@@ -24,7 +24,7 @@ function world.new(name, context)
   instance.enemies = {}
   -- Create actual portal objects from the data
   for i,p in ipairs(data.portals or {}) do
-    instance.portals[i] = portal.new(instance, p.name, p.x, p.destination, p.dx)
+    instance.portals[p.name or i] = portal.new(instance, p.name, p.x, p.destination, p.dx)
   end
   for i,r in ipairs(data.regions or {}) do
     instance.regions[i] = region.new(r.name, r.x, r.w)
@@ -83,7 +83,7 @@ function world:draw()
   g.setColor(self:oppositeColor())
   g.line(self.lines)
 
-  for i,p in ipairs(self.portals) do
+  for _,p in pairs(self.portals) do
     g.setColor(self:oppositeColor())
     p:draw()
   end
@@ -115,7 +115,7 @@ end
 
 function world:portalAt(x)
   local y = self:y(x)
-  for i,p in ipairs(self.portals) do
+  for _,p in pairs(self.portals) do
     if p:contains(x) then return p end
   end
 end
@@ -147,15 +147,11 @@ function world:activateAt(x, context)
 end
 
 function world:addPortal(name, x, destination, dx)
-  self.portals[#self.portals + 1] = portal.new(self, name, x, destination, dx)
+  self.portals[name] = portal.new(self, name, x, destination, dx)
 end
 
 function world:removePortal(name)
-  for i,v in ipairs(self.portals) do
-    if v.name == name then
-      return table.remove(self.portals, i)
-    end
-  end
+  self.portals[name] = nil
 end
 
 function world:addRegion(name, x, w)
