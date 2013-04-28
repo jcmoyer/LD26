@@ -41,7 +41,10 @@ data.portals = {
 
 data.triggers = {}
 function data.triggers.onEnter(context)
-  context.showMessage('turn back while you still can', 10)
+  if not context.getVar('introworld4.entered') then
+    context.showMessage('turn back while you still can', 10)
+    context.setVar('introworld4.entered', true)
+  end
   if context.getVar('puzzleworld1.solved') then
     context.addPortal('winroom', -50, 'data.treasureroom', 50, true)
   end

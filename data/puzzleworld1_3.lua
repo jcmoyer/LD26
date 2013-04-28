@@ -77,14 +77,24 @@ data.switches = {
 
 data.triggers = {}
 
+function data.triggers.onEnter(context)
+  if not context.getVar('puzzleworld1_3.entered') then
+    context.showMessage("surely you'll get lost in my labyrinth", 10)
+    context.setVar('puzzleworld1_3.entered', true)
+  end
+end
+
 function data.triggers.onPlayerDeath(context)
   context.changeWorld('data.puzzleworld1', 50)
 end
 
 function data.triggers.onSwitchChanged(context, s)
   context.addPortal('clear', 2000, 'data.puzzleworld1', 50)
-  context.setVar('puzzleworld1_3.solved', true)
-  context.shakeCamera(5, 15)
+  if not context.getVar('puzzleworld1_3.solved') then
+    context.setVar('puzzleworld1_3.solved', true)
+    context.shakeCamera(5, 15)
+    context.showMessage('nooooooooooo!!', 5)
+  end
 end
 
 return data

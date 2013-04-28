@@ -123,7 +123,7 @@ function data.triggers.onEnterPortal(context, p)
   if p.name == 'part1' then
     context.showMessage('your life is about to get a lot harder', 10)
   elseif p.name == 'part2' then
-    context.showMessage('you\'ll never guess the password', 10)
+    context.showMessage("you'll never guess the password", 10)
   end
   return true
 end

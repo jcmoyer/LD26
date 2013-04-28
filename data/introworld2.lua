@@ -132,14 +132,17 @@ data.regions = {
 data.triggers = {}
 
 function data.triggers.onEnter(context)
-  context.showMessage('where are you going?', 10)
+  if not context.getVar('introworld2.entered') then
+    context.showMessage('where are you going?', 10)
+    context.setVar('introworld2.entered')
+  end
 end
 
 local r_noidea_triggered = false
 function data.triggers.onEnterRegion(context, r)
-  if (r.name == 'r_noidea' and not r_noidea_triggered) then
+  if r.name == 'r_noidea' and not context.getVar('introworld2.noidea') then
     context.showMessage('i bet you have no idea what you\'re doing', 10)
-    r_noidea_triggered = true
+    context.setVar('introworld2.noidea', true)
   end
 end
 

@@ -27,7 +27,7 @@ function data.triggers.onEnter(context)
   puzzlesLeft = 3
 
   if not context.getVar('puzzleworld1.entered') then
-    context.showMessage('now you have to solve some really hard puzzles!', 10)
+    context.showMessage("you can't leave this dimension until you've solved my puzzles!!", 10)
     context.setVar('puzzleworld1.entered', true)
   end
 
@@ -41,7 +41,6 @@ function data.triggers.onEnter(context)
     puzzlesLeft = puzzlesLeft - 1
   end
 
-  -- If all three puzzles have been solved, open the gate to puzzleworld2
   if puzzlesLeft == 0 then
     context.setVar('puzzleworld1.solved', true)
     context.addPortal('next', 50, 'data.introworld6', 1150)

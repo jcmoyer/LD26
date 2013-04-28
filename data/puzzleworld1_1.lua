@@ -80,6 +80,10 @@ data.switches = {
 
 data.triggers = {}
 function data.triggers.onEnter(context)
+  if context.getVar('puzzleworld1_1.entered') then
+    context.showMessage('these guys will make short work of you', 10)
+    context.setVar('puzzleworld1_1.entered', true)
+  end
   if context.getVar('puzzleworld1_1.solved') then
     lstat = context.setSwitchStatus('swl', true)
     rstat = context.setSwitchStatus('swr', true)

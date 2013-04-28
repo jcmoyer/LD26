@@ -32,14 +32,16 @@ data.regions = {
 data.triggers = {}
 
 function data.triggers.onEnter(context)
-  context.showMessage('don\'t you know it\s dangerous?', 10)
+  if not context.getVar('introworld3.entered') then
+    context.showMessage("don't you know it's dangerous here?", 10)
+    context.setVar('introworld3.entered', true)
+  end
 end
 
-local r_question_triggered = false
 function data.triggers.onEnterRegion(context, r)
-  if (r.name == 'question' and not r_question_triggered) then
+  if r.name == 'question' and not context.getVar('introworld3.question') then
     context.showMessage('just go away', 5)
-    r_question_triggered = true
+    context.setVar('introworld3.question', true)
   end
 end
 

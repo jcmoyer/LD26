@@ -28,14 +28,14 @@ data.regions = {
 data.triggers = {}
 function data.triggers.onEnterRegion(context, r)
   if not context.getVar('introworld6.warning') then
-    context.showMessage('you\'re finished', 5)
+    context.showMessage("you're finished", 5)
     context.setVar('introworld6.warning', true)
   end
 end
 
 function data.triggers.onEnter(context)
   if not context.getVar('introworld6.entered') then
-    context.showMessage('there\'s no going back now', 5)
+    context.showMessage("there's no going back now", 5)
     context.setVar('introworld6.entered', true)
   end
   if context.getVar('puzzleworld1.solved') then
