@@ -43,7 +43,7 @@ function data.triggers.onEnter(context)
 
   if puzzlesLeft == 0 then
     context.setVar('puzzleworld1.solved', true)
-    context.addPortal('next', 50, 'data.introworld6', 1150)
+    context.addPortal('next', 50, 'data.introworld6', 1150, true)
   end
 end
 
