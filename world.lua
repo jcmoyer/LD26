@@ -9,6 +9,12 @@ function invertColor(rgb)
   return { 255 - rgb[1], 255 - rgb[2], 255 - rgb[3] }
 end
 
+function safeCallTrigger(tt, name, ...)
+  if (tt and tt[name]) then
+    return tt[name](...)
+  end
+end
+
 function world.new(name, context)
   local data = require(name)
   -- Build a world object from the data
@@ -177,27 +183,18 @@ function world:setSwitchStatus(name, status)
 end
 
 function world:onEnter(context)
-  local t = self.triggers or {}
-  if t.onEnter then
-    t.onEnter(context)
-  end
+  safeCallTrigger(self.triggers, 'onEnter', context)
 end
 
 function world:onEnterRegion(context, r)
-  local t = self.triggers or {}
-  if t.onEnterRegion then
-    t.onEnterRegion(context, r)
-  end
+  safeCallTrigger(self.triggers, 'onEnterRegion', context, r)
 end
 
 -- A script should return false to disable standard portal processing
 -- True means the portal operates as normal after the trigger returns
 function world:onEnterPortal(context, p)
-  local t = self.triggers or {}
-  if t.onEnterPortal then
-    return t.onEnterPortal(context, p)
-  end
-  return true
+  local r = safeCallTrigger(self.triggers, 'onEnterPortal', context, p)
+  if r ~= nil then return r else return true end
 end
 
 function world:onSwitchChanged(context, s)
@@ -205,18 +202,11 @@ function world:onSwitchChanged(context, s)
   if s.gvar then
     context.setVar(s.gvar, s.status)
   end
-
-  local t = self.triggers or {}
-  if t.onSwitchChanged then
-    t.onSwitchChanged(context, s)
-  end
+  safeCallTrigger(self.triggers, 'onSwitchChanged', context, s)
 end
 
 function world:onPlayerDeath(context)
-  local t = self.triggers or {}
-  if t.onPlayerDeath then
-    t.onPlayerDeath(context)
-  end
+  safeCallTrigger(self.triggers, 'onPlayerDeath', context)
 end
 
 return world
