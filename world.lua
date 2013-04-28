@@ -35,11 +35,12 @@ function world.new(name, context)
   for i,r in ipairs(data.regions or {}) do
     instance.regions[r.name or i] = region.new(r.name, r.x, r.w)
   end
-  for _,s in ipairs(data.switches or {}) do
-    instance.switches[s.name] = switch.new(instance, s.name, s.x, s.ud, s.gvar)
+  for i,s in ipairs(data.switches or {}) do
+    local k = s.name or i
+    instance.switches[k] = switch.new(instance, k, s.x, s.ud, s.gvar)
     if s.gvar then
       local status = context.getVar(s.gvar)
-      instance.switches[s.name].status = status or false
+      instance.switches[k].status = status or false
     end
   end
   for i,e in ipairs(data.enemies or {}) do
