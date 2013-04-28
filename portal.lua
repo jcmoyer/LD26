@@ -1,8 +1,9 @@
 local portal = {}
 
-function portal.new(owner, x, destination, dx)
+function portal.new(owner, name, x, destination, dx)
   local instance = {
     owner = owner,
+    name = name,
     destination = destination,
     x = x,
     y = owner:y(x),
