@@ -24,6 +24,7 @@ function data.triggers.onEnter(context)
 end
 
 function data.triggers.onSwitchChanged(context, s)
+  context.showMessage('watch it buddy', 5)
   spawnExitPortal(context)
 end
 
