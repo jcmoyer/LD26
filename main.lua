@@ -15,6 +15,10 @@ local m = nil
 local lastregion = nil
 local context = nil
 
+local gameoverFont = nil
+local gameoverSubFont = nil
+local gameover = false
+
 function makecontext()
   local ctx = gamecontext.new()
   function ctx.showMessage(text, duration)
@@ -47,7 +51,27 @@ function makecontext()
   function ctx.setSwitchStatus(name, status)
     w:setSwitchStatus(name, status)
   end
+  function ctx.win()
+    gameover = true
+  end
   return ctx
+end
+
+function drawWinScreen()
+  local g = love.graphics
+  local w = g.getWidth()
+  local h = g.getHeight()
+  local message = 'Thanks for playing!'
+  local submessage = 'Made for LD26 :: https://github.com/jcmoyer'
+  local mh = gameoverFont:getHeight()
+  local mw = gameoverFont:getWidth(message)
+  local sw = gameoverSubFont:getWidth(submessage)
+
+  g.setFont(gameoverFont)
+  g.print(message, w / 2 - mw / 2, h / 2 - mh / 2)
+
+  g.setFont(gameoverSubFont)
+  love.graphics.print(submessage, w / 2 - sw / 2, h / 2 - mh / 2 + mh + 8)
 end
 
 function changeworld(name)
@@ -58,10 +82,17 @@ end
 function love.load()
   context = makecontext()
   love.graphics.setFont(love.graphics.newFont(18))
+  gameoverFont = love.graphics.newFont(36)
+  gameoverSubFont = love.graphics.newFont(16)
   changeworld('data.introworld')
 end
 
 function love.draw()
+  if gameover then
+    drawWinScreen()
+    return
+  end
+
   local g = love.graphics
   g.setBackgroundColor(w.background)
   g.clear()
