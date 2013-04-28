@@ -17,6 +17,7 @@ function enemy.new(owner, x, patrol, size, speed)
 end
 
 function enemy:update(dt)
+  if not self.patrol then return end
   if self.direction == 'right' then
     self.x = self.x + dt * self.speed
     if self.x >= self.patrol.right then
