@@ -40,7 +40,7 @@ data.portals = {
 
 data.triggers = {}
 function data.triggers.onEnter(context)
-  context.showMessage('i\'m warning you... turn back while you still can', 10)
+  context.showMessage('turn back while you still can', 10)
 end
 
 return data
