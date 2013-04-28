@@ -49,7 +49,7 @@ function makecontext()
     return w:oppositeColor()
   end
   function ctx.getSwitchStatus(name)
-    w:setSwitchStatus(name)
+    return w:getSwitchStatus(name)
   end
   function ctx.setSwitchStatus(name, status)
     w:setSwitchStatus(name, status)
