@@ -5,11 +5,16 @@ local switch = require('switch')
 local enemy = require('enemy')
 local world = {}
 
+function invertColor(rgb)
+  return { 255 - rgb[1], 255 - rgb[2], 255 - rgb[3] }
+end
+
 function world.new(name, context)
   local data = require(name)
   -- Build a world object from the data
   local instance = setmetatable({}, { __index = world })
   instance.background = data.background or { 0, 0, 0 }
+  instance.foreground = data.foreground or invertColor(instance.background)
   instance.name    = name
   instance.lines   = data.lines
   instance.portals = {}
@@ -158,8 +163,7 @@ function world:addRegion(name, x, w)
 end
 
 function world:oppositeColor()
-  local c = self.background
-  return { 255 - c[1], 255 - c[2], 255 - c[3] }
+  return self.foreground
 end
 
 function world:getSwitchStatus(name)
