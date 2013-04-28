@@ -17,7 +17,7 @@ function spawnExitPortal(context)
   context.addPortal('exit', 50, 'data.introworld', 984)
 end
 
-function spawnSwitchPalacePortal(context)
+function spawnSwitchPalacePortal(context, s)
   context.addPortal('sp', s.x, 'data.switchpalace1', 50)
 end
 
@@ -30,7 +30,7 @@ end
 function data.triggers.onSwitchChanged(context, s)
   if context.getVar('puzzleworld1.solved') then
     context.showMessage('?!', 5)
-    spawnSwitchPalacePortal(context)
+    spawnSwitchPalacePortal(context, s)
   else
     context.showMessage('watch it buddy', 5)
     spawnExitPortal(context)
