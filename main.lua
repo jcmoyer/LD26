@@ -93,6 +93,9 @@ function makecontext()
     love.audio.play(pickShiftSnd(m))
     c:shake(d, m)
   end
+  function ctx.playerX()
+    return p.x
+  end
   return ctx
 end
 
