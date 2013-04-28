@@ -75,6 +75,7 @@ function world:draw()
   end
 
   for i,p in ipairs(self.portals) do
+    g.setColor(self:oppositeColor())
     p:draw()
   end
 

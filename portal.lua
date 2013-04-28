@@ -22,7 +22,9 @@ end
 
 function portal:draw()
   local g = love.graphics
-  g.setColor(160, 160, 240)
+
+  local cr, cg, cb = g.getColor()
+  g.setColor(cr * 0.8, cg * 0.8, cb * 0.8)
   
   local w = self:width()
   local h = self:height()
