@@ -37,4 +37,8 @@ data.portals = {
   { x = 1350, destination = 'data.introworld5', dx = 0 }
 }
 
+function data.triggers.onEnter(context)
+  context.showMessage('i\'m warning you... turn back while you still can', 10)
+end
+
 return data
