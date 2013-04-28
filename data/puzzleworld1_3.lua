@@ -76,19 +76,15 @@ data.switches = {
 }
 
 data.triggers = {}
+
 function data.triggers.onPlayerDeath(context)
   context.changeWorld('data.puzzleworld1', 50)
 end
 
 function data.triggers.onSwitchChanged(context, s)
   context.addPortal('clear', 2000, 'data.puzzleworld1', 50)
-end
-
-function data.triggers.onEnterPortal(context, s)
-  if s.name == 'clear' then
-    context.setVar('puzzleworld1_3.solved', true)
-  end
-  return true
+  context.setVar('puzzleworld1_3.solved', true)
+  context.shakeCamera(5, 15)
 end
 
 return data
