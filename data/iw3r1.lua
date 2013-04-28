@@ -44,7 +44,10 @@ function setAllSwitches(context, status)
 end
 
 function data.triggers.onEnter(context)
-  context.showMessage('no seriously', 5)
+  if not context.getVar('iw3r1') then
+    context.showMessage('no seriously', 5)
+    context.setVar('iw3r1', true)
+  end
   if context.getVar('introworld3.continue') then
     setAllSwitches(context, true)
   end
