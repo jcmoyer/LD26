@@ -6,6 +6,7 @@ local message = require('message')
 local gamecontext = require('gamecontext')
 
 local switchSnd = love.audio.newSource('data/switch.ogg', 'static')
+local portalSnd = love.audio.newSource('data/Portal.ogg', 'static')
 
 local p = player.new()
 local w = nil
@@ -34,6 +35,7 @@ function makecontext()
     end
   end
   function ctx.addPortal(name, x, d, dx)
+    love.audio.play(portalSnd)
     w:addPortal(name, x, d, dx)
   end
   function ctx.removePortal(name)
