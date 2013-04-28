@@ -60,6 +60,7 @@ function data.triggers.onSwitchChanged(context, s)
   if switchOrder[switchIndex] == s.ud then
     switchIndex = switchIndex + 1
     if switchIndex > #switchOrder then
+      context.shakeCamera(5, 5)
       context.showMessage('stop that', 10)
       context.setVar('introworld3.continue', true)
     end

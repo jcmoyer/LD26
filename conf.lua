@@ -1,5 +1,5 @@
 function love.conf(t)
-  t.title = "LD26 (J.C. Moyer)"  -- The title of the window the game is in (string)
+  t.title = "Linewalker"  -- The title of the window the game is in (string)
   t.author = "J.C. Moyer"     -- The author of the game (string)
   t.url = "https://github.com/jcmoyer/"                 -- The website of the game (string)
   t.identity = nil            -- The name of the save directory (string)

@@ -250,15 +250,16 @@ data.lines = {
 
 data.portals = {
   { x = -848, destination = 'data.introworld', dx = 984 },
-  { x = 980, destination = 'TODO', dx = 0 },
+  { name = 'winportal', x = 980, destination = 'TODO', dx = 0 },
 }
 
 data.triggers = {}
 function data.triggers.onEnterPortal(context, p)
   if p.name == 'winportal' then
-    context.win()
+    context.win("You win! Best ending!")
     return false
   end
+  return true
 end
 
 return data

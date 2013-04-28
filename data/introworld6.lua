@@ -1,5 +1,5 @@
 local data = {}
-data.background = { 150, 150, 150 }
+data.background = { 200, 200, 200 }
 data.lines = {
   -100, 0,
   0, 0,

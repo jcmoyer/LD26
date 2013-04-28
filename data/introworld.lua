@@ -1,6 +1,6 @@
 local data = {}
 
-data.background = { 255, 255, 255 }
+data.background = { 200, 200, 200 }
 
 data.lines = {
   320, 387,
@@ -37,8 +37,9 @@ data.lines = {
 }
 
 data.portals = {
-  { x = 984 , destination = 'data.emptyroom' , dx = 50  },
-  { x = 2371, destination = 'data.introworld2', dx = 50 }
+  { x = 320 , destination = 'data.start'      , dx = 306 },
+  { x = 984 , destination = 'data.emptyroom'  , dx = 50  },
+  { x = 2371, destination = 'data.introworld2', dx = 50  }
 }
 
 data.triggers = {}

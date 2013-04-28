@@ -1,5 +1,5 @@
 local data = {}
-data.background = { 200, 150, 100 }
+data.background = { 200, 200, 200 }
 
 data.lines = {
   0, 0,
@@ -43,7 +43,7 @@ function data.triggers.onEnter(context)
 
   if puzzlesLeft == 0 then
     context.setVar('puzzleworld1.solved', true)
-    context.addPortal('next', 50, 'data.introworld6', 1150)
+    context.addPortal('next', 50, 'data.introworld6', 1150, true)
   end
 end
 
@@ -59,7 +59,7 @@ end
 
 function data.triggers.onUpdate(context, dt)
   -- make time flow backwards when all puzzles have been solved
-  t = t + dt * (puzzlesLeft - 1)
+  t = t + dt * 4 * (puzzlesLeft - 1)
 end
 
 function data.triggers.onDraw(context)
