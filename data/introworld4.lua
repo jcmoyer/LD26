@@ -15,7 +15,7 @@ data.lines = {
   748, 671,
   774, 679,
   787, 679,
-  800, 679, -- portal here
+  800, 679, -- portal here?
   814, 679,
   828, 679,
   865, 687,
@@ -34,10 +34,7 @@ data.lines = {
 }
 
 data.portals = {
-  { x = 800 , destination = 'data.introworld', dx = 0 },
-  { x = 1350, destination = 'data.introworld', dx = 0 }
+  { x = 1350, destination = 'data.introworld5', dx = 0 }
 }
-
-
 
 return data
