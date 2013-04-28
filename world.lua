@@ -32,7 +32,7 @@ function world.new(name, context)
     end
   end
   for i,e in ipairs(data.enemies or {}) do
-    instance.enemies[i] = enemy.new(instance, e.x, e.patrol)
+    instance.enemies[i] = enemy.new(instance, e.x, e.patrol, e.size, e.speed)
   end
 
   return instance

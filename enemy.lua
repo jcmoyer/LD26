@@ -4,12 +4,12 @@ function calculatePixelSize(e)
   return e.size * 32, e.size * 32
 end
 
-function enemy.new(owner, x, patrol)
+function enemy.new(owner, x, patrol, size, speed)
   local instance = {
     owner = owner,
     x = x,
-    size = 1,
-    speed = 50,
+    size = size or 1,
+    speed = speed or 50,
     patrol = patrol,
     direction = 'right'
   }
