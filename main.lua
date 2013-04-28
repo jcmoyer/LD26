@@ -48,6 +48,9 @@ function makecontext()
   function ctx.preferredColor()
     return w:oppositeColor()
   end
+  function ctx.getSwitchStatus(name)
+    w:setSwitchStatus(name)
+  end
   function ctx.setSwitchStatus(name, status)
     w:setSwitchStatus(name, status)
   end

@@ -161,6 +161,13 @@ function world:oppositeColor()
   return { 255 - c[1], 255 - c[2], 255 - c[3] }
 end
 
+function world:getSwitchStatus(name)
+  for i,s in ipairs(self.switches) do
+    if s.name == name then return s.status end
+  end
+  return false
+end
+
 function world:setSwitchStatus(name, status)
   for i,s in ipairs(self.switches) do
     if s.name == name then s.status = status end
