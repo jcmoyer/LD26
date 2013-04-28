@@ -96,6 +96,12 @@ function makecontext()
   function ctx.playerX()
     return p.x
   end
+  function ctx.left()
+    return w:left()
+  end
+  function ctx.right()
+    return w:right()
+  end
   return ctx
 end
 
