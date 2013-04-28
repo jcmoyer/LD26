@@ -48,7 +48,15 @@ end
 function makecontext()
   local ctx = gamecontext.new()
   function ctx.showMessage(text, duration)
-    m = message.new(text, duration)
+    if m then
+      local oldX = m.x
+      local oldY = m.y
+      m = message.new(text, duration)
+      m.x = oldX
+      m.y = oldY
+    else
+      m = message.new(text, duration)
+    end
   end
   function ctx.changeWorld(name, x)
     p.x = x or p.x
