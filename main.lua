@@ -7,6 +7,7 @@ local gamecontext = require('gamecontext')
 
 local switchSnd = love.audio.newSource('data/switch.ogg', 'static')
 local portalSnd = love.audio.newSource('data/Portal.ogg', 'static')
+local shiftSnd  = love.audio.newSource('data/shifting.ogg', 'static')
 
 local p = player.new()
 local w = nil
@@ -71,6 +72,7 @@ function makecontext()
     playSwitchSnd()
   end
   function ctx.shakeCamera(d, m)
+    love.audio.play(shiftSnd)
     c:shake(d, m)
   end
   return ctx
