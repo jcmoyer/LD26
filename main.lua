@@ -158,7 +158,7 @@ function love.load()
   love.graphics.setFont(love.graphics.newFont(18))
   gameoverFont = love.graphics.newFont(36)
   gameoverSubFont = love.graphics.newFont(16)
-  changeworld('data.introworld')
+  changeworld('data.start')
 end
 
 function love.draw()
