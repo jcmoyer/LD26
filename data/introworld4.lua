@@ -34,6 +34,7 @@ data.lines = {
 }
 
 data.portals = {
+  { x = 800 , destination = 'data.introworld3', dx = 1250 },
   { x = 1350, destination = 'data.introworld5', dx = 100 }
 }
 
