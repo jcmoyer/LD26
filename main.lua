@@ -54,6 +54,9 @@ function makecontext()
   function ctx.win()
     gameover = true
   end
+  function ctx.playSwitchSound()
+    love.audio.play(switchSnd)
+  end
   return ctx
 end
 
