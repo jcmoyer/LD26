@@ -13,6 +13,9 @@ local w = nil
 local c = camera.new(800, 600)
 
 local m = nil
+local mdx = 0
+local mdy = 0
+
 local lastregion = nil
 local context = nil
 
@@ -121,8 +124,12 @@ function love.draw()
 
     local f = g.getFont()
     local width = f:getWidth(m.text)
-    m.x = p.x - width / 2
-    m.y = p.y - p.h - f:getHeight() - 8
+    mdx = p.x - width / 2
+    mdy = p.y - p.h - f:getHeight() - 8
+
+    m.x = mathex.lerp(m.x, mdx, 0.2)
+    m.y = mathex.lerp(m.y, mdy, 0.2)
+
     m:draw()
   end
 
