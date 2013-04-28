@@ -13,6 +13,8 @@ local shift10Snd = love.audio.newSource('data/Shifting10.ogg', 'static')
 local shift15Snd = love.audio.newSource('data/Shifting15.ogg', 'static')
 local shift20Snd = love.audio.newSource('data/Shifting20.ogg', 'static')
 
+local deathSnd = love.audio.newSource('data/death.ogg', 'static')
+
 local p = player.new()
 local w = nil
 local c = camera.new(800, 600)
@@ -38,6 +40,11 @@ function pickShiftSnd(magnitude)
   else
     return shift20Snd
   end
+end
+
+function playDeathSnd()
+  love.audio.stop(deathSnd)
+  love.audio.play(deathSnd)
 end
 
 function playSwitchSnd()
@@ -209,6 +216,7 @@ function love.update(dt)
 
   -- check for death conditions
   if w:enemyAt(p.x) then
+    playDeathSnd()
     w:onPlayerDeath(context)
   end
   
