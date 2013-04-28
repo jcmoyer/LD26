@@ -125,6 +125,14 @@ function world:addPortal(name, x, destination, dx)
   self.portals[#self.portals + 1] = portal.new(self, name, x, destination, dx)
 end
 
+function world:removePortal(name)
+  for i,v in ipairs(self.portals) do
+    if v.name == name then
+      return table.remove(self.portals, i)
+    end
+  end
+end
+
 function world:addRegion(name, x, w)
   self.regions[#self.regions + 1] = region.new(name, x, w)
 end
