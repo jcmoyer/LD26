@@ -110,7 +110,7 @@ function love.draw()
   g.setBackgroundColor(w.background)
   g.clear()
 
-  g.translate(c.x, c.y)
+  g.translate(c:calculatedX(), c:calculatedY())
   w:draw()
 
   p.color = w:oppositeColor()
@@ -166,6 +166,7 @@ function love.update(dt)
   w:update(dt)
   w:scriptUpdate(context, dt)
 
+  c:update(dt)
   c:panCenter(p.x, p.y, dt)
 end
 
