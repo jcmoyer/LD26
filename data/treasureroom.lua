@@ -138,7 +138,7 @@ data.portals = {
 data.triggers = {}
 function data.triggers.onEnterPortal(context, p)
   if p.name == 'winportal' then
-    context.win()
+    context.win("You win! But that's not the only ending... ;)")
     return false
   end
 end

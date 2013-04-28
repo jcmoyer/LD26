@@ -29,6 +29,7 @@ local context = nil
 local gameoverFont = nil
 local gameoverSubFont = nil
 local gameover = false
+local gameoverMessage = nil
 
 function pickShiftSnd(magnitude)
   if magnitude < 5 then
@@ -98,8 +99,9 @@ function makecontext()
   function ctx.setSwitchStatus(name, status)
     w:setSwitchStatus(name, status)
   end
-  function ctx.win()
+  function ctx.win(text)
     gameover = true
+    gameoverMessage = text
   end
   function ctx.playSwitchSound()
     playSwitchSnd()
@@ -136,11 +138,14 @@ function drawWinScreen()
   local mw = gameoverFont:getWidth(message)
   local sw = gameoverSubFont:getWidth(submessage)
 
+  local udsw = gameoverSubFont:getWidth(gameoverMessage)
+
   g.setFont(gameoverFont)
   g.print(message, w / 2 - mw / 2, h / 2 - mh / 2)
 
   g.setFont(gameoverSubFont)
   love.graphics.print(submessage, w / 2 - sw / 2, h / 2 - mh / 2 + mh + 8)
+  love.graphics.print(gameoverMessage, w / 2 - udsw / 2, h / 3)
 end
 
 function changeworld(name)
