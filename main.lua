@@ -29,8 +29,8 @@ function makecontext()
       c:center(p.x, p.y)
     end
   end
-  function ctx.addPortal(x, d, dx)
-    w:addPortal(x, d, dx)
+  function ctx.addPortal(name, x, d, dx)
+    w:addPortal(name, x, d, dx)
   end
   function ctx.addRegion(name, x, width)
     w:addRegion(name, x, width)
@@ -55,7 +55,7 @@ end
 function love.load()
   context = makecontext()
   love.graphics.setFont(love.graphics.newFont(18))
-  changeworld('data.introworld3')
+  changeworld('data.introworld')
 end
 
 function love.draw()

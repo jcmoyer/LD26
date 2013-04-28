@@ -121,8 +121,8 @@ function world:activateAt(x, context)
   return r
 end
 
-function world:addPortal(x, destination, dx)
-  self.portals[#self.portals + 1] = portal.new(self, x, destination, dx)
+function world:addPortal(name, x, destination, dx)
+  self.portals[#self.portals + 1] = portal.new(self, name, x, destination, dx)
 end
 
 function world:addRegion(name, x, w)

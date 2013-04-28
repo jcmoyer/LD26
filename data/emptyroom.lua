@@ -14,7 +14,7 @@ data.switches = {
 data.triggers = {}
 
 function spawnExitPortal(context)
-  context.addPortal(50, 'data.introworld', 984)
+  context.addPortal('exit', 50, 'data.introworld', 984)
 end
 
 function data.triggers.onEnter(context)
