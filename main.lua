@@ -59,8 +59,10 @@ function makecontext()
       c:center(p.x, p.y)
     end
   end
-  function ctx.addPortal(name, x, d, dx)
-    love.audio.play(portalSnd)
+  function ctx.addPortal(name, x, d, dx, silent)
+    if not silent then
+      love.audio.play(portalSnd)
+    end
     w:addPortal(name, x, d, dx)
   end
   function ctx.removePortal(name)
