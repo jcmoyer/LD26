@@ -78,13 +78,13 @@ function world:draw()
   g.setColor(self:oppositeColor())
   g.line(self.lines)
 
-  for _,s in pairs(self.switches) do
-    s:draw()
-  end
-
   for i,p in ipairs(self.portals) do
     g.setColor(self:oppositeColor())
     p:draw()
+  end
+
+  for _,s in pairs(self.switches) do
+    s:draw()
   end
 
   for i,e in ipairs(self.enemies) do
