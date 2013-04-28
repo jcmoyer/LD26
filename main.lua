@@ -20,6 +20,11 @@ local gameoverFont = nil
 local gameoverSubFont = nil
 local gameover = false
 
+function playSwitchSnd()
+  love.audio.stop(switchSnd)
+  love.audio.play(switchSnd)
+end
+
 function makecontext()
   local ctx = gamecontext.new()
   function ctx.showMessage(text, duration)
@@ -60,7 +65,7 @@ function makecontext()
     gameover = true
   end
   function ctx.playSwitchSound()
-    love.audio.play(switchSnd)
+    playSwitchSnd()
   end
   return ctx
 end
@@ -146,7 +151,7 @@ function love.update(dt)
 
   -- activate switches at the player's location
   if w:activateAt(p.x, context) then
-    love.audio.play(switchSnd)
+    playSwitchSnd()
   end
 
   -- check for death conditions
