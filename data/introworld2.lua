@@ -134,7 +134,7 @@ data.triggers = {}
 function data.triggers.onEnter(context)
   if not context.getVar('introworld2.entered') then
     context.showMessage('where are you going?', 10)
-    context.setVar('introworld2.entered')
+    context.setVar('introworld2.entered', true)
   end
 end
 
