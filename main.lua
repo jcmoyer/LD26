@@ -144,8 +144,8 @@ function drawWinScreen()
   g.print(message, w / 2 - mw / 2, h / 2 - mh / 2)
 
   g.setFont(gameoverSubFont)
-  love.graphics.print(submessage, w / 2 - sw / 2, h / 2 - mh / 2 + mh + 8)
-  love.graphics.print(gameoverMessage, w / 2 - udsw / 2, h / 3)
+  g.print(submessage, w / 2 - sw / 2, h / 2 - mh / 2 + mh + 8)
+  g.print(gameoverMessage, w / 2 - udsw / 2, h / 3)
 end
 
 function changeworld(name)
