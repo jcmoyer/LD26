@@ -121,7 +121,6 @@ function world:scriptDraw(context)
 end
 
 function world:portalAt(x)
-  local y = self:y(x)
   for _,p in pairs(self.portals) do
     if p:contains(x) then return p end
   end
