@@ -138,7 +138,6 @@ function data.triggers.onEnter(context)
   end
 end
 
-local r_noidea_triggered = false
 function data.triggers.onEnterRegion(context, r)
   if r.name == 'r_noidea' and not context.getVar('introworld2.noidea') then
     context.showMessage('i bet you have no idea what you\'re doing', 10)
