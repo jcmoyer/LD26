@@ -85,8 +85,8 @@ function data.triggers.onEnter(context)
     context.setVar('puzzleworld1_1.entered', true)
   end
   if context.getVar('puzzleworld1_1.solved') then
-    lstat = context.setSwitchStatus('swl', true)
-    rstat = context.setSwitchStatus('swr', true)
+    context.setSwitchStatus('swl', true)
+    context.setSwitchStatus('swr', true)
   end
 end
 
