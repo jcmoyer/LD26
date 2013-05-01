@@ -32,7 +32,7 @@ data.lines = {
   2208, -1504
 }
 data.portals = {
-  { x = 100, destination = 'data.puzzleworld1_3', dx = 0 },
+  { x = 100, destination = 'data.puzzleworld1', dx = 650 },
   { x = 325, destination = 'data.puzzleworld1_3', dx = 800 },
   { x = 800, destination = 'data.puzzleworld1_3', dx = 1650 },
   { x = 550, destination = 'data.puzzleworld1_3', dx = 325 },
