@@ -146,7 +146,7 @@ end
 function processGroupOneSwitch(context, s)
   table.insert(switchStack, 1, s)
   if #switchStack > 3 then
-    last = table.remove(switchStack)
+    local last = table.remove(switchStack)
     context.setSwitchStatus(last.name, false)
   end
 
@@ -161,7 +161,7 @@ end
 function processGroupTwoSwitch(context, s)
   table.insert(switchStack, 1, s)
   if #switchStack > 3 then
-    last = table.remove(switchStack)
+    local last = table.remove(switchStack)
     context.setSwitchStatus(last.name, false)
   end
 
