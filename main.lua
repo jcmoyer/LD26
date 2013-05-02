@@ -4,16 +4,7 @@ local camera = require('camera')
 local mathex = require('mathex')
 local message = require('message')
 local gamecontext = require('gamecontext')
-
-local switchSnd = love.audio.newSource('data/switch.ogg', 'static')
-local portalSnd = love.audio.newSource('data/Portal.ogg', 'static')
-
-local shift05Snd = love.audio.newSource('data/Shifting05.ogg', 'static')
-local shift10Snd = love.audio.newSource('data/Shifting10.ogg', 'static')
-local shift15Snd = love.audio.newSource('data/Shifting15.ogg', 'static')
-local shift20Snd = love.audio.newSource('data/Shifting20.ogg', 'static')
-
-local deathSnd = love.audio.newSource('data/death.ogg', 'static')
+local sound = require('sound')
 
 local p = player.new()
 local w = nil
@@ -30,28 +21,6 @@ local gameoverFont = nil
 local gameoverSubFont = nil
 local gameover = false
 local gameoverMessage = nil
-
-function pickShiftSnd(magnitude)
-  if magnitude < 5 then
-    return shift05Snd
-  elseif magnitude < 10 then
-    return shift10Snd
-  elseif magnitude < 15 then
-    return shift15Snd
-  else
-    return shift20Snd
-  end
-end
-
-function playDeathSnd()
-  love.audio.stop(deathSnd)
-  love.audio.play(deathSnd)
-end
-
-function playSwitchSnd()
-  love.audio.stop(switchSnd)
-  love.audio.play(switchSnd)
-end
 
 function makecontext()
   local ctx = gamecontext.new()
@@ -77,7 +46,7 @@ function makecontext()
   end
   function ctx.addPortal(name, x, d, dx, silent)
     if not silent then
-      love.audio.play(portalSnd)
+      love.audio.play(sound.portal)
     end
     w:addPortal(name, x, d, dx)
   end
@@ -104,10 +73,10 @@ function makecontext()
     gameoverMessage = text
   end
   function ctx.playSwitchSound()
-    playSwitchSnd()
+    sound.restart(sound.switch)
   end
   function ctx.shakeCamera(d, m)
-    love.audio.play(pickShiftSnd(m))
+    love.audio.play(sound.pickShiftingSound(m))
     c:shake(d, m)
   end
   function ctx.playerX()
@@ -216,12 +185,12 @@ function love.update(dt)
 
   -- activate switches at the player's location
   if w:activateAt(p.x, context) then
-    playSwitchSnd()
+    sound.restart(sound.switch)
   end
 
   -- check for death conditions
   if w:enemyAt(p.x) then
-    playDeathSnd()
+    sound.restart(sound.death)
     w:onPlayerDeath(context)
   end
   
