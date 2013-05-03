@@ -46,7 +46,7 @@ function makecontext()
   end
   function ctx.addPortal(name, x, d, dx, silent)
     if not silent then
-      love.audio.play(sound.portal)
+      sound.restart(sound.portal)
     end
     w:addPortal(name, x, d, dx)
   end
@@ -76,7 +76,7 @@ function makecontext()
     sound.restart(sound.switch)
   end
   function ctx.shakeCamera(d, m)
-    love.audio.play(sound.pickShiftingSound(m))
+    sound.tryPlay(sound.pickShiftingSound(m))
     c:shake(d, m)
   end
   function ctx.playerX()

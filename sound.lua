@@ -20,9 +20,17 @@ for k,v in pairs(soundlist) do
   end
 end
 
+function sound.tryPlay(snd)
+  if snd then
+    play(snd)
+  end
+end
+
 function sound.restart(snd)
-  stop(snd)
-  play(snd)
+  if snd then
+    stop(snd)
+    play(snd)
+  end
 end
 
 function sound.pickShiftingSound(magnitude)
