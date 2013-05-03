@@ -4,15 +4,21 @@ local newSource = love.audio.newSource
 local stop = love.audio.stop
 local play = love.audio.play
 
-sound.switch = newSource('data/switch.ogg', 'static')
-sound.portal = newSource('data/Portal.ogg', 'static')
+local soundlist = {
+  switch  = 'data/switch.ogg',
+  portal  = 'data/portal.ogg',
+  shift05 = 'data/Shifting05.ogg',
+  shift10 = 'data/Shifting10.ogg',
+  shift15 = 'data/Shifting15.ogg',
+  shift20 = 'data/Shifting20.ogg',
+  death   = 'data/death.ogg',
+}
 
-sound.shift05 = newSource('data/Shifting05.ogg', 'static')
-sound.shift10 = newSource('data/Shifting10.ogg', 'static')
-sound.shift15 = newSource('data/Shifting15.ogg', 'static')
-sound.shift20 = newSource('data/Shifting20.ogg', 'static')
-
-sound.death = newSource('data/death.ogg', 'static')
+for k,v in pairs(soundlist) do
+  if love.filesystem.exists(v) then
+    sound[k] = newSource(v, 'static')
+  end
+end
 
 function sound.restart(snd)
   stop(snd)
