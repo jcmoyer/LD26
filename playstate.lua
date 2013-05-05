@@ -5,6 +5,7 @@ local mathex = require('mathex')
 local message = require('message')
 local gamecontext = require('gamecontext')
 local sound = require('sound')
+local gameoverstate = require('gameoverstate')
 
 local gamestate = require('gamestate')
 local playstate = gamestate.new()
@@ -20,12 +21,7 @@ local mdy = 0
 local lastregion = nil
 local context = nil
 
-local gameoverFont = nil
-local gameoverSubFont = nil
-local gameover = false
-local gameoverMessage = nil
-
-function makecontext()
+function makecontext(sm)
   local ctx = gamecontext.new()
   function ctx.showMessage(text, duration)
     if m then
@@ -72,8 +68,7 @@ function makecontext()
     w:setSwitchStatus(name, status)
   end
   function ctx.win(text)
-    gameover = true
-    gameoverMessage = text
+    sm:changeState(gameoverstate.new(text))
   end
   function ctx.playSwitchSound()
     sound.restart(sound.switch)
@@ -100,26 +95,6 @@ function makecontext()
   return ctx
 end
 
-function drawWinScreen()
-  local g = love.graphics
-  local w = g.getWidth()
-  local h = g.getHeight()
-  local message = 'Thanks for playing!'
-  local submessage = 'Made for LD26 :: https://github.com/jcmoyer'
-  local mh = gameoverFont:getHeight()
-  local mw = gameoverFont:getWidth(message)
-  local sw = gameoverSubFont:getWidth(submessage)
-
-  local udsw = gameoverSubFont:getWidth(gameoverMessage)
-
-  g.setFont(gameoverFont)
-  g.print(message, w / 2 - mw / 2, h / 2 - mh / 2)
-
-  g.setFont(gameoverSubFont)
-  g.print(submessage, w / 2 - sw / 2, h / 2 - mh / 2 + mh + 8)
-  g.print(gameoverMessage, w / 2 - udsw / 2, h / 3)
-end
-
 function changeworld(name)
   w = world.new(name, context)
   w:onEnter(context)
@@ -131,10 +106,8 @@ function playstate.new()
 end
 
 function playstate:onEnter()
-  context = makecontext()
+  context = makecontext(self:sm())
   love.graphics.setFont(love.graphics.newFont(18))
-  gameoverFont = love.graphics.newFont(36)
-  gameoverSubFont = love.graphics.newFont(16)
   changeworld('data.start')
 end
 
@@ -201,11 +174,6 @@ function playstate:update(dt)
 end
 
 function playstate:draw()
-  if gameover then
-    drawWinScreen()
-    return
-  end
-
   local g = love.graphics
   g.setBackgroundColor(w.background)
   g.clear()
