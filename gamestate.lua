@@ -24,9 +24,9 @@ end
 
 function gamestate:sm(who)
   if who then
-    self.sm = who
+    self.statemachine = who
   end
-  return self.sm
+  return self.statemachine
 end
 
 return gamestate
