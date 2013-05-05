@@ -163,6 +163,9 @@ function playstate:update(dt)
   end
   
   if m then
+    local f = love.graphics.getFont()
+    local width = f:getWidth(m.text)
+    m:setDestination(p.x - width / 2, p.y - p.h - f:getHeight() - 8)
     m:update(dt)
   end
 
@@ -186,15 +189,6 @@ function playstate:draw()
 
   if (m and m:visible()) then
     m.color = w:oppositeColor()
-
-    local f = g.getFont()
-    local width = f:getWidth(m.text)
-    mdx = p.x - width / 2
-    mdy = p.y - p.h - f:getHeight() - 8
-
-    m.x = mathex.lerp(m.x, mdx, 0.2)
-    m.y = mathex.lerp(m.y, mdy, 0.2)
-
     m:draw()
   end
 

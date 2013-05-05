@@ -1,3 +1,5 @@
+local mathex = require('mathex')
+
 local message = {}
 
 function message.new(text, duration)
@@ -6,13 +8,17 @@ function message.new(text, duration)
     duration = duration,
     color = { 255, 255, 255 },
     x = 0,
-    y = 0
+    y = 0,
+    dx = 0,
+    dy = 0
   }
   return setmetatable(instance, { __index = message })
 end
 
 function message:update(dt)
   self.duration = self.duration - dt
+  self.x = mathex.lerp(self.x, self.dx, dt * 10)
+  self.y = mathex.lerp(self.y, self.dy, dt * 10)
 end
 
 function message:draw()
@@ -33,6 +39,11 @@ end
 
 function message:visible()
   return self.duration > 0
+end
+
+function message:setDestination(x, y)
+  self.dx = x
+  self.dy = y
 end
 
 return message
