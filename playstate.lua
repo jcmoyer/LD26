@@ -15,8 +15,6 @@ local w = nil
 local c = camera.new(800, 600)
 
 local m = nil
-local mdx = 0
-local mdy = 0
 
 local lastregion = nil
 local context = nil
