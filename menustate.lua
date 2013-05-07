@@ -90,6 +90,10 @@ function menustate:draw()
     g.rectangle('fill', 0, 0, g.getWidth(), g.getHeight())
   end
   
+  -- maybe only a temporary solution
+  g.setColor(0, 0, 0, 96)
+  g.rectangle('fill', 0, 0, g.getWidth(), g.getHeight())
+  
   drawHeader()
   self.menu:draw()
 end
