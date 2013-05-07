@@ -1,5 +1,6 @@
 local statemachine = require('statemachine')
 local menustate = require('menustate')
+local timerpool = require('timerpool')
 
 local sm = statemachine.new()
 
@@ -12,6 +13,7 @@ function love.draw()
 end
 
 function love.update(dt)
+  timerpool.update(dt)
   sm:update(dt)
 end
 
