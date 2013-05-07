@@ -1,10 +1,10 @@
 local statemachine = require('statemachine')
-local playstate = require('playstate')
+local menustate = require('menustate')
 
 local sm = statemachine.new()
 
 function love.load(args)
-  sm:changeState(playstate.new())
+  sm:changeState(menustate.new())
 end
 
 function love.draw()
