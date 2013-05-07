@@ -4,6 +4,7 @@ local world = require('world')
 local camera = require('camera')
 local mathex = require('mathex')
 local gamecontext = require('gamecontext')
+local timerpool = require('timerpool')
 local playstate = require('playstate')
 local gamestate = require('gamestate')
 local menustate = gamestate.new()
@@ -16,6 +17,8 @@ function menustate.new()
   local g = love.graphics
   local instance = setmetatable({}, { __index = menustate })
   instance.currentworld = nil
+  instance.fadeintimer = nil
+  instance.fadeouttimer = nil
   instance.camera = camera.new(g.getWidth(), g.getHeight())
   instance.x = 0
   instance.menu = menu.new(font)
@@ -49,11 +52,17 @@ end
 function menustate:update(dt)
   self.camera:update(dt)
   
-  self.camera:panCenter(self.x, self.currentworld:y(self.x) - 100, dt)
+  local safex = mathex.clamp(self.x, self.currentworld:left(), self.currentworld:right())
+  
+  self.camera:panCenter(self.x, self.currentworld:y(safex) - 100, dt)
   self.x = self.x + 50 * dt
   
   if self.x > self.currentworld:right() then
-    self:setRandomWorld()
+    if (not self.fadeouttimer or self.fadeouttimer.finished()) then
+      self.fadeouttimer = timerpool.start(3, function()
+        self:setRandomWorld()
+      end)
+    end
   end
 end
 
@@ -67,6 +76,20 @@ function menustate:draw()
   
   -- reverse the translation to draw the overlay
   g.translate(-self.camera:calculatedX(), -self.camera:calculatedY())
+  
+  if self.fadeintimer then
+    local a = mathex.lerp(0, 255, self.fadeintimer.getRemaining() / self.fadeintimer.getDuration())
+    a = mathex.clamp(a, 0, 255)
+    g.setColor(0, 0, 0, a)
+    g.rectangle('fill', 0, 0, g.getWidth(), g.getHeight())
+  end
+  if self.fadeouttimer and not self.fadeouttimer.finished() then
+    local a = mathex.lerp(255, 0, self.fadeouttimer.getRemaining() / self.fadeouttimer.getDuration())
+    a = mathex.clamp(a, 0, 255)
+    g.setColor(0, 0, 0, a)
+    g.rectangle('fill', 0, 0, g.getWidth(), g.getHeight())
+  end
+  
   drawHeader()
   self.menu:draw()
 end
@@ -79,6 +102,7 @@ function menustate:setRandomWorld()
   until self.currentworld.name ~= lastname
   self.x = self.currentworld:left()
   self.camera:center(self.x, self.currentworld:y(self.x) - 100)
+  self.fadeintimer = timerpool.start(3)
 end
 
 function drawHeader()
