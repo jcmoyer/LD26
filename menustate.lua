@@ -99,7 +99,7 @@ function menustate:draw()
 end
 
 function menustate:setRandomWorld()
-  local lastname = currentworld and currentworld.name or nil
+  local lastname = self.currentworld and self.currentworld.name or nil
   local emptycontext = gamecontext.new()
   repeat
     self.currentworld = world.new(pickWorldName(), emptycontext)
