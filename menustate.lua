@@ -118,7 +118,7 @@ function drawHeader()
   local h = headerfont:getHeight()
   g.setColor(255, 255, 255)
   g.setFont(headerfont)
-  g.print(text, love.graphics.getWidth() / 2 - w / 2, love.graphics.getHeight() / 6 - h / 2)
+  g.print(text, g.getWidth() / 2 - w / 2, g.getHeight() / 6 - h / 2)
 end
 
 function pickWorldName()
