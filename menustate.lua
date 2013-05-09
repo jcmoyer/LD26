@@ -100,10 +100,12 @@ end
 
 function menustate:setRandomWorld()
   local lastname = self.currentworld and self.currentworld.name or nil
+  local newname
   local emptycontext = gamecontext.new()
   repeat
-    self.currentworld = world.new(pickWorldName(), emptycontext)
-  until self.currentworld.name ~= lastname
+    newname = pickWorldName()
+  until newname ~= lastname
+  self.currentworld = world.new(newname, emptycontext)
   self.x = self.currentworld:left()
   self.camera:center(self.x, self.currentworld:y(self.x) - 100)
   self.fadeintimer = timerpool.start(3)
