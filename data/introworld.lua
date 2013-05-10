@@ -3,6 +3,7 @@ local data = {}
 data.background = { 200, 200, 200 }
 
 data.lines = {
+  270, 387,
   320, 387,
   364, 387,
   418, 394,
