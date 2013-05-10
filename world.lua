@@ -51,6 +51,16 @@ function world.new(name, context)
 end
 
 function world:y(x)
+  -- make sure there is enough data to work with and return the closest part
+  -- of the world if x isn't within the bounds of the world
+  if #self.lines < 4 then
+    return x
+  elseif x < self.lines[1] then
+    return self.lines[2]
+  elseif x > self.lines[#self.lines - 1] then
+    return self.lines[#self.lines]
+  end
+  
   -- traverse lines
   for i = 1, #self.lines - 3, 2 do
     local x1 = self.lines[i]
