@@ -52,9 +52,7 @@ end
 function menustate:update(dt)
   self.camera:update(dt)
   
-  local safex = mathex.clamp(self.x, self.currentworld:left(), self.currentworld:right())
-  
-  self.camera:panCenter(self.x, self.currentworld:y(safex) - 100, dt)
+  self.camera:panCenter(self.x, self.currentworld:y(self.x) - 100, dt)
   self.x = self.x + 50 * dt
   
   if self.x > self.currentworld:right() then
