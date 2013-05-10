@@ -1,23 +1,14 @@
 local gamestate = require('gamestate')
 local gameoverstate = gamestate.new()
 
-local gameoverFont
-local gameoverSubFont
+local gameoverFont = love.graphics.newFont(36)
+local gameoverSubFont = love.graphics.newFont(16)
 
 function gameoverstate.new(message)
   local instance = {
     message = message
   }
   return setmetatable(instance, { __index = gameoverstate })
-end
-
-function gameoverstate:onEnter()
-  if not gameoverFont then
-    gameoverFont = love.graphics.newFont(36)
-  end
-  if not gameoverSubFont then
-    gameoverSubFont = love.graphics.newFont(16)
-  end
 end
 
 function gameoverstate:draw()
