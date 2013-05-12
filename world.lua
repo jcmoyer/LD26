@@ -117,17 +117,11 @@ function world:draw()
 end
 
 function world:scriptUpdate(context, dt)
-  local t = self.triggers or {}
-  if t.onUpdate then
-    t.onUpdate(context, dt)
-  end
+  safeCallTrigger(self.triggers, 'onUpdate', context, dt)
 end
 
 function world:scriptDraw(context)
-  local t = self.triggers or {}
-  if t.onDraw then
-    t.onDraw(context)
-  end
+  safeCallTrigger(self.triggers, 'onDraw', context)
 end
 
 function world:portalAt(x)
