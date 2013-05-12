@@ -21,14 +21,16 @@ function gameoverstate:draw()
   local mw = gameoverFont:getWidth(message)
   local sw = gameoverSubFont:getWidth(submessage)
 
-  local udsw = gameoverSubFont:getWidth(self.message)
-
   g.setFont(gameoverFont)
   g.print(message, w / 2 - mw / 2, h / 2 - mh / 2)
 
   g.setFont(gameoverSubFont)
   g.print(submessage, w / 2 - sw / 2, h / 2 - mh / 2 + mh + 8)
-  g.print(self.message, w / 2 - udsw / 2, h / 3)
+  
+  if self.message then
+    local udsw = gameoverSubFont:getWidth(self.message)
+    g.print(self.message, w / 2 - udsw / 2, h / 3)
+  end
 end
 
 return gameoverstate
