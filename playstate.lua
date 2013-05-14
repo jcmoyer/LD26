@@ -19,7 +19,12 @@ local m = nil
 local lastregion = nil
 local context = nil
 
-function makecontext(sm)
+local function changeworld(name)
+  w = world.new(name, context)
+  w:onEnter(context)
+end
+
+local function makecontext(sm)
   local ctx = gamecontext.new()
   function ctx.showMessage(text, duration)
     if m then
@@ -91,11 +96,6 @@ function makecontext(sm)
     w.foreground = rgb
   end
   return ctx
-end
-
-function changeworld(name)
-  w = world.new(name, context)
-  w:onEnter(context)
 end
 
 function playstate.new()

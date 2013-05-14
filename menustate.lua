@@ -13,6 +13,27 @@ local datafiles = love.filesystem.enumerate('data')
 local headerfont = love.graphics.newFont(48)
 local font = love.graphics.newFont(18)
 
+local function pickWorldName()
+  local worldnames = {}
+  for i = 1, #datafiles do
+    local _, _, name = datafiles[i]:find('([%a%d_]+)%.lua$')
+    if name then
+      worldnames[#worldnames + 1] = name
+    end
+  end
+  return 'data.' .. worldnames[math.random(#worldnames)]
+end
+
+local function drawHeader()
+  local g = love.graphics
+  local text = g.getCaption()
+  local w = headerfont:getWidth(text)
+  local h = headerfont:getHeight()
+  g.setColor(255, 255, 255)
+  g.setFont(headerfont)
+  g.print(text, g.getWidth() / 2 - w / 2, g.getHeight() / 6 - h / 2)
+end
+
 function menustate.new()
   local g = love.graphics
   local instance = setmetatable({}, { __index = menustate })
@@ -107,27 +128,6 @@ function menustate:setRandomWorld()
   self.x = self.currentworld:left()
   self.camera:center(self.x, self.currentworld:y(self.x) - 100)
   self.fadeintimer = timerpool.start(3)
-end
-
-function drawHeader()
-  local g = love.graphics
-  local text = g.getCaption()
-  local w = headerfont:getWidth(text)
-  local h = headerfont:getHeight()
-  g.setColor(255, 255, 255)
-  g.setFont(headerfont)
-  g.print(text, g.getWidth() / 2 - w / 2, g.getHeight() / 6 - h / 2)
-end
-
-function pickWorldName()
-  local worldnames = {}
-  for i = 1, #datafiles do
-    local _, _, name = datafiles[i]:find('([%a%d_]+)%.lua$')
-    if name then
-      worldnames[#worldnames + 1] = name
-    end
-  end
-  return 'data.' .. worldnames[math.random(#worldnames)]
 end
 
 return menustate

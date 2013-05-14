@@ -5,11 +5,11 @@ local switch = require('switch')
 local enemy = require('enemy')
 local world = {}
 
-function invertColor(rgb)
+local function invertColor(rgb)
   return { 255 - rgb[1], 255 - rgb[2], 255 - rgb[3] }
 end
 
-function safeCallTrigger(tt, name, ...)
+local function safeCallTrigger(tt, name, ...)
   if (tt and tt[name]) then
     return tt[name](...)
   end

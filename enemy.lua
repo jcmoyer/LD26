@@ -1,6 +1,6 @@
 local enemy = {}
 
-function calculatePixelSize(e)
+local function calculatePixelSize(e)
   return e.size * 32, e.size * 32
 end
 
