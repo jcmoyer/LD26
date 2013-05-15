@@ -14,7 +14,7 @@ local p = player.new()
 local w = nil
 local c = camera.new(800, 600)
 
-local m = nil
+local m = message.new()
 
 local lastregion = nil
 local context = nil
@@ -27,15 +27,7 @@ end
 local function makecontext(sm)
   local ctx = gamecontext.new()
   function ctx.showMessage(text, duration)
-    if m then
-      local oldX = m.x
-      local oldY = m.y
-      m = message.new(text, duration)
-      m.x = oldX
-      m.y = oldY
-    else
-      m = message.new(text, duration)
-    end
+    m = message.new(text, duration, m.x, m.y)
   end
   function ctx.changeWorld(name, x)
     p.x = x or p.x
