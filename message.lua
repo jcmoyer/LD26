@@ -2,13 +2,13 @@ local mathex = require('mathex')
 
 local message = {}
 
-function message.new(text, duration)
+function message.new(text, duration, x, y)
   local instance = {
     text = text,
     duration = duration,
     color = { 255, 255, 255 },
-    x = 0,
-    y = 0,
+    x = x or 0,
+    y = y or 0,
     dx = 0,
     dy = 0
   }
