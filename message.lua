@@ -4,8 +4,8 @@ local message = {}
 
 function message.new(text, duration, x, y)
   local instance = {
-    text = text,
-    duration = duration,
+    text = text or '',
+    duration = duration or 0,
     color = { 255, 255, 255 },
     x = x or 0,
     y = y or 0,
