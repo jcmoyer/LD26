@@ -16,7 +16,7 @@ local function safeCallTrigger(tt, name, ...)
 end
 
 function world.new(name, context)
-  local data = require('data.' .. name)
+  local data = require('worlds.' .. name)
   -- Build a world object from the data
   local instance = setmetatable({}, { __index = world })
   instance.background = data.background or { 0, 0, 0 }
