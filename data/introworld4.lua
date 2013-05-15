@@ -51,8 +51,8 @@ data.lines = {
 }
 
 data.portals = {
-  { x = 800 , destination = 'data.introworld3', dx = 1250 },
-  { x = 1350, destination = 'data.introworld5', dx = 100 }
+  { x = 800 , destination = 'introworld3', dx = 1250 },
+  { x = 1350, destination = 'introworld5', dx = 100 }
 }
 
 data.triggers = {}
@@ -62,7 +62,7 @@ function data.triggers.onEnter(context)
     context.setVar('introworld4.entered', true)
   end
   if context.getVar('puzzleworld1.solved') then
-    context.addPortal('winroom', -50, 'data.treasureroom', 50, true)
+    context.addPortal('winroom', -50, 'treasureroom', 50, true)
   end
 end
 

@@ -456,7 +456,7 @@ data.switches = {
 }
 
 data.portals = {
-  { x = 5940, destination = 'data.treasureroom2', dx = 50 }
+  { x = 5940, destination = 'treasureroom2', dx = 50 }
 }
 
 data.triggers = {}

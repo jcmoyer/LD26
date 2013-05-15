@@ -18,7 +18,7 @@ data.lines = {
   1200, 90
 }
 data.portals  = {
-  { x = 1150, destination = 'data.puzzleworld1', dx = 50 }
+  { x = 1150, destination = 'puzzleworld1', dx = 50 }
 }
 
 data.regions = {
@@ -39,7 +39,7 @@ function data.triggers.onEnter(context)
     context.setVar('introworld6.entered', true)
   end
   if context.getVar('puzzleworld1.solved') then
-    context.addPortal('backtrack', -50, 'data.introworld5', 1300, true)
+    context.addPortal('backtrack', -50, 'introworld5', 1300, true)
   end
 end
 return data

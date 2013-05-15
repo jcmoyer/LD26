@@ -21,7 +21,7 @@ local function pickWorldName()
       worldnames[#worldnames + 1] = name
     end
   end
-  return 'data.' .. worldnames[math.random(#worldnames)]
+  return worldnames[math.random(#worldnames)]
 end
 
 local function drawHeader()

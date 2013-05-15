@@ -13,9 +13,9 @@ data.lines = {
 }
 
 data.portals  = {
-  { name = 'sp1', x = 250, destination = 'data.puzzleworld1_1', dx = 50 },
-  { name = 'sp2', x = 450, destination = 'data.puzzleworld1_2', dx = -150 },
-  { name = 'sp3', x = 650, destination = 'data.puzzleworld1_3', dx = 100 }
+  { name = 'sp1', x = 250, destination = 'puzzleworld1_1', dx = 50 },
+  { name = 'sp2', x = 450, destination = 'puzzleworld1_2', dx = -150 },
+  { name = 'sp3', x = 650, destination = 'puzzleworld1_3', dx = 100 }
 }
 
 data.triggers = {}
@@ -43,7 +43,7 @@ function data.triggers.onEnter(context)
 
   if puzzlesLeft == 0 then
     context.setVar('puzzleworld1.solved', true)
-    context.addPortal('next', 50, 'data.introworld6', 1150, true)
+    context.addPortal('next', 50, 'introworld6', 1150, true)
   end
 end
 

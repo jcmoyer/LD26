@@ -98,7 +98,7 @@ end
 function playstate:onEnter()
   context = makecontext(self:sm())
   love.graphics.setFont(love.graphics.newFont(18))
-  changeworld('data.start')
+  changeworld('start')
 end
 
 function playstate:onLeave()

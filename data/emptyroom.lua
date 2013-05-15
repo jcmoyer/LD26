@@ -14,11 +14,11 @@ data.switches = {
 data.triggers = {}
 
 function spawnExitPortal(context)
-  context.addPortal('exit', 50, 'data.introworld', 984)
+  context.addPortal('exit', 50, 'introworld', 984)
 end
 
 function spawnSwitchPalacePortal(context, s)
-  context.addPortal('sp', s.x, 'data.switchpalace1', 50)
+  context.addPortal('sp', s.x, 'switchpalace1', 50)
 end
 
 function data.triggers.onEnter(context)
