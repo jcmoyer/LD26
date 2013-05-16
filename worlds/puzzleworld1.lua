@@ -1,3 +1,5 @@
+local color = require('color')
+
 local data = {}
 data.background = { 200, 200, 200 }
 
@@ -66,8 +68,7 @@ function data.triggers.onDraw(context)
   local g = love.graphics
   g.circle('fill', 350, -200, 100)
 
-  local cr, cg, cb = g.getColor()
-  g.setColor(255 - cr, 255 - cg, 255 - cb)
+  g.setColor(color.invert(g.getColor()))
   g.line(350, -200, 350 + math.cos(t) * 100, -200 + math.sin(t) * 100)
   g.line(350, -200, 350 + math.cos(t / 60) * 70, -200 + math.sin(t / 60) * 70)
 end

@@ -1,4 +1,5 @@
 local mathex = require('mathex')
+local color = require('color')
 
 local message = {}
 
@@ -23,7 +24,8 @@ end
 
 function message:draw()
   local g = love.graphics
-  local ic = { 255 - self.color[1], 255 - self.color[2], 255 - self.color[3], 128 }
+  local ic = color.invert(self.color)
+  ic[4] = 128 -- add an alpha component
 
   local f = g.getFont()
   local w = f:getWidth(self.text)

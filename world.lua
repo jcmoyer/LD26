@@ -3,11 +3,8 @@ local portal = require('portal')
 local region = require('region')
 local switch = require('switch')
 local enemy = require('enemy')
+local color = require('color')
 local world = {}
-
-local function invertColor(rgb)
-  return { 255 - rgb[1], 255 - rgb[2], 255 - rgb[3] }
-end
 
 local function safeCallTrigger(tt, name, ...)
   if (tt and tt[name]) then
@@ -20,7 +17,7 @@ function world.new(name, context)
   -- Build a world object from the data
   local instance = setmetatable({}, { __index = world })
   instance.background = data.background or { 0, 0, 0 }
-  instance.foreground = data.foreground or invertColor(instance.background)
+  instance.foreground = data.foreground or color.invert(instance.background)
   instance.name    = name
   instance.lines   = data.lines
   instance.portals = {}
