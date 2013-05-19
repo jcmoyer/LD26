@@ -14,13 +14,7 @@ local headerfont = love.graphics.newFont(48)
 local font = love.graphics.newFont(18)
 
 local function pickWorldName()
-  local worldnames = {}
-  for i = 1, #worldfiles do
-    local _, _, name = worldfiles[i]:find('([%a%d_]+)%.lua$')
-    if name then
-      worldnames[#worldnames + 1] = name
-    end
-  end
+  local worldnames = world.getNames()
   return worldnames[math.random(#worldnames)]
 end
 

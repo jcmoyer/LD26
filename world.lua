@@ -4,12 +4,29 @@ local region = require('region')
 local switch = require('switch')
 local enemy = require('enemy')
 local color = require('color')
+local lazy = require('util.lazy')
 local world = {}
 
 local function safeCallTrigger(tt, name, ...)
   if (tt and tt[name]) then
     return tt[name](...)
   end
+end
+
+local worldnames = lazy.new(function()
+  local worldfiles = love.filesystem.enumerate('worlds')
+  local names = {}
+  for i = 1, #worldfiles do
+    local _, _, name = worldfiles[i]:find('([%a%d_]+)%.lua$')
+    if name then
+      names[#names + 1] = name
+    end
+  end
+  return names
+end)
+
+function world.getNames()
+  return worldnames:get()
 end
 
 function world.new(name, context)
