@@ -2,6 +2,8 @@ local menu = {}
 
 function menu.new(font)
   local instance = {
+    x = 0,
+    y = 0,
     index = 1,
     items = {},
     font = font,
@@ -44,11 +46,9 @@ end
 
 function menu:draw()
   local g = love.graphics
-  local x = self.x or 0
-  local y = self.y or 0
   local oneh = self.font:getHeight()
   local totalh = oneh * #self.items
-  local oy = y - totalh / 2
+  local oy = self.y - totalh / 2
   
   g.setFont(self.font)
   
