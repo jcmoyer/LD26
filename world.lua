@@ -124,7 +124,7 @@ function world:draw()
     s:draw()
   end
 
-  for i,e in ipairs(self.enemies) do
+  for _,e in ipairs(self.enemies) do
     g.setColor(self:oppositeColor())
     e:draw()
   end
@@ -151,7 +151,7 @@ function world:regionAt(x)
 end
 
 function world:enemyAt(x)
-  for i,e in ipairs(self.enemies) do
+  for _,e in ipairs(self.enemies) do
     if e:contains(x) then return e end
   end
 end
