@@ -9,7 +9,6 @@ local playstate = require('playstate')
 local gamestate = require('gamestate')
 local menustate = gamestate.new()
 
-local worldfiles = love.filesystem.enumerate('worlds')
 local headerfont = love.graphics.newFont(48)
 local font = love.graphics.newFont(18)
 
