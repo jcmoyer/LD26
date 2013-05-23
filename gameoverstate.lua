@@ -4,6 +4,13 @@ local gameoverstate = gamestate.new()
 local gameoverFont = love.graphics.newFont(36)
 local gameoverSubFont = love.graphics.newFont(16)
 
+local message = 'Thanks for playing!'
+local messageWidth = gameoverFont:getWidth(message)
+local messageHeight = gameoverFont:getHeight()
+
+local submessage = 'Made for LD26 :: https://github.com/jcmoyer'
+local submessageWidth = gameoverSubFont:getWidth(submessage)
+
 function gameoverstate.new(message)
   local instance = {
     message = message
@@ -15,17 +22,12 @@ function gameoverstate:draw()
   local g = love.graphics
   local w = g.getWidth()
   local h = g.getHeight()
-  local message = 'Thanks for playing!'
-  local submessage = 'Made for LD26 :: https://github.com/jcmoyer'
-  local mh = gameoverFont:getHeight()
-  local mw = gameoverFont:getWidth(message)
-  local sw = gameoverSubFont:getWidth(submessage)
 
   g.setFont(gameoverFont)
-  g.print(message, w / 2 - mw / 2, h / 2 - mh / 2)
+  g.print(message, w / 2 - messageWidth / 2, h / 2 - messageHeight / 2)
 
   g.setFont(gameoverSubFont)
-  g.print(submessage, w / 2 - sw / 2, h / 2 - mh / 2 + mh + 8)
+  g.print(submessage, w / 2 - submessageWidth / 2, h / 2 - messageHeight / 2 + messageHeight + 8)
   
   if self.message then
     local udsw = gameoverSubFont:getWidth(self.message)
