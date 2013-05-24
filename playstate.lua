@@ -19,6 +19,8 @@ local m = message.new()
 local lastregion = nil
 local context = nil
 
+local messageFont = love.graphics.newFont(18)
+
 local function changeworld(name)
   w = world.new(name, context)
   w:onEnter(context)
@@ -97,7 +99,7 @@ end
 
 function playstate:onEnter()
   context = makecontext(self:sm())
-  love.graphics.setFont(love.graphics.newFont(18))
+  love.graphics.setFont(messageFont)
   changeworld('start')
 end
 
