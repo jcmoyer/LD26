@@ -42,6 +42,7 @@ function world.new(name, context)
   instance.regions = {}
   instance.switches = {}
   instance.enemies = {}
+  instance.linewidth = data.linewidth or 1
   -- Create actual portal objects from the data
   for i,p in ipairs(data.portals or {}) do
     instance.portals[p.name or i] = portal.new(instance, p.name, p.x, p.destination, p.dx)
@@ -111,6 +112,7 @@ end
 function world:draw()
   local g = love.graphics
   --g.setColor(255, 255, 255)
+  g.setLineWidth(self.linewidth)
   g.setColor(self:oppositeColor())
   g.line(self.lines)
 
