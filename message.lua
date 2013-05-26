@@ -2,6 +2,7 @@ local mathex = require('mathex')
 local color = require('color')
 
 local message = {}
+local defaultFont = love.graphics.newFont(18)
 
 function message.new(text, duration, x, y)
   local instance = {
@@ -11,7 +12,8 @@ function message.new(text, duration, x, y)
     x = x or 0,
     y = y or 0,
     dx = 0,
-    dy = 0
+    dy = 0,
+    font = defaultFont
   }
   return setmetatable(instance, { __index = message })
 end
@@ -36,6 +38,7 @@ function message:draw()
   g.rectangle('fill', self.x - 2, self.y - 2, w + 4, h + 4)
 
   g.setColor(self.color)
+  g.setFont(self.font)
   g.print(self.text, self.x, self.y)
 end
 
@@ -46,6 +49,14 @@ end
 function message:setDestination(x, y)
   self.dx = x
   self.dy = y
+end
+
+function message:getWidth()
+  return self.font:getWidth(self.text)
+end
+
+function message:getHeight()
+  return self.font:getHeight()
 end
 
 return message
