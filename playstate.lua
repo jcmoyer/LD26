@@ -12,7 +12,7 @@ local playstate = gamestate.new()
 
 local p = player.new()
 local w = nil
-local c = camera.new(800, 600)
+local c = camera.new(love.graphics.getWidth(), love.graphics.getHeight())
 
 local m = message.new()
 
