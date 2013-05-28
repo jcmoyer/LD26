@@ -7,7 +7,7 @@ local gamecontext = require('gamecontext')
 local timerpool = require('timerpool')
 local playstate = require('playstate')
 local gamestate = require('gamestate')
-local menustate = gamestate.new()
+local menustate = setmetatable({}, { __index = gamestate })
 
 local headerfont = love.graphics.newFont(48)
 local font = love.graphics.newFont(18)

@@ -1,5 +1,5 @@
 local gamestate = require('gamestate')
-local gameoverstate = gamestate.new()
+local gameoverstate = setmetatable({}, { __index = gamestate })
 
 local gameoverFont = love.graphics.newFont(36)
 local gameoverSubFont = love.graphics.newFont(16)

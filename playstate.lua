@@ -8,7 +8,7 @@ local sound = require('sound')
 local gameoverstate = require('gameoverstate')
 
 local gamestate = require('gamestate')
-local playstate = gamestate.new()
+local playstate = setmetatable({}, { __index = gamestate })
 
 local p = player.new()
 local w = nil
