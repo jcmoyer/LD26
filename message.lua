@@ -29,9 +29,8 @@ function message:draw()
   local ic = color.invert(self.color)
   ic[4] = 128 -- add an alpha component
 
-  local f = g.getFont()
-  local w = f:getWidth(self.text)
-  local h = f:getHeight()
+  local w = self.font:getWidth(self.text)
+  local h = self.font:getHeight()
 
   g.setColor(ic)
   -- inflate rectangle 2px on each side
