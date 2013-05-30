@@ -25,6 +25,24 @@ function statemachine:keypressed(key, unicode)
   end
 end
 
+function statemachine:keyreleased(key)
+  if self.s then
+    self.s:keyreleased(key)
+  end
+end
+
+function statemachine:mousepressed(x, y, button)
+  if self.s then
+    self.s:mousepressed(x, y, button)
+  end
+end
+
+function statemachine:mousereleased(x, y, button)
+  if self.s then
+    self.s:mousereleased(x, y, button)
+  end
+end
+
 function statemachine:changeState(newstate)
   if not newstate.isgamestate then
     error('newstate is not a gamestate')

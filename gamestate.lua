@@ -16,6 +16,15 @@ end
 function gamestate:keypressed(key, unicode)
 end
 
+function gamestate:keyreleased(key)
+end
+
+function gamestate:mousepressed(x, y, button)
+end
+
+function gamestate:mousereleased(x, y, button)
+end
+
 function gamestate:update(dt)
 end
 

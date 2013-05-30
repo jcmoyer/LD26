@@ -20,3 +20,15 @@ end
 function love.keypressed(key, unicode)
   sm:keypressed(key, unicode)
 end
+
+function love.keyreleased(key, unicode)
+  sm:keyreleased(key)
+end
+
+function love.mousepressed(x, y, button)
+  sm:mousepressed(x, y, button)
+end
+
+function love.mousereleased(x, y, button)
+  sm:mousereleased(x, y, button)
+end
