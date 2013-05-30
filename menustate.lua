@@ -1,4 +1,3 @@
-local menu = require('menu')
 local sound = require('sound')
 local world = require('world')
 local camera = require('camera')
@@ -7,10 +6,15 @@ local gamecontext = require('gamecontext')
 local timerpool = require('timerpool')
 local playstate = require('playstate')
 local gamestate = require('gamestate')
+
+local uiscene = require('ui.scene')
+local uistackpanel = require('ui.stackpanel')
+local uibutton = require('ui.button')
+
 local menustate = setmetatable({}, { __index = gamestate })
 
 local headerfont = love.graphics.newFont(48)
-local font = love.graphics.newFont(18)
+local font = love.graphics.newFont(16)
 
 local function pickWorldName()
   local worldnames = world.getNames()
@@ -35,35 +39,49 @@ function menustate.new()
   instance.fadeouttimer = nil
   instance.camera = camera.new(g.getWidth(), g.getHeight())
   instance.x = 0
-  instance.menu = menu.new(font)
-  instance.menu.x = g.getWidth() / 2
-  instance.menu.y = g.getHeight() / 2
-  instance.menu:add('Start', function()
-    instance:sm():changeState(playstate.new())
-  end)
-  instance.menu:add('Exit', function()
-    love.event.quit()
-  end)
+  
+  -- ui code
+  local ui = uiscene.new()
+  local stackpanel = uistackpanel.new()
+  stackpanel.x = g.getWidth() / 2 - 75
+  stackpanel.y = g.getHeight() / 2 - 50
+  stackpanel.w = 150
+  stackpanel.h = 100
+  local btnstart = uibutton.new()
+  btnstart.text = "Start"
+  btnstart.font = font
+  btnstart.events.click:add(function()
+      sound.restart(sound.selection)
+      instance:sm():changeState(playstate.new())
+    end)
+  local btnexit = uibutton.new()
+  btnexit.text = "Exit"
+  btnexit.font = font
+  btnexit.events.click:add(function()
+      sound.restart(sound.selection)
+      love.event.quit()
+    end)
+  stackpanel:addchild(btnstart)
+  stackpanel:addchild(btnexit)
+  ui:addchild(stackpanel)
+  instance.ui = ui
+  -- end ui code
+  
   instance:setRandomWorld()
   return instance
 end
 
-function menustate:keypressed(key)
-  if key == 'up' then
-    if self.menu:selectPrev() then
-      sound.restart(sound.selection)
-    end
-  elseif key == 'down' then
-    if self.menu:selectNext() then
-      sound.restart(sound.selection)
-    end
-  elseif key == 'return' then
-    sound.restart(sound.selection)
-    self.menu:executeCallback()
-  end
+function menustate:mousepressed(x, y, button)
+  self.ui:mousepressed(x, y, button)
+end
+
+function menustate:mousereleased(x, y, button)
+  self.ui:mousereleased(x, y, button)
 end
 
 function menustate:update(dt)
+  self.ui:update(dt)
+  
   self.camera:update(dt)
   
   self.camera:panCenter(self.x, self.currentworld:y(self.x) - 100, dt)
@@ -107,7 +125,7 @@ function menustate:draw()
   g.rectangle('fill', 0, 0, g.getWidth(), g.getHeight())
   
   drawHeader()
-  self.menu:draw()
+  self.ui:draw()
 end
 
 function menustate:setRandomWorld()
