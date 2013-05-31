@@ -33,8 +33,8 @@ function world.new(name, context)
   local data = require('worlds.' .. name)
   -- Build a world object from the data
   local instance = setmetatable({}, { __index = world })
-  instance.background = data.background or { 0, 0, 0 }
-  instance.foreground = data.foreground or color.invert(instance.background)
+  instance.background = color.new( data.background or { 0, 0, 0 } )
+  instance.foreground = data.foreground and color.new(data.foreground) or -instance.background  --color.invert(instance.background)
   instance.name    = name
   instance.lines   = data.lines
   instance.portals = {}

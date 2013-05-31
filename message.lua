@@ -8,7 +8,7 @@ function message.new(text, duration, x, y)
   local instance = {
     text = text or '',
     duration = duration or 0,
-    color = { 255, 255, 255 },
+    color = color.new(255, 255, 255),
     x = x or 0,
     y = y or 0,
     dx = 0,
@@ -26,7 +26,7 @@ end
 
 function message:draw()
   local g = love.graphics
-  local ic = color.invert(self.color)
+  local ic = -self.color
   ic[4] = 128 -- add an alpha component
 
   local w = self.font:getWidth(self.text)
