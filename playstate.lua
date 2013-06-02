@@ -63,7 +63,8 @@ local function makecontext(sm)
     w:setSwitchStatus(name, status)
   end
   function ctx.win(text)
-    sm:changeState(gameoverstate.new(text))
+    sm:pop()
+    sm:push(gameoverstate.new(text))
   end
   function ctx.playSwitchSound()
     sound.restart(sound.switch)

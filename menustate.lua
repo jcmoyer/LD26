@@ -52,7 +52,7 @@ function menustate.new()
   btnstart.font = font
   btnstart.events.click:add(function()
       sound.restart(sound.selection)
-      instance:sm():changeState(playstate.new())
+      instance:sm():push(playstate.new())
     end)
   local btnexit = uibutton.new()
   btnexit.text = "Exit"

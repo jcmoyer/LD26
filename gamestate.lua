@@ -3,7 +3,9 @@ local gamestate = {}
 gamestate.isgamestate = true
 
 function gamestate.new()
-  local instance = {}
+  local instance = {
+    transparent = false
+  }
   return setmetatable(instance, { __index = gamestate })
 end
 

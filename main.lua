@@ -5,7 +5,7 @@ local timerpool = require('timerpool')
 local sm = statemachine.new()
 
 function love.load(args)
-  sm:changeState(menustate.new())
+  sm:push(menustate.new())
 end
 
 function love.draw()

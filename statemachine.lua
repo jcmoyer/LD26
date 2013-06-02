@@ -2,58 +2,101 @@ local statemachine = {}
 
 function statemachine.new()
   local instance = {
-    s = nil
+    states = {}
   }
   return setmetatable(instance, { __index = statemachine })
 end
 
-function statemachine:update(dt)
-  if self.s then
-    self.s:update(dt)
+function statemachine:forVisible(f)
+  local i = #self.states + 1
+  local s
+  if i > 0 then
+    -- find the top-most concrete state
+    repeat
+      i = i - 1
+      s = self.states[i]
+    until not s.transparent or i < 1
+    
+    -- apply f to each state from that point upwards
+    for i = i, #self.states do
+      f(self.states[i])
+    end
   end
+end
+
+function statemachine:update(dt)
+  self:forVisible(function(s)
+    s:update(dt)
+  end)
 end
 
 function statemachine:draw()
-  if self.s then
-    self.s:draw()
-  end
+  local g = love.graphics
+  
+  self:forVisible(function(s)
+    g.push()
+    s:draw()
+    g.pop()
+  end)
 end
 
 function statemachine:keypressed(key, unicode)
-  if self.s then
-    self.s:keypressed(key, unicode)
-  end
+  self:forVisible(function(s)
+    s:keypressed(key, unicode)
+  end)
 end
 
 function statemachine:keyreleased(key)
-  if self.s then
-    self.s:keyreleased(key)
-  end
+  self:forVisible(function(s)
+    s:keyreleased(key)
+  end)
 end
 
 function statemachine:mousepressed(x, y, button)
-  if self.s then
-    self.s:mousepressed(x, y, button)
-  end
+  self:forVisible(function(s)
+    s:mousepressed(x, y, button)
+  end)
 end
 
 function statemachine:mousereleased(x, y, button)
-  if self.s then
-    self.s:mousereleased(x, y, button)
-  end
+  self:forVisible(function(s)
+    s:mousereleased(x, y, button)
+  end)
 end
 
-function statemachine:changeState(newstate)
+function statemachine:any()
+  return #self.states > 0
+end
+
+function statemachine:top()
+  return self.states[#self.states]
+end
+
+function statemachine:push(newstate)
   if not newstate.isgamestate then
     error('newstate is not a gamestate')
   end
-  newstate:sm(self)
   
-  if self.s then
-    self.s:onLeave(newstate)
+  local oldstate = self:top()
+  
+  newstate:sm(self)
+  table.insert(self.states, newstate)
+  
+  if oldstate then
+    oldstate:onLeave(newstate)
   end
-  newstate:onEnter(self.s)
-  self.s = newstate
+  newstate:onEnter(oldstate)
+end
+
+function statemachine:pop()
+  local popped = table.remove(self.states, newstate)
+  
+  if popped then
+    popped:onLeave(newstate)
+  end
+  self:top():onEnter(popped)
+  
+  return popped
 end
 
 return statemachine
