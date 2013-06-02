@@ -1,5 +1,6 @@
 local uiscene = require('ui.scene')
 local uibutton = require('ui.button')
+local sound = require('sound')
 
 local gamestate = require('gamestate')
 local gameoverstate = setmetatable({}, { __index = gamestate })
@@ -27,6 +28,7 @@ function gameoverstate.new(message)
   btnmenu.x = love.graphics.getWidth() - btnmenu.w - 32
   btnmenu.y = love.graphics.getHeight() - btnmenu.h - 32
   btnmenu.events.click:add(function()
+      sound.restart(sound.selection)
       instance:sm():pop()
     end)
   instance.ui:addchild(btnmenu)
