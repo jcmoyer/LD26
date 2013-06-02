@@ -50,7 +50,11 @@ function gameoverstate:draw()
   local g = love.graphics
   local w = g.getWidth()
   local h = g.getHeight()
-
+  
+  g.setBackgroundColor(0, 0, 0)
+  g.clear()
+  
+  g.setColor(255, 255, 255)
   g.setFont(gameoverFont)
   g.print(message, w / 2 - messageWidth / 2, h / 2 - messageHeight / 2)
 
