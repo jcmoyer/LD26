@@ -6,7 +6,7 @@ local play = love.audio.play
 
 local soundlist = {
   switch  = 'data/switch.ogg',
-  portal  = 'data/portal.ogg',
+  portal  = 'data/Portal.ogg',
   shift05 = 'data/Shifting05.ogg',
   shift10 = 'data/Shifting10.ogg',
   shift15 = 'data/Shifting15.ogg',
