@@ -14,7 +14,6 @@ local uibutton = require('ui.button')
 local menustate = setmetatable({}, { __index = gamestate })
 
 local headerfont = love.graphics.newFont(48)
-local font = love.graphics.newFont(16)
 
 local function pickWorldName()
   local worldnames = world.getNames()
@@ -49,14 +48,12 @@ function menustate.new()
   stackpanel.h = 100
   local btnstart = uibutton.new()
   btnstart.text = "Start"
-  btnstart.font = font
   btnstart.events.click:add(function()
       sound.restart(sound.selection)
       instance:sm():push(playstate.new())
     end)
   local btnexit = uibutton.new()
   btnexit.text = "Exit"
-  btnexit.font = font
   btnexit.events.click:add(function()
       sound.restart(sound.selection)
       love.event.quit()
