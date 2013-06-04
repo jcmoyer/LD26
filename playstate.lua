@@ -6,6 +6,7 @@ local message = require('message')
 local gamecontext = require('gamecontext')
 local sound = require('sound')
 local gameoverstate = require('gameoverstate')
+local playmenustate = require('playmenustate')
 
 local gamestate = require('gamestate')
 local playstate = setmetatable({}, { __index = gamestate })
@@ -98,9 +99,11 @@ function playstate.new()
   return setmetatable(instance, { __index = playstate })
 end
 
-function playstate:onEnter()
-  self.context = self:makecontext(self:sm())
-  self:changeworld('start')
+function playstate:onEnter(old)
+  if getmetatable(old) ~= playmenustate.mt then
+    self.context = self:makecontext(self:sm())
+    self:changeworld('start')
+  end
 end
 
 function playstate:keypressed(key, unicode)
@@ -110,7 +113,7 @@ function playstate:keypressed(key, unicode)
   local context = self.context
   
   if key == 'escape' then
-    self:sm():push(require('playmenustate').new())
+    self:sm():push(playmenustate.new())
   end
   
   if key == 'up' then

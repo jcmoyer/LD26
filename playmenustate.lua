@@ -5,6 +5,7 @@ local sound = require('sound')
 
 local gamestate = require('gamestate')
 local playmenustate = setmetatable({}, { __index = gamestate })
+playmenustate.mt = { __index = playmenustate }
 
 function playmenustate.new()
   local instance = {
@@ -46,7 +47,7 @@ function playmenustate.new()
   
   instance.ui = ui
   
-  return setmetatable(instance, { __index = playmenustate })
+  return setmetatable(instance, playmenustate.mt)
 end
 
 function playmenustate:mousepressed(x, y, button)
