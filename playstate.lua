@@ -10,29 +10,24 @@ local gameoverstate = require('gameoverstate')
 local gamestate = require('gamestate')
 local playstate = setmetatable({}, { __index = gamestate })
 
-local p = player.new()
-local w = nil
-local c = camera.new(love.graphics.getWidth(), love.graphics.getHeight())
-
-local m = message.new()
-
-local lastregion = nil
-local context = nil
-
-local function changeworld(name)
-  w = world.new(name, context)
-  w:onEnter(context)
+function playstate:changeworld(name)
+  self.world = world.new(name, self.context)
+  self.world:onEnter(self.context)
 end
 
-local function makecontext(sm)
+function playstate:makecontext(sm)
   local ctx = gamecontext.new()
   function ctx.showMessage(text, duration)
-    m = message.new(text, duration, m.x, m.y)
+    local m = self.message
+    self.message = message.new(text, duration, m.x, m.y)
   end
   function ctx.changeWorld(name, x)
+    local p = self.player
+    local w = self.world
+    local c = self.camera
     p.x = x or p.x
     if name ~= w.name then
-      changeworld(name)
+      self:changeworld(name)
       p.x = mathex.clamp(p.x, w:left(), w:right())
       p.y = w:y(p.x)
       c:center(p.x, p.y)
@@ -42,69 +37,78 @@ local function makecontext(sm)
     if not silent then
       sound.restart(sound.portal)
     end
-    w:addPortal(name, x, d, dx)
+    self.world:addPortal(name, x, d, dx)
   end
   function ctx.removePortal(name)
-    w:removePortal(name)
+    self.world:removePortal(name)
   end
   function ctx.addRegion(name, x, width)
-    w:addRegion(name, x, width)
+    self.world:addRegion(name, x, width)
   end
   function ctx.y(x)
-    return w:y(x)
+    return self.world:y(x)
   end
   function ctx.preferredColor()
-    return w:oppositeColor()
+    return self.world:oppositeColor()
   end
   function ctx.getSwitchStatus(name)
-    return w:getSwitchStatus(name)
+    return self.world:getSwitchStatus(name)
   end
   function ctx.setSwitchStatus(name, status)
-    w:setSwitchStatus(name, status)
+    self.world:setSwitchStatus(name, status)
   end
   function ctx.win(text)
-    sm:pop()
-    sm:push(gameoverstate.new(text))
+    self:sm():pop()
+    self:sm():push(gameoverstate.new(text))
   end
   function ctx.playSwitchSound()
     sound.restart(sound.switch)
   end
   function ctx.shakeCamera(d, m)
     sound.tryPlay(sound.pickShiftingSound(m))
-    c:shake(d, m)
+    self.camera:shake(d, m)
   end
   function ctx.playerX()
-    return p.x
+    return self.player.x
   end
   function ctx.left()
-    return w:left()
+    return self.world:left()
   end
   function ctx.right()
-    return w:right()
+    return self.world:right()
   end
   function ctx.setBackground(rgb)
-    w.background = rgb
+    self.world.background = rgb
   end
   function ctx.setForeground(rgb)
-    w.foreground = rgb
+    self.world.foreground = rgb
   end
   return ctx
 end
 
 function playstate.new()
-  local instance = {}
+  local instance = {
+    player = player.new(),
+    world = nil,
+    camera = camera.new(love.graphics.getWidth(), love.graphics.getHeight()),
+    message = message.new(),
+    lastregion = nil,
+    context = nil
+  }
   return setmetatable(instance, { __index = playstate })
 end
 
 function playstate:onEnter()
-  context = makecontext(self:sm())
-  changeworld('start')
-end
-
-function playstate:onLeave()
+  self.context = self:makecontext(self:sm())
+  self:changeworld('start')
 end
 
 function playstate:keypressed(key, unicode)
+  local p = self.player
+  local w = self.world
+  local c = self.camera
+  local context = self.context
+  
   if key == 'escape' then
     self:sm():push(require('playmenustate').new())
   end
@@ -115,7 +119,9 @@ function playstate:keypressed(key, unicode)
       if not w:onEnterPortal(context, portal) then return end
       p.x = portal.dx
       if portal.destination ~= w.name then
-        changeworld(portal.destination)
+        self:changeworld(portal.destination)
+        w = self.world
+        
         -- Instant pan when the world is different
         p.x = mathex.clamp(p.x, w:left(), w:right())
         p.y = w:y(p.x)
@@ -126,6 +132,12 @@ function playstate:keypressed(key, unicode)
 end
 
 function playstate:update(dt)
+  local p = self.player
+  local w = self.world
+  local c = self.camera
+  local m = self.message
+  local context = self.context
+  
   local k = love.keyboard
   if k.isDown('left') then
     p.x = p.x - 300 * dt
@@ -137,12 +149,12 @@ function playstate:update(dt)
   p.y = w:y(p.x)
 
   local r = w:regionAt(p.x)
-  if r ~= lastregion then
+  if r ~= self.lastregion then
     -- if r is nil then we've left a region
     if r then
       w:onEnterRegion(context, r)
     end
-    lastregion = r
+    self.lastregion = r
   end
 
   -- activate switches at the player's location
@@ -170,6 +182,11 @@ end
 
 function playstate:draw()
   local g = love.graphics
+  local p = self.player
+  local w = self.world
+  local c = self.camera
+  local m = self.message
+  
   g.setBackgroundColor(w.background)
   g.clear()
 
@@ -184,7 +201,7 @@ function playstate:draw()
     m:draw()
   end
 
-  w:scriptDraw(context)
+  w:scriptDraw(self.context)
 end
 
 return playstate
