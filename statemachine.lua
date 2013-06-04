@@ -2,12 +2,13 @@ local statemachine = {}
 
 function statemachine.new()
   local instance = {
-    states = {}
+    states = {},
+    base = 0
   }
   return setmetatable(instance, { __index = statemachine })
 end
 
-function statemachine:forVisible(f)
+function statemachine:findBaseState()
   local i = #self.states + 1
   local s
   if i > 0 then
@@ -16,52 +17,47 @@ function statemachine:forVisible(f)
       i = i - 1
       s = self.states[i]
     until not s.transparent or i < 1
-    
-    -- apply f to each state from that point upwards
-    for i = i, #self.states do
-      f(self.states[i])
-    end
+    self.base = math.max(i, 1)
   end
 end
 
 function statemachine:update(dt)
-  self:forVisible(function(s)
-    s:update(dt)
-  end)
+  for i = #self.states, self.base, -1 do
+    if not self.states[i]:update(dt) then return end
+  end
 end
 
 function statemachine:draw()
   local g = love.graphics
-  
-  self:forVisible(function(s)
+  for i = self.base, #self.states do
     g.push()
-    s:draw()
+    self.states[i]:draw()
     g.pop()
-  end)
+  end
 end
 
 function statemachine:keypressed(key, unicode)
-  self:forVisible(function(s)
-    s:keypressed(key, unicode)
-  end)
+  for i = #self.states, self.base, -1 do
+    if not self.states[i]:keypressed(key, unicode) then return end
+  end
 end
 
 function statemachine:keyreleased(key)
-  self:forVisible(function(s)
-    s:keyreleased(key)
-  end)
+  for i = #self.states, self.base, -1 do
+    if not self.states[i]:keyreleased(key) then return end
+  end
 end
 
 function statemachine:mousepressed(x, y, button)
-  self:forVisible(function(s)
-    s:mousepressed(x, y, button)
-  end)
+  for i = #self.states, self.base, -1 do
+    if not self.states[i]:mousepressed(x, y, button) then return end
+  end
 end
 
 function statemachine:mousereleased(x, y, button)
-  self:forVisible(function(s)
-    s:mousereleased(x, y, button)
-  end)
+  for i = #self.states, self.base, -1 do
+    if not self.states[i]:mousereleased(x, y, button) then return end
+  end
 end
 
 function statemachine:any()
@@ -86,6 +82,8 @@ function statemachine:push(newstate)
     oldstate:onLeave(newstate)
   end
   newstate:onEnter(oldstate)
+  
+  self:findBaseState()
 end
 
 function statemachine:pop()
@@ -95,6 +93,8 @@ function statemachine:pop()
     popped:onLeave(newstate)
   end
   self:top():onEnter(popped)
+  
+  self:findBaseState()
   
   return popped
 end
