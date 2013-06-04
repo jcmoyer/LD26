@@ -105,6 +105,10 @@ function playstate:onLeave()
 end
 
 function playstate:keypressed(key, unicode)
+  if key == 'escape' then
+    self:sm():push(require('playmenustate').new())
+  end
+  
   if key == 'up' then
     local portal = w:portalAt(p.x)
     if portal then
