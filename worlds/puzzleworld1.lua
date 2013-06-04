@@ -66,9 +66,12 @@ end
 
 function data.triggers.onDraw(context)
   local g = love.graphics
+  local bg = context:preferredColor()
+  
+  g.setColor(bg)
   g.circle('fill', 350, -200, 100)
 
-  g.setColor(color.invert(g.getColor()))
+  g.setColor(-bg)
   g.line(350, -200, 350 + math.cos(t) * 100, -200 + math.sin(t) * 100)
   g.line(350, -200, 350 + math.cos(t / 60) * 70, -200 + math.sin(t / 60) * 70)
 end
