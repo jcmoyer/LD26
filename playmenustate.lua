@@ -50,6 +50,12 @@ function playmenustate.new()
   return setmetatable(instance, playmenustate.mt)
 end
 
+function playmenustate:keypressed(key, unicode)
+  if key == 'escape' then
+    self:sm():pop()
+  end
+end
+
 function playmenustate:mousepressed(x, y, button)
   self.ui:mousepressed(x, y, button)
 end
