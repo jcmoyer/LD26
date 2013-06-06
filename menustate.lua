@@ -64,8 +64,11 @@ function menustate.new()
   instance.ui = ui
   -- end ui code
   
-  instance:setRandomWorld()
   return instance
+end
+
+function menustate:onEnter()
+  self:setRandomWorld()
 end
 
 function menustate:mousepressed(x, y, button)
