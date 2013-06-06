@@ -32,18 +32,18 @@ data.lines = {
   2208, -1504
 }
 data.portals = {
-  { x = 100, destination = 'data.puzzleworld1_3', dx = 0 },
-  { x = 325, destination = 'data.puzzleworld1_3', dx = 800 },
-  { x = 800, destination = 'data.puzzleworld1_3', dx = 1650 },
-  { x = 550, destination = 'data.puzzleworld1_3', dx = 325 },
-  { x = 1050, destination = 'data.puzzleworld1_3', dx = 2100 },
-  { x = 1650, destination = 'data.puzzleworld1_3', dx = 325 },
-  { x = -450, destination = 'data.puzzleworld1_3', dx = 100 },
-  { x = 1312, destination = 'data.puzzleworld1_3', dx = -450 },
-  { x = -225, destination = 'data.puzzleworld1_3', dx = 550 },
-  { x = -337, destination = 'data.puzzleworld1_3', dx = 1050 },
-  { x = -112, destination = 'data.puzzleworld1_3', dx = 550 },
-  { x = 2100, destination = 'data.puzzleworld1_3', dx = 1650 },
+  { x = 100, destination = 'puzzleworld1', dx = 650 },
+  { x = 325, destination = 'puzzleworld1_3', dx = 800 },
+  { x = 800, destination = 'puzzleworld1_3', dx = 1650 },
+  { x = 550, destination = 'puzzleworld1_3', dx = 325 },
+  { x = 1050, destination = 'puzzleworld1_3', dx = 2100 },
+  { x = 1650, destination = 'puzzleworld1_3', dx = 325 },
+  { x = -450, destination = 'puzzleworld1_3', dx = 100 },
+  { x = 1312, destination = 'puzzleworld1_3', dx = -450 },
+  { x = -225, destination = 'puzzleworld1_3', dx = 550 },
+  { x = -337, destination = 'puzzleworld1_3', dx = 1050 },
+  { x = -112, destination = 'puzzleworld1_3', dx = 550 },
+  { x = 2100, destination = 'puzzleworld1_3', dx = 1650 },
 }
 
 --[[
@@ -85,11 +85,11 @@ function data.triggers.onEnter(context)
 end
 
 function data.triggers.onPlayerDeath(context)
-  context.changeWorld('data.puzzleworld1', 650)
+  context.changeWorld('puzzleworld1', 650)
 end
 
 function data.triggers.onSwitchChanged(context, s)
-  context.addPortal('clear', 2000, 'data.puzzleworld1', 650)
+  context.addPortal('clear', 2000, 'puzzleworld1', 650)
   if not context.getVar('puzzleworld1_3.solved') then
     context.setVar('puzzleworld1_3.solved', true)
     context.shakeCamera(5, 15)

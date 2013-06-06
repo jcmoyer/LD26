@@ -21,6 +21,6 @@ data.lines = {
   356, 28
 }
 data.portals = {
-  { x = 306, destination = 'data.introworld', dx = 320 }
+  { x = 306, destination = 'introworld', dx = 320 }
 }
 return data

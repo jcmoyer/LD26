@@ -1,6 +1,7 @@
+local mathex = require('mathex')
 local enemy = {}
 
-function calculatePixelSize(e)
+local function calculatePixelSize(e)
   return e.size * 32, e.size * 32
 end
 
@@ -29,6 +30,7 @@ function enemy:update(dt)
       self.direction = 'right'
     end
   end
+  self.x = mathex.clamp(self.x, self.patrol.left, self.patrol.right)
 end
 
 function enemy:draw()

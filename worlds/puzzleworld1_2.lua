@@ -50,18 +50,18 @@ data.lines = {
 
 
 data.portals = {
-  { x = 850, destination = 'data.puzzleworld1_2', dx = 1350 },
-  --{ x = 900, destination = 'data.puzzleworld1_2', dx = 950 },
-  --{ x = 950, destination = 'data.puzzleworld1_2', dx = 1000 },
-  --{ x = 1000, destination = 'data.puzzleworld1_2', dx = 1050 },
-  --{ x = 1050, destination = 'data.puzzleworld1_2', dx = 1100 },
-  --{ x = 1100, destination = 'data.puzzleworld1_2', dx = 1150 },
-  --{ x = 1150, destination = 'data.puzzleworld1_2', dx = 1200 },
-  --{ x = 1200, destination = 'data.puzzleworld1_2', dx = 1250 },
-  --{ x = 1250, destination = 'data.puzzleworld1_2', dx = 1300 },
-  --{ x = 1300, destination = 'data.puzzleworld1_2', dx = 1350 },
-  { x = 1350, destination = 'data.puzzleworld1_2', dx = 850 },
-  --{ x = 1400, destination = 'data.puzzleworld1_2', dx = 850 }
+  { x = 850, destination = 'puzzleworld1_2', dx = 1350 },
+  --{ x = 900, destination = 'puzzleworld1_2', dx = 950 },
+  --{ x = 950, destination = 'puzzleworld1_2', dx = 1000 },
+  --{ x = 1000, destination = 'puzzleworld1_2', dx = 1050 },
+  --{ x = 1050, destination = 'puzzleworld1_2', dx = 1100 },
+  --{ x = 1100, destination = 'puzzleworld1_2', dx = 1150 },
+  --{ x = 1150, destination = 'puzzleworld1_2', dx = 1200 },
+  --{ x = 1200, destination = 'puzzleworld1_2', dx = 1250 },
+  --{ x = 1250, destination = 'puzzleworld1_2', dx = 1300 },
+  --{ x = 1300, destination = 'puzzleworld1_2', dx = 1350 },
+  { x = 1350, destination = 'puzzleworld1_2', dx = 850 },
+  --{ x = 1400, destination = 'puzzleworld1_2', dx = 850 }
 }
 
 data.switches = {
@@ -129,7 +129,7 @@ function data.triggers.onEnterPortal(context, p)
 end
 
 function data.triggers.onPlayerDeath(context)
-  context.changeWorld('data.puzzleworld1', 450)
+  context.changeWorld('puzzleworld1', 450)
 end
 
 
@@ -146,7 +146,7 @@ end
 function processGroupOneSwitch(context, s)
   table.insert(switchStack, 1, s)
   if #switchStack > 3 then
-    last = table.remove(switchStack)
+    local last = table.remove(switchStack)
     context.setSwitchStatus(last.name, false)
   end
 
@@ -154,14 +154,14 @@ function processGroupOneSwitch(context, s)
   local s3stat = context.getSwitchStatus('s3')
   local s5stat = context.getSwitchStatus('s5')
   if s2stat and s3stat and s5stat then
-    context.addPortal('part1', -150, 'data.puzzleworld1_2', 850)
+    context.addPortal('part1', -150, 'puzzleworld1_2', 850)
   end
 end
 
 function processGroupTwoSwitch(context, s)
   table.insert(switchStack, 1, s)
   if #switchStack > 3 then
-    last = table.remove(switchStack)
+    local last = table.remove(switchStack)
     context.setSwitchStatus(last.name, false)
   end
 
@@ -169,7 +169,7 @@ function processGroupTwoSwitch(context, s)
   local s7stat = context.getSwitchStatus('p2s7')
   local s10stat = context.getSwitchStatus('p2s10')
   if s6stat and s7stat and s10stat then
-    context.addPortal('part2', 1450, 'data.puzzleworld1_2', 500)
+    context.addPortal('part2', 1450, 'puzzleworld1_2', 500)
   end
 end
 
@@ -192,7 +192,7 @@ function processGroupThreeSwitch(context, s)
     p3Sequence[4] == 1 then
     context.setVar('puzzleworld1_2.solved', true)
     context.shakeCamera(5, 10)
-    context.addPortal('part3', 500, 'data.puzzleworld1', 450)
+    context.addPortal('part3', 500, 'puzzleworld1', 450)
   end
 end
 

@@ -249,7 +249,7 @@ data.lines = {
 }
 
 data.portals = {
-  { x = -848, destination = 'data.introworld', dx = 984 },
+  { x = -848, destination = 'introworld', dx = 984 },
   { name = 'winportal', x = 980, destination = 'TODO', dx = 0 },
 }
 

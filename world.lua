@@ -3,24 +3,38 @@ local portal = require('portal')
 local region = require('region')
 local switch = require('switch')
 local enemy = require('enemy')
+local color = require('color')
+local lazy = require('util.lazy')
 local world = {}
 
-function invertColor(rgb)
-  return { 255 - rgb[1], 255 - rgb[2], 255 - rgb[3] }
-end
-
-function safeCallTrigger(tt, name, ...)
+local function safeCallTrigger(tt, name, ...)
   if (tt and tt[name]) then
     return tt[name](...)
   end
 end
 
+local worldnames = lazy.new(function()
+  local worldfiles = love.filesystem.enumerate('worlds')
+  local names = {}
+  for i = 1, #worldfiles do
+    local _, _, name = worldfiles[i]:find('([%a%d_]+)%.lua$')
+    if name then
+      names[#names + 1] = name
+    end
+  end
+  return names
+end)
+
+function world.getNames()
+  return worldnames:get()
+end
+
 function world.new(name, context)
-  local data = require(name)
+  local data = require('worlds.' .. name)
   -- Build a world object from the data
   local instance = setmetatable({}, { __index = world })
-  instance.background = data.background or { 0, 0, 0 }
-  instance.foreground = data.foreground or invertColor(instance.background)
+  instance.background = color.new( data.background or { 0, 0, 0 } )
+  instance.foreground = data.foreground and color.new(data.foreground) or -instance.background  --color.invert(instance.background)
   instance.name    = name
   instance.lines   = data.lines
   instance.portals = {}
@@ -28,6 +42,7 @@ function world.new(name, context)
   instance.regions = {}
   instance.switches = {}
   instance.enemies = {}
+  instance.linewidth = data.linewidth or 1
   -- Create actual portal objects from the data
   for i,p in ipairs(data.portals or {}) do
     instance.portals[p.name or i] = portal.new(instance, p.name, p.x, p.destination, p.dx)
@@ -51,6 +66,16 @@ function world.new(name, context)
 end
 
 function world:y(x)
+  -- make sure there is enough data to work with and return the closest part
+  -- of the world if x isn't within the bounds of the world
+  if #self.lines < 4 then
+    return x
+  elseif x < self.lines[1] then
+    return self.lines[2]
+  elseif x > self.lines[#self.lines - 1] then
+    return self.lines[#self.lines]
+  end
+  
   -- traverse lines
   for i = 1, #self.lines - 3, 2 do
     local x1 = self.lines[i]
@@ -87,6 +112,7 @@ end
 function world:draw()
   local g = love.graphics
   --g.setColor(255, 255, 255)
+  g.setLineWidth(self.linewidth)
   g.setColor(self:oppositeColor())
   g.line(self.lines)
 
@@ -100,28 +126,21 @@ function world:draw()
     s:draw()
   end
 
-  for i,e in ipairs(self.enemies) do
+  for _,e in ipairs(self.enemies) do
     g.setColor(self:oppositeColor())
     e:draw()
   end
 end
 
 function world:scriptUpdate(context, dt)
-  local t = self.triggers or {}
-  if t.onUpdate then
-    t.onUpdate(context, dt)
-  end
+  safeCallTrigger(self.triggers, 'onUpdate', context, dt)
 end
 
 function world:scriptDraw(context)
-  local t = self.triggers or {}
-  if t.onDraw then
-    t.onDraw(context)
-  end
+  safeCallTrigger(self.triggers, 'onDraw', context)
 end
 
 function world:portalAt(x)
-  local y = self:y(x)
   for _,p in pairs(self.portals) do
     if p:contains(x) then return p end
   end
@@ -134,7 +153,7 @@ function world:regionAt(x)
 end
 
 function world:enemyAt(x)
-  for i,e in ipairs(self.enemies) do
+  for _,e in ipairs(self.enemies) do
     if e:contains(x) then return e end
   end
 end

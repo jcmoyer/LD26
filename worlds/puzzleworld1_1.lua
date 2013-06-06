@@ -63,9 +63,9 @@ data.lines = {
 }
 
 data.portals = {
-  { x = 50, destination = 'data.puzzleworld1', dx = 250 },
-  { name = 'pl', x = -214, destination = 'data.puzzleworld1_1', dx = 182 },
-  { name = 'pr', x = 182, destination = 'data.puzzleworld1_1', dx = -214 }
+  { x = 50, destination = 'puzzleworld1', dx = 250 },
+  { name = 'pl', x = -214, destination = 'puzzleworld1_1', dx = 182 },
+  { name = 'pr', x = 182, destination = 'puzzleworld1_1', dx = -214 }
 }
 
 data.enemies = {
@@ -85,13 +85,13 @@ function data.triggers.onEnter(context)
     context.setVar('puzzleworld1_1.entered', true)
   end
   if context.getVar('puzzleworld1_1.solved') then
-    lstat = context.setSwitchStatus('swl', true)
-    rstat = context.setSwitchStatus('swr', true)
+    context.setSwitchStatus('swl', true)
+    context.setSwitchStatus('swr', true)
   end
 end
 
 function data.triggers.onPlayerDeath(context)
-  context.changeWorld('data.puzzleworld1', 250)
+  context.changeWorld('puzzleworld1', 250)
 end
 
 local switchTimers = {}

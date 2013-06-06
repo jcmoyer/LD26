@@ -5,6 +5,7 @@ function switch.new(owner, name, x, ud, gvar)
     owner  = owner,
     name   = name,
     x      = x,
+    w      = 16,
     ud     = ud,
     gvar   = gvar,
     status = false
@@ -14,14 +15,13 @@ end
 
 function switch:draw()
   local g  = love.graphics
-  local w  = 16
   local y  = self.owner:y(self.x)
   local h  = self.status and 2 or 8
-  g.rectangle('fill', self.x - w / 2, y - h, w, h)
+  g.rectangle('fill', self.x - self.w / 2, y - h, self.w, h)
 end
 
 function switch:contains(x)
-  local hw = 8
+  local hw = self.w / 2
   return x >= self.x - hw and x <= self.x + hw
 end
 

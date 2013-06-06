@@ -1,3 +1,5 @@
+local color = require('color')
+
 local data = {}
 data.background = { 200, 200, 200 }
 
@@ -13,9 +15,9 @@ data.lines = {
 }
 
 data.portals  = {
-  { name = 'sp1', x = 250, destination = 'data.puzzleworld1_1', dx = 50 },
-  { name = 'sp2', x = 450, destination = 'data.puzzleworld1_2', dx = -150 },
-  { name = 'sp3', x = 650, destination = 'data.puzzleworld1_3', dx = 100 }
+  { name = 'sp1', x = 250, destination = 'puzzleworld1_1', dx = 50 },
+  { name = 'sp2', x = 450, destination = 'puzzleworld1_2', dx = -150 },
+  { name = 'sp3', x = 650, destination = 'puzzleworld1_3', dx = 100 }
 }
 
 data.triggers = {}
@@ -43,7 +45,7 @@ function data.triggers.onEnter(context)
 
   if puzzlesLeft == 0 then
     context.setVar('puzzleworld1.solved', true)
-    context.addPortal('next', 50, 'data.introworld6', 1150, true)
+    context.addPortal('next', 50, 'introworld6', 1150, true)
   end
 end
 
@@ -64,10 +66,12 @@ end
 
 function data.triggers.onDraw(context)
   local g = love.graphics
+  local bg = context:preferredColor()
+  
+  g.setColor(bg)
   g.circle('fill', 350, -200, 100)
 
-  local cr, cg, cb = g.getColor()
-  g.setColor(255 - cr, 255 - cg, 255 - cb)
+  g.setColor(-bg)
   g.line(350, -200, 350 + math.cos(t) * 100, -200 + math.sin(t) * 100)
   g.line(350, -200, 350 + math.cos(t / 60) * 70, -200 + math.sin(t / 60) * 70)
 end

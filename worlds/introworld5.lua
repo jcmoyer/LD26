@@ -22,9 +22,9 @@ data.lines = {
 }
 
 data.portals = {
-  { name = 'p1', x = 100, destination = 'data.introworld4', dx = 1350 },
-  { name = 'p2', x = 700, destination = 'data.introworld5', dx = 1300 },
-  { name = 'p3', x = 1300, destination = 'data.introworld6', dx = -50 }
+  { name = 'p1', x = 100, destination = 'introworld4', dx = 1350 },
+  { name = 'p2', x = 700, destination = 'introworld5', dx = 1300 },
+  { name = 'p3', x = 1300, destination = 'introworld6', dx = -50 }
 }
 
 data.switches = {

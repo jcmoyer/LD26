@@ -20,9 +20,9 @@ data.lines = {
 }
 
 data.portals = {
-  { x = 50  , destination = 'data.introworld2', dx = 2750 },
-  { x = 650 , destination = 'data.iw3r1'      , dx = 650 },
-  { x = 1250, destination = 'data.introworld3', dx = 50 }
+  { x = 50  , destination = 'introworld2', dx = 2750 },
+  { x = 650 , destination = 'iw3r1'      , dx = 650 },
+  { x = 1250, destination = 'introworld3', dx = 50 }
 }
 
 data.regions = {
@@ -46,9 +46,9 @@ function data.triggers.onEnterRegion(context, r)
 end
 
 function data.triggers.onEnterPortal(context, p)
-  if p.destination == 'data.introworld3' then
+  if p.destination == 'introworld3' then
     if context.getVar('introworld3.continue') then
-      context.changeWorld('data.introworld4', 800)
+      context.changeWorld('introworld4', 800)
       return false
     end
   end
