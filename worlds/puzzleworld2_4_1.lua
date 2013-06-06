@@ -9,7 +9,7 @@ data.lines = {
   500, 0
 }
 data.portals = {
-  { x = 62, destination = 'data.puzzleworld2', dx = 612 }
+  { x = 62, destination = 'puzzleworld2', dx = 612 }
 }
 
 data.triggers = {}

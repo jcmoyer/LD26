@@ -22,9 +22,9 @@ data.lines = {
   1257, 5
 }
 data.portals = {
-  { x = -45, destination = 'data.puzzleworld2', dx = -412 },
-  { x = 482, destination = 'data.puzzleworld2_2_1', dx = 891 },
-  { x = 1183, destination = 'data.puzzleworld2_1_2', dx = -50 }
+  { x = -45, destination = 'puzzleworld2', dx = -412 },
+  { x = 482, destination = 'puzzleworld2_2_1', dx = 891 },
+  { x = 1183, destination = 'puzzleworld2_1_2', dx = -50 }
 }
 
 data.triggers = {}

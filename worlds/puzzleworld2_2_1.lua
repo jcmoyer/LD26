@@ -30,9 +30,9 @@ data.lines = {
   1842, 53
 }
 data.portals = {
-  { x = -68, destination = 'data.puzzleworld2', dx = -156 },
-  { x = 891, destination = 'data.puzzleworld2_1_1', dx = 482 },
-  { x = 1736, destination = 'data.puzzleworld2_2_2', dx = -100 }
+  { x = -68, destination = 'puzzleworld2', dx = -156 },
+  { x = 891, destination = 'puzzleworld2_1_1', dx = 482 },
+  { x = 1736, destination = 'puzzleworld2_2_2', dx = -100 }
 }
 data.enemies = {
   { x = 178, patrol = { left = 178, right = 591 }, size = 5 }
@@ -40,7 +40,7 @@ data.enemies = {
 
 data.triggers = {}
 function data.triggers.onPlayerDeath(context)
-  context.changeWorld('data.puzzleworld2', -156)
+  context.changeWorld('puzzleworld2', -156)
 end
 
 return data

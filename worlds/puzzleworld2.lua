@@ -72,13 +72,13 @@ data.lines = {
 }
 
 data.portals = {
-  { x = -412, destination = 'data.puzzleworld2_1_1', dx = -45 },
-  { x = -156, destination = 'data.puzzleworld2_2_1', dx = -68 },
-  { x = 356, destination = 'data.puzzleworld2_3_1', dx = 62 },
-  { x = 612, destination = 'data.puzzleworld2_4_1', dx = 62 },
+  { x = -412, destination = 'puzzleworld2_1_1', dx = -45 },
+  { x = -156, destination = 'puzzleworld2_2_1', dx = -68 },
+  { x = 356, destination = 'puzzleworld2_3_1', dx = 62 },
+  { x = 612, destination = 'puzzleworld2_4_1', dx = 62 },
 
   -- Entry portal
-  { x = 100, destination = 'data.treasureroom', dx = 980 }
+  { x = 100, destination = 'treasureroom', dx = 980 }
 }
 
 data.triggers = {}

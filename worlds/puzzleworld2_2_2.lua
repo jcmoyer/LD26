@@ -63,8 +63,8 @@ data.lines = {
 }
 
 data.portals = {
-  { x = -100, destination = 'data.puzzleworld2_2_1', dx = 1736 },
-  { x = 2612, destination = 'data.puzzleworld2_1_2', dx = 1971 }
+  { x = -100, destination = 'puzzleworld2_2_1', dx = 1736 },
+  { x = 2612, destination = 'puzzleworld2_1_2', dx = 1971 }
 }
 data.enemies = {
   { x = 1910, patrol = { left = 1910, right = 2129 } },
@@ -76,11 +76,11 @@ data.switches = {
 data.triggers = {}
 
 function spawnFinalRoomPortal(context, silent)
-  context.addPortal('final', 1447, 'data.puzzleworld2_2_3', 62, silent)
+  context.addPortal('final', 1447, 'puzzleworld2_2_3', 62, silent)
 end
 
 function data.triggers.onPlayerDeath(context)
-  context.changeWorld('data.puzzleworld2', -156)
+  context.changeWorld('puzzleworld2', -156)
 end
 
 function data.triggers.onEnter(context)

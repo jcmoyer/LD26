@@ -46,8 +46,8 @@ data.lines = {
   2024, -159
 }
 data.portals = {
-  { x = -50, destination = 'data.puzzleworld2_1_1', dx = 1183 },
-  { x = 1971, destination = 'data.puzzleworld2_2_2', dx = 2612 }
+  { x = -50, destination = 'puzzleworld2_1_1', dx = 1183 },
+  { x = 1971, destination = 'puzzleworld2_2_2', dx = 2612 }
 }
 
 return data
