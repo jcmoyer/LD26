@@ -16,7 +16,7 @@ function playstate:changeworld(name)
   self.world:onEnter(self.context)
 end
 
-function playstate:makecontext(sm)
+function playstate:makecontext()
   local ctx = gamecontext.new()
   function ctx.showMessage(text, duration)
     local m = self.message
@@ -101,7 +101,7 @@ end
 
 function playstate:onEnter(old)
   if getmetatable(old) ~= playmenustate.mt then
-    self.context = self:makecontext(self:sm())
+    self.context = self:makecontext()
     self:changeworld('start')
   end
 end
