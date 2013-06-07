@@ -11,8 +11,8 @@ function message.new(text, duration, x, y)
     color = color.new(255, 255, 255),
     x = x or 0,
     y = y or 0,
-    dx = 0,
-    dy = 0,
+    dx = x or 0,
+    dy = y or 0,
     font = defaultFont
   }
   return setmetatable(instance, { __index = message })
