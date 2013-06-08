@@ -3,7 +3,7 @@ local world = require('world')
 local camera = require('camera')
 local mathex = require('mathex')
 local gamecontext = require('gamecontext')
-local timerpool = require('timerpool')
+local timerpool = require('core.timerpool')
 local playstate = require('playstate')
 local gamestate = require('gamestate')
 

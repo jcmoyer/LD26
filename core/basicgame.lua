@@ -1,5 +1,5 @@
 local statemachine = require('statemachine')
-local timerpool = require('timerpool')
+local timerpool = require('core.timerpool')
 
 local basicgame = {}
 
