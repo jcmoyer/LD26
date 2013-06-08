@@ -5,7 +5,7 @@ local mathex = require('mathex')
 local gamecontext = require('gamecontext')
 local timerpool = require('core.timerpool')
 local playstate = require('playstate')
-local gamestate = require('gamestate')
+local gamestate = require('core.gamestate')
 
 local uiscene = require('ui.scene')
 local uistackpanel = require('ui.stackpanel')

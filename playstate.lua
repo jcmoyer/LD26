@@ -8,7 +8,7 @@ local sound = require('sound')
 local gameoverstate = require('gameoverstate')
 local playmenustate = require('playmenustate')
 
-local gamestate = require('gamestate')
+local gamestate = require('core.gamestate')
 local playstate = setmetatable({}, { __index = gamestate })
 
 function playstate:changeworld(name)

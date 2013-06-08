@@ -2,7 +2,7 @@ local uiscene = require('ui.scene')
 local uibutton = require('ui.button')
 local sound = require('sound')
 
-local gamestate = require('gamestate')
+local gamestate = require('core.gamestate')
 local gameoverstate = setmetatable({}, { __index = gamestate })
 
 local gameoverFont = love.graphics.newFont(36)

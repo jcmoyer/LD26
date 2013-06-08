@@ -3,7 +3,7 @@ local uibutton = require('ui.button')
 local uistackpanel = require('ui.stackpanel')
 local sound = require('sound')
 
-local gamestate = require('gamestate')
+local gamestate = require('core.gamestate')
 local playmenustate = setmetatable({}, { __index = gamestate })
 playmenustate.mt = { __index = playmenustate }
 
