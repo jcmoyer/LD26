@@ -1,37 +1,37 @@
 local mathex = require('mathex')
 
 local color = {}
-color.mt = { __index = color }
+local mt = { __index = color }
 
 local function checkcolor(a)
   return type(a) == 'table' and a.iscolor == true
 end
 
-function color.mt.__add(a, b)
+function mt.__add(a, b)
   local result = a:clone()
   result:add(b)
   return result
 end
 
-function color.mt.__sub(a, b)
+function mt.__sub(a, b)
   local result = a:clone()
   result:sub(b)
   return result
 end
 
-function color.mt.__mul(a, b)
+function mt.__mul(a, b)
   local result = a:clone()
   result:mul(b)
   return result
 end
 
-function color.mt.__div(a, b)
+function mt.__div(a, b)
   local result = a:clone()
   result:div(b)
   return result
 end
 
-function color.mt.__unm(a)
+function mt.__unm(a)
   local result = a:clone()
   result:invert()
   return result
@@ -47,14 +47,14 @@ function color.new(r, g, b, a)
   end
   -- ensure all parameters are numbers
   if type(r) == 'number' and type(g) == 'number' and type(b) == 'number' and (type(a) == 'nil' or type(a) == 'number') then
-    return setmetatable({r, g, b, a, iscolor = true}, color.mt)
+    return setmetatable({r, g, b, a, iscolor = true}, mt)
   else
     error('a color requires at least three numerical components')  
   end
 end
 
 function color:clone()
-  return setmetatable({self[1], self[2], self[3], self[4], iscolor = true}, color.mt)
+  return setmetatable({self[1], self[2], self[3], self[4], iscolor = true}, mt)
 end
 
 --
