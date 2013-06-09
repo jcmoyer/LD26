@@ -4,7 +4,7 @@ local color = {}
 local mt = { __index = color }
 
 local function checkcolor(a)
-  return type(a) == 'table' and a.iscolor == true
+  return getmetatable(a) == mt
 end
 
 function mt.__add(a, b)
@@ -47,14 +47,14 @@ function color.new(r, g, b, a)
   end
   -- ensure all parameters are numbers
   if type(r) == 'number' and type(g) == 'number' and type(b) == 'number' and (type(a) == 'nil' or type(a) == 'number') then
-    return setmetatable({r, g, b, a, iscolor = true}, mt)
+    return setmetatable({r, g, b, a}, mt)
   else
     error('a color requires at least three numerical components')  
   end
 end
 
 function color:clone()
-  return setmetatable({self[1], self[2], self[3], self[4], iscolor = true}, mt)
+  return setmetatable({self[1], self[2], self[3], self[4]}, mt)
 end
 
 --
