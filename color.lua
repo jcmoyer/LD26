@@ -20,8 +20,16 @@ function mt.__sub(a, b)
 end
 
 function mt.__mul(a, b)
-  local result = a:clone()
-  result:mul(b)
+  local result
+  if checkcolor(a) then
+    result = a:clone()
+    result:mul(b)
+  elseif checkcolor(b) then
+    result = b:clone()
+    result:mul(a)
+  else
+    error('no colors given')
+  end
   return result
 end
 
