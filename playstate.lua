@@ -1,6 +1,6 @@
 local player = require('player')
 local world = require('world')
-local camera = require('camera')
+local camera = require('core.camera')
 local mathex = require('mathex')
 local message = require('message')
 local gamecontext = require('gamecontext')

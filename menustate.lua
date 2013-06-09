@@ -1,6 +1,6 @@
 local sound = require('sound')
 local world = require('world')
-local camera = require('camera')
+local camera = require('core.camera')
 local mathex = require('mathex')
 local gamecontext = require('gamecontext')
 local timerpool = require('core.timerpool')
