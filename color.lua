@@ -3,6 +3,16 @@ local mathex = require('mathex')
 local color = {}
 local mt = { __index = color }
 
+local function clampcolor(a)
+  if a < 0 then
+    return 0
+  elseif a > 255 then
+    return 255
+  else
+    return a
+  end
+end
+
 local function checkcolor(a)
   return getmetatable(a) == mt
 end
@@ -73,11 +83,11 @@ function color:add(b)
     error('cannot add a ' .. type(b) .. ' to a color')
   end
   -- All colors will have at least three components
-  self[1] = self[1] + b[1]
-  self[2] = self[2] + b[2]
-  self[3] = self[3] + b[3]
+  self[1] = clampcolor(self[1] + b[1])
+  self[2] = clampcolor(self[2] + b[2])
+  self[3] = clampcolor(self[3] + b[3])
   if #self == 4 and #b == 4 then
-    self[4] = self[4] + b[4]
+    self[4] = clampcolor(self[4] + b[4])
   end
 end
 
@@ -86,11 +96,11 @@ function color:sub(b)
     error('cannot subtract a ' .. type(b) .. ' from a color')
   end
   -- All colors will have at least three components
-  self[1] = self[1] - b[1]
-  self[2] = self[2] - b[2]
-  self[3] = self[3] - b[3]
+  self[1] = clampcolor(self[1] - b[1])
+  self[2] = clampcolor(self[2] - b[2])
+  self[3] = clampcolor(self[3] - b[3])
   if #self == 4 and #b == 4 then
-    self[4] = self[4] - b[4]
+    self[4] = clampcolor(self[4] - b[4])
   end
 end
 
@@ -98,11 +108,11 @@ function color:mul(b)
   if type(b) ~= 'number' then
     error('cannot multiply a color by a ' .. type(b))
   end
-  self[1] = self[1] * b
-  self[2] = self[2] * b
-  self[3] = self[3] * b
+  self[1] = clampcolor(self[1] * b)
+  self[2] = clampcolor(self[2] * b)
+  self[3] = clampcolor(self[3] * b)
   if #self == 4 then
-    self[4] = self[4] * b
+    self[4] = clampcolor(self[4] * b)
   end
 end
 
@@ -110,11 +120,11 @@ function color:div(b)
   if type(b) ~= 'number' then
     error('cannot divide a color by a ' .. type(b))
   end
-  self[1] = self[1] / b
-  self[2] = self[2] / b
-  self[3] = self[3] / b
+  self[1] = clampcolor(self[1] / b)
+  self[2] = clampcolor(self[2] / b)
+  self[3] = clampcolor(self[3] / b)
   if #self == 4 then
-    self[4] = self[4] / b
+    self[4] = clampcolor(self[4] / b)
   end
 end
 
