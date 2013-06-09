@@ -10,6 +10,7 @@ function control.new(x, y, w, h)
     w = w or 100,
     h = h or 32,
     visible = true,
+    focusable = false,
     focused = false,
     backcolor = { 128, 128, 128 },
     forecolor = { 255, 255, 255 },
