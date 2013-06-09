@@ -29,6 +29,7 @@ function playstate:makecontext()
     p.x = x or p.x
     if name ~= w.name then
       self:changeworld(name)
+      w = self.world
       p.x = mathex.clamp(p.x, w:left(), w:right())
       p.y = w:y(p.x)
       c:center(p.x, p.y)
