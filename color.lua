@@ -1,5 +1,3 @@
-local mathex = require('mathex')
-
 local color = {}
 local mt = { __index = color }
 
