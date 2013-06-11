@@ -1,8 +1,6 @@
 local sound = {}
 
 local newSource = love.audio.newSource
-local stop = love.audio.stop
-local play = love.audio.play
 
 local soundlist = {
   switch  = 'data/switch.ogg',
@@ -23,14 +21,14 @@ end
 
 function sound.tryPlay(snd)
   if snd then
-    play(snd)
+    snd:play()
   end
 end
 
 function sound.restart(snd)
   if snd then
-    stop(snd)
-    play(snd)
+    snd:stop()
+    snd:play()
   end
 end
 
