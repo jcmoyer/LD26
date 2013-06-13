@@ -1,3 +1,4 @@
+local timerpool = require('core.timerpool')
 local data = {}
 
 data.lines = {
@@ -96,7 +97,6 @@ data.enemies = {
 data.triggers = {}
 local switchStack = {}
 local p3Sequence = {}
-local switchTimers = {}
 
 function data.triggers.onEnter(context)
   switchStack = {}
@@ -105,17 +105,6 @@ function data.triggers.onEnter(context)
   if not context.getVar('puzzleworld1_2.entered') then
     context.showMessage('i hope you like switches as much as i do', 10)
     context.setVar('puzzleworld1_2.entered', true)
-  end
-end
-
-function data.triggers.onUpdate(context, dt)
-  for k,v in pairs(switchTimers) do
-    local t = switchTimers[k] - dt
-    switchTimers[k] = t
-    if (t <= 0 and context.getSwitchStatus(k)) then
-      context.playSwitchSound()
-      context.setSwitchStatus(k, false)
-    end
   end
 end
 
@@ -174,7 +163,10 @@ function processGroupTwoSwitch(context, s)
 end
 
 function processGroupThreeSwitch(context, s)
-  switchTimers[s.name] = 1
+  timerpool.start(1, function()
+      context.playSwitchSound()
+      context.setSwitchStatus(s.name, false)
+    end)
 
   if s.name == 'p3s1' then
     table.insert(p3Sequence, 1, 1)
@@ -186,6 +178,7 @@ function processGroupThreeSwitch(context, s)
     table.remove(p3Sequence)
   end
   if
+    not context.getVar('puzzleworld1_2.solved') and
     p3Sequence[1] == 1 and
     p3Sequence[2] == 2 and
     p3Sequence[3] == 2 and
