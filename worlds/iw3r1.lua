@@ -1,3 +1,4 @@
+local timerpool = require('core.timerpool')
 local data = {}
 
 data.lines = {
@@ -38,6 +39,7 @@ data.switches = {
 data.triggers = {}
 
 function setAllSwitches(context, status)
+  context.playSwitchSound()
   for _,v in ipairs(data.switches) do
     context.setSwitchStatus(v.name, status)
   end
@@ -66,8 +68,10 @@ function data.triggers.onSwitchChanged(context, s)
     end
   else
     -- wrong choice
-    setAllSwitches(context, false)
-    switchIndex = 1
+    timerpool.start(1, function()
+      setAllSwitches(context, false)
+      switchIndex = 1
+      end)
   end
 end
 
