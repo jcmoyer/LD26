@@ -42,6 +42,7 @@ function world.new(name, context)
   instance.regions = {}
   instance.switches = {}
   instance.enemies = {}
+  instance.projectiles = {}
   instance.linewidth = data.linewidth or 1
   -- Create actual portal objects from the data
   for i,p in ipairs(data.portals or {}) do
@@ -107,6 +108,10 @@ function world:update(dt)
   for _,e in ipairs(self.enemies) do
     e:update(dt)
   end
+  
+  for _,p in ipairs(self.projectiles) do
+    e:update(dt)
+  end
 end
 
 function world:draw()
@@ -129,6 +134,10 @@ function world:draw()
   for _,e in ipairs(self.enemies) do
     g.setColor(self:oppositeColor())
     e:draw()
+  end
+  
+  for _,p in ipairs(self.projectiles) do
+    p:draw()
   end
 end
 
