@@ -172,10 +172,8 @@ function playstate:update(dt)
     w:onPlayerDeath(context)
   end
   
-  if m then
-    m:setDestination(p.x - m:getWidth() / 2, p.y - p.h - m:getHeight() - 8)
-    m:update(dt)
-  end
+  m:setDestination(p.x - m:getWidth() / 2, p.y - p.h - m:getHeight() - 8)
+  m:update(dt)
 
   w:update(dt)
   w:scriptUpdate(context, dt)
