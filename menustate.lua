@@ -1,3 +1,4 @@
+local fontpool = require('core.fontpool')
 local sound = require('sound')
 local world = require('world')
 local camera = require('core.camera')
@@ -13,7 +14,7 @@ local uibutton = require('ui.button')
 
 local menustate = setmetatable({}, { __index = gamestate })
 
-local headerfont = love.graphics.newFont(48)
+local headerfont = fontpool.get(48)
 
 local function pickWorldName()
   local worldnames = world.getNames()

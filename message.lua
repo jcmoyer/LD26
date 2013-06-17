@@ -1,8 +1,9 @@
+local fontpool = require('core.fontpool')
 local mathex = require('mathex')
 local color = require('color')
 
 local message = {}
-local defaultFont = love.graphics.newFont(18)
+local defaultFont = fontpool.get(18)
 
 function message.new(text, duration, x, y)
   local instance = {

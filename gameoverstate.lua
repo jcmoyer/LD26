@@ -1,3 +1,4 @@
+local fontpool = require('core.fontpool')
 local uiscene = require('ui.scene')
 local uibutton = require('ui.button')
 local sound = require('sound')
@@ -5,8 +6,8 @@ local sound = require('sound')
 local gamestate = require('core.gamestate')
 local gameoverstate = setmetatable({}, { __index = gamestate })
 
-local gameoverFont = love.graphics.newFont(36)
-local gameoverSubFont = love.graphics.newFont(16)
+local gameoverFont = fontpool.get(36)
+local gameoverSubFont = fontpool.get(16)
 
 local message = 'Thanks for playing!'
 local messageWidth = gameoverFont:getWidth(message)

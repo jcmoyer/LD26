@@ -1,7 +1,8 @@
+local fontpool = require('core.fontpool')
 local event = require('ui.event')
 local control = {}
 
-local defaultFont = love.graphics.newFont()
+local defaultFont = fontpool.get()
 
 function control.new(x, y, w, h)
   local instance = {
