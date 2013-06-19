@@ -1,6 +1,6 @@
 local portal = {}
 
-function portal.new(owner, name, x, destination, dx)
+function portal.new(owner, name, x, destination, dx, color)
   local instance = {
     owner = owner,
     name = name,
@@ -9,7 +9,8 @@ function portal.new(owner, name, x, destination, dx)
     w = 64,
     h = 96,
     y = owner:y(x),
-    dx = dx
+    dx = dx,
+    color = color
   }
   return setmetatable(instance, { __index = portal })
 end
@@ -17,8 +18,7 @@ end
 function portal:draw()
   local g = love.graphics
 
-  local cr, cg, cb = g.getColor()
-  g.setColor(cr * 0.8, cg * 0.8, cb * 0.8)
+  g.setColor(self.color)
   
   local w = self.w
   local h = self.h

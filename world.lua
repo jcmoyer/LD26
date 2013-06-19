@@ -46,7 +46,7 @@ function world.new(name, context)
   instance.linewidth = data.linewidth or 1
   -- Create actual portal objects from the data
   for i,p in ipairs(data.portals or {}) do
-    instance.portals[p.name or i] = portal.new(instance, p.name, p.x, p.destination, p.dx)
+    instance.portals[p.name or i] = portal.new(instance, p.name, p.x, p.destination, p.dx, instance.foreground * 0.8)
   end
   for i,r in ipairs(data.regions or {}) do
     instance.regions[r.name or i] = region.new(r.name, r.x, r.w)
@@ -182,7 +182,7 @@ function world:activateAt(x, context)
 end
 
 function world:addPortal(name, x, destination, dx)
-  self.portals[name] = portal.new(self, name, x, destination, dx)
+  self.portals[name] = portal.new(self, name, x, destination, dx, self.foreground * 0.8)
 end
 
 function world:removePortal(name)
