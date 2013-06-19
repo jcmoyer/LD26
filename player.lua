@@ -1,3 +1,4 @@
+local color = require('color')
 local player = {}
 
 function player.new()
@@ -6,7 +7,7 @@ function player.new()
     y = 0,
     w = 32,
     h = 64,
-    color = { 255, 255, 255 }
+    color = color.new(255, 255, 255)
   }
   return setmetatable(instance, { __index = player })
 end
