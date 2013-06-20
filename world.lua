@@ -122,7 +122,6 @@ function world:draw()
   g.line(self.lines)
 
   for _,p in pairs(self.portals) do
-    g.setColor(self:oppositeColor())
     p:draw()
   end
 
