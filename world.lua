@@ -110,7 +110,7 @@ function world:update(dt)
   end
   
   for _,p in ipairs(self.projectiles) do
-    e:update(dt)
+    p:update(dt)
   end
 end
 
