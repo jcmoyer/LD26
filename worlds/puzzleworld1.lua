@@ -1,4 +1,4 @@
-local color = require('color')
+local color = require('core.color')
 
 local data = {}
 data.background = { 200, 200, 200 }

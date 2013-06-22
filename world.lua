@@ -3,7 +3,7 @@ local portal = require('portal')
 local region = require('region')
 local switch = require('switch')
 local enemy = require('enemy')
-local color = require('color')
+local color = require('core.color')
 local lazy = require('util.lazy')
 local world = {}
 

@@ -1,6 +1,6 @@
 local fontpool = require('core.fontpool')
+local color = require('core.color')
 local mathex = require('mathex')
-local color = require('color')
 
 local message = {}
 local defaultFont = fontpool.get(18)

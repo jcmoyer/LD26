@@ -1,4 +1,4 @@
-local color = require('color')
+local color = require('core.color')
 local player = {}
 
 function player.new()
