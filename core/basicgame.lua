@@ -6,6 +6,8 @@ local basicgame = {}
 local sm = statemachine.new()
 
 function basicgame.start(initialstate)
+  require('core.extensions.math').install()
+  
   sm:push(initialstate)
 
   function love.load(args)

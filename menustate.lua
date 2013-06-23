@@ -2,7 +2,6 @@ local fontpool = require('core.fontpool')
 local sound = require('sound')
 local world = require('world')
 local camera = require('core.camera')
-local mathex = require('mathex')
 local gamecontext = require('gamecontext')
 local timerpool = require('core.timerpool')
 local playstate = require('playstate')
@@ -109,14 +108,14 @@ function menustate:draw()
   g.translate(-self.camera:calculatedX(), -self.camera:calculatedY())
   
   if self.fadeintimer then
-    local a = mathex.lerp(0, 255, self.fadeintimer.getRemaining() / self.fadeintimer.getDuration())
-    a = mathex.clamp(a, 0, 255)
+    local a = math.lerp(0, 255, self.fadeintimer.getRemaining() / self.fadeintimer.getDuration())
+    a = math.clamp(a, 0, 255)
     g.setColor(0, 0, 0, a)
     g.rectangle('fill', 0, 0, g.getWidth(), g.getHeight())
   end
   if self.fadeouttimer and not self.fadeouttimer.finished() then
-    local a = mathex.lerp(255, 0, self.fadeouttimer.getRemaining() / self.fadeouttimer.getDuration())
-    a = mathex.clamp(a, 0, 255)
+    local a = math.lerp(255, 0, self.fadeouttimer.getRemaining() / self.fadeouttimer.getDuration())
+    a = math.clamp(a, 0, 255)
     g.setColor(0, 0, 0, a)
     g.rectangle('fill', 0, 0, g.getWidth(), g.getHeight())
   end

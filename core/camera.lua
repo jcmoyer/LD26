@@ -1,4 +1,3 @@
-local mathex = require('mathex')
 local camera = {}
 
 function camera.new(width, height)
@@ -25,8 +24,8 @@ function camera:panCenter(x, y, dt)
   local cx = self.x
   local cy = self.y
   self:center(x, y)
-  self.x = mathex.lerp(cx, self.x, dt * 3)
-  self.y = mathex.lerp(cy, self.y, dt * 3)
+  self.x = math.lerp(cx, self.x, dt * 3)
+  self.y = math.lerp(cy, self.y, dt * 3)
 end
 
 function camera:update(dt)

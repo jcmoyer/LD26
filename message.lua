@@ -1,6 +1,5 @@
 local fontpool = require('core.fontpool')
 local color = require('core.color')
-local mathex = require('mathex')
 
 local message = {}
 local defaultFont = fontpool.get(18)
@@ -21,8 +20,8 @@ end
 
 function message:update(dt)
   self.duration = self.duration - dt
-  self.x = mathex.lerp(self.x, self.dx, dt * 10)
-  self.y = mathex.lerp(self.y, self.dy, dt * 10)
+  self.x = math.lerp(self.x, self.dx, dt * 10)
+  self.y = math.lerp(self.y, self.dy, dt * 10)
 end
 
 function message:draw()

@@ -1,4 +1,3 @@
-local mathex = require('mathex')
 local portal = require('portal')
 local region = require('region')
 local switch = require('switch')
@@ -89,7 +88,7 @@ function world:y(x)
       -- calculate the slope of the line
       local m = (y1 - y2) / (x1 - x2)
       -- calculate the base of the line
-      local b = mathex.lerp(y1, y2, d)
+      local b = math.lerp(y1, y2, d)
       -- y = mx + b
       return m * d + b
     end
