@@ -8,6 +8,7 @@ local sm = statemachine.new()
 
 function basicgame.start(initialstate)  
   extension.install(require('core.extensions.math'), math)
+  extension.install(require('core.extensions.table'), table)
   
   sm:push(initialstate)
 
