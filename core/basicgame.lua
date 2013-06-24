@@ -1,12 +1,13 @@
 local statemachine = require('core.statemachine')
 local timerpool = require('core.timerpool')
+local extension = require('core.extensions.extension')
 
 local basicgame = {}
 
 local sm = statemachine.new()
 
-function basicgame.start(initialstate)
-  require('core.extensions.math').install()
+function basicgame.start(initialstate)  
+  extension.install(require('core.extensions.math'), math)
   
   sm:push(initialstate)
 
