@@ -115,7 +115,6 @@ end
 
 function world:draw()
   local g = love.graphics
-  --g.setColor(255, 255, 255)
   g.setLineWidth(self.linewidth)
   g.setColor(self:oppositeColor())
   g.line(self.lines)
