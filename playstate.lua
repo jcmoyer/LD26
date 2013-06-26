@@ -1,7 +1,6 @@
 local player = require('player')
 local world = require('world')
 local camera = require('core.camera')
-local mathex = require('mathex')
 local message = require('message')
 local gamecontext = require('gamecontext')
 local sound = require('sound')
@@ -30,7 +29,7 @@ function playstate:makecontext()
     if name ~= w.name then
       self:changeworld(name)
       w = self.world
-      p.x = mathex.clamp(p.x, w:left(), w:right())
+      p.x = math.clamp(p.x, w:left(), w:right())
       p.y = w:y(p.x)
       c:center(p.x, p.y)
     end
@@ -127,7 +126,7 @@ function playstate:keypressed(key, unicode)
         w = self.world
         
         -- Instant pan when the world is different
-        p.x = mathex.clamp(p.x, w:left(), w:right())
+        p.x = math.clamp(p.x, w:left(), w:right())
         p.y = w:y(p.x)
         c:center(p.x, p.y)
       end
@@ -149,7 +148,7 @@ function playstate:update(dt)
   if k.isDown('right') then
     p.x = p.x + 300 * dt
   end
-  p.x = mathex.clamp(p.x, w:left(), w:right())
+  p.x = math.clamp(p.x, w:left(), w:right())
   p.y = w:y(p.x)
 
   local r = w:regionAt(p.x)
