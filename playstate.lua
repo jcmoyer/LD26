@@ -103,6 +103,7 @@ function playstate:onEnter(old)
   if getmetatable(old) ~= playmenustate.mt then
     self.context = self:makecontext()
     self:changeworld('start')
+    self.camera:center(self.player.x, self.player.y)
   end
 end
 
