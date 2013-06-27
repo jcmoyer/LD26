@@ -3,7 +3,7 @@ local region = require('region')
 local switch = require('switch')
 local enemy = require('enemy')
 local color = require('core.color')
-local lazy = require('util.lazy')
+local lazy = require('core.lazy')
 local world = {}
 
 local function safeCallTrigger(tt, name, ...)
