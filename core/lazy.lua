@@ -8,7 +8,7 @@ function lazy.new(factory)
 end
 
 function lazy:get()
-  if self.value ~= nil then
+  if self.value == nil then
     self.value = self.factory()
   end
   return self.value
