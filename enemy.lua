@@ -45,4 +45,10 @@ function enemy:contains(x)
   return x >= self.x - w / 2 and x <= self.x + w / 2
 end
 
+function enemy:overlaps(x, r)
+  local w, _ = calculatePixelSize(self)
+  local d = math.abs(self.x - x)
+  return d < r + w / 2
+end
+
 return enemy

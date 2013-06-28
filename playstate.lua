@@ -167,7 +167,7 @@ function playstate:update(dt)
   end
 
   -- check for death conditions
-  if w:enemyAt(p.x) then
+  if w:enemyOverlaps(p.x, p.w / 2) then
     sound.restart(sound.death)
     w:onPlayerDeath(context)
   end

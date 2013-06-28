@@ -164,6 +164,12 @@ function world:enemyAt(x)
   end
 end
 
+function world:enemyOverlaps(x, r)
+  for _,e in ipairs(self.enemies) do
+    if e:overlaps(x, r) then return e end
+  end
+end
+
 function world:activateAt(x, context)
   local r = false
   for _,s in pairs(self.switches) do
