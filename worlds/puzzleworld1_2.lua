@@ -90,7 +90,7 @@ data.enemies = {
   { x = 265, patrol = { left = 221, right = 355 }, size = 1.1, speed = 140 },
   { x = 305, patrol = { left = 250, right = 315 }, size = 0.5, speed = 150 },
   -- Right slope guards
-  { x = 650, patrol = { left = 605, right = 780 }, size = 3, speed = 30 }
+  { x = 650, patrol = { left = 605, right = 780 }, size = 2, speed = 30 }
   --{ x = 305, patrol = { left = 250, right = 315 }, size = 0.5, speed = 150 }
 }
 
