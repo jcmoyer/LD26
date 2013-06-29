@@ -170,18 +170,18 @@ function world:enemyOverlaps(x, r)
   end
 end
 
-function world:activateAt(x, context)
-  local r = false
+function world:activateAt(x, r, context)
+  local result = false
   for _,s in pairs(self.switches) do
-    if s:contains(x) then
+    if s:overlaps(x, r) then
       if not s.status then
-        r = true
+        result = true
         s.status = true
         self:onSwitchChanged(context, s)
       end
     end
   end
-  return r
+  return result
 end
 
 function world:addPortal(name, x, destination, dx)

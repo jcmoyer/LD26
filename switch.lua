@@ -25,4 +25,9 @@ function switch:contains(x)
   return x >= self.x - hw and x <= self.x + hw
 end
 
+function switch:overlaps(x, r)
+  local d = math.abs(self.x - x)
+  return d < r + self.w / 2
+end
+
 return switch

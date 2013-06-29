@@ -162,7 +162,7 @@ function playstate:update(dt)
   end
 
   -- activate switches at the player's location
-  if w:activateAt(p.x, context) then
+  if w:activateAt(p.x, p.w / 2, context) then
     sound.restart(sound.switch)
   end
 
