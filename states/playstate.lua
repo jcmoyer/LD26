@@ -13,6 +13,10 @@ local playstate = setmetatable({}, { __index = gamestate })
 function playstate:changeworld(name)
   self.world = world.new(name, self.context)
   self.world:onEnter(self.context)
+  
+  if self.bgcolor == nil then
+    self.bgcolor = self.world.background
+  end
 end
 
 function playstate:makecontext()
@@ -94,7 +98,8 @@ function playstate.new()
     camera = camera.new(love.graphics.getWidth(), love.graphics.getHeight()),
     message = message.new(),
     lastregion = nil,
-    context = nil
+    context = nil,
+    bgcolor = nil
   }
   return setmetatable(instance, { __index = playstate })
 end
@@ -180,6 +185,10 @@ function playstate:update(dt)
 
   c:update(dt)
   c:panCenter(p.x, p.y, dt)
+  
+  self.bgcolor[1] = math.lerp(self.bgcolor[1], w.background[1], dt * 10)
+  self.bgcolor[2] = math.lerp(self.bgcolor[2], w.background[2], dt * 10)
+  self.bgcolor[3] = math.lerp(self.bgcolor[3], w.background[3], dt * 10)
 end
 
 function playstate:draw()
@@ -189,7 +198,8 @@ function playstate:draw()
   local c = self.camera
   local m = self.message
   
-  g.setBackgroundColor(w.background)
+  g.setBackgroundColor(self.bgcolor)
+  
   g.clear()
 
   g.translate(c:calculatedX(), c:calculatedY())
