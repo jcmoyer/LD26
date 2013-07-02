@@ -4,7 +4,7 @@ local world = require('world')
 local camera = require('core.camera')
 local gamecontext = require('gamecontext')
 local timerpool = require('core.timerpool')
-local playstate = require('playstate')
+local playstate = require('states.playstate')
 local gamestate = require('core.gamestate')
 
 local uiscene = require('ui.scene')
@@ -125,7 +125,10 @@ function menustate:draw()
   g.rectangle('fill', 0, 0, g.getWidth(), g.getHeight())
   
   drawHeader()
+  
+  g.push()
   self.ui:draw()
+  g.pop()
 end
 
 function menustate:setRandomWorld()

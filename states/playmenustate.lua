@@ -54,6 +54,8 @@ function playmenustate:keypressed(key, unicode)
   if key == 'escape' then
     self:sm():pop()
   end
+  
+  self.ui:keypressed(key, unicode)
 end
 
 function playmenustate:mousepressed(x, y, button)
