@@ -17,7 +17,7 @@ function concept:enforce(t)
   for k,v in pairs(self) do
     local tktype = type(t[k])
     
-    if tktype ~= v.type then
+    if tktype ~= v.type and v.optional ~= true then
       error(k .. ' is not supported by this table')
       
       -- enforce nested concepts
@@ -35,7 +35,7 @@ concept.constructible = concept.new({
 })
 
 --
--- TODO: x = { optional = true }
---       y = { rule = function(data) return type(data) == 'string' or type(data) == 'number' end }
+-- TODO: y = { rule = function(data) return type(data) == 'string' or type(data) == 'number' end }
+--
 
 return concept
