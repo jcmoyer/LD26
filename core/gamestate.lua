@@ -34,7 +34,7 @@ function gamestate:draw()
 end
 
 function gamestate:sm(who)
-  if who then
+  if who ~= nil then
     self.statemachine = who
   end
   return self.statemachine
