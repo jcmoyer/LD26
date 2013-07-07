@@ -173,12 +173,10 @@ end
 function world:activateAt(x, r, context)
   local result = false
   for _,s in pairs(self.switches) do
-    if s:overlaps(x, r) then
-      if not s.status then
-        result = true
-        s.status = true
-        self:onSwitchChanged(context, s)
-      end
+    if s.status == false and s:overlaps(x, r) then
+      result = true
+      s.status = true
+      self:onSwitchChanged(context, s)
     end
   end
   return result
