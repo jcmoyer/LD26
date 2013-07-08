@@ -19,11 +19,11 @@ function concept:enforce(t)
     
     if tktype ~= v.type and v.optional ~= true then
       error(k .. ' is not supported by this table')
-      
-      -- enforce nested concepts
-      if tktype == 'table' and concept.isconcept(v.concept) then
-        v.concept:enforce(t[k])
-      end
+    end
+    
+    -- enforce nested concepts
+    if tktype == 'table' and concept.isconcept(v.concept) then
+      v.concept:enforce(t[k])
     end
   end
 end
