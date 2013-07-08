@@ -125,7 +125,10 @@ function playstate:keypressed(key, unicode)
   if key == 'up' then
     local portal = w:portalAt(p.x)
     if portal then
-      if not w:onEnterPortal(context, portal) then return end
+      -- handle portal entrance cancellation via script
+      if w:onEnterPortal(context, portal) == false then
+        return
+      end
       p.x = portal.dx
       if portal.destination ~= w.name then
         self:changeworld(portal.destination)
