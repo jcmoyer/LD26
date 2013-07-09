@@ -15,18 +15,20 @@ end
 
 function concept:enforce(t)
   for k,v in pairs(self) do
-    local tktype = type(t[k])
+    -- corresponding value in 't'
+    local tv = t[k]
+    local tvtype = type(tv)
     
-    if tktype ~= v.type and v.optional ~= true then
+    if tvtype ~= v.type and v.optional ~= true then
       error(k .. ' is not supported by this table')
     end
     
     -- enforce nested concepts
-    if tktype == 'table' and concept.isconcept(v.concept) then
-      v.concept:enforce(t[k])
+    if tvtype == 'table' and concept.isconcept(v.concept) then
+      v.concept:enforce(tv)
     end
     
-    if type(v.rule) == 'function' and not v.rule(t[k]) then
+    if type(v.rule) == 'function' and not v.rule(tv) then
       error(k .. ': rule was not satisfied')
     end
   end
