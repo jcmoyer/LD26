@@ -28,7 +28,7 @@ function concept:enforce(t)
       v.concept:enforce(tv)
     end
     
-    if type(v.rule) == 'function' and not v.rule(tv) then
+    if type(v.rule) == 'function' and v.rule(tv) == false then
       error(k .. ': rule was not satisfied')
     end
   end
