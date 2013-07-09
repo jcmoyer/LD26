@@ -25,6 +25,10 @@ function concept:enforce(t)
     if tktype == 'table' and concept.isconcept(v.concept) then
       v.concept:enforce(t[k])
     end
+    
+    if type(v.rule) == 'function' and not v.rule(t[k]) then
+      error(k .. ': rule was not satisfied')
+    end
   end
 end
 
@@ -33,9 +37,5 @@ concept.constructible = concept.new({
     type = 'function'
   }
 })
-
---
--- TODO: y = { rule = function(data) return type(data) == 'string' or type(data) == 'number' end }
---
 
 return concept
