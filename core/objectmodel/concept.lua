@@ -34,10 +34,10 @@ function concept:enforce(t)
   end
 end
 
-concept.constructible = concept.new({
+concept.constructible = concept.new {
   new = {
     type = 'function'
   }
-})
+}
 
 return concept
