@@ -19,12 +19,10 @@ function concept:enforce(t)
     local tv = t[k]
     local tvtype = type(tv)
     
-    if tvtype ~= v.type and v.optional ~= true then
-      error(k .. ' is not supported by this table')
-    end
-    
     if type(v.rule) == 'function' and v.rule(tv) ~= true then
       error(k .. ': rule was not satisfied')
+    elseif tvtype ~= v.type and v.optional ~= true then
+      error(k .. ' is not supported by this table')
     elseif tvtype == 'table' and concept.isconcept(v.concept) then
       v.concept:enforce(tv)
     end
