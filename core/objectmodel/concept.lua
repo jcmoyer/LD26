@@ -23,13 +23,13 @@ function concept:enforce(t)
       error(k .. ' is not supported by this table')
     end
     
+    if type(v.rule) == 'function' and v.rule(tv) == false then
+      error(k .. ': rule was not satisfied')
+    end
+    
     -- enforce nested concepts
     if tvtype == 'table' and concept.isconcept(v.concept) then
       v.concept:enforce(tv)
-    end
-    
-    if type(v.rule) == 'function' and v.rule(tv) == false then
-      error(k .. ': rule was not satisfied')
     end
   end
 end
