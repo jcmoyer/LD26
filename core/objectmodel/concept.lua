@@ -25,10 +25,7 @@ function concept:enforce(t)
     
     if type(v.rule) == 'function' and v.rule(tv) == false then
       error(k .. ': rule was not satisfied')
-    end
-    
-    -- enforce nested concepts
-    if tvtype == 'table' and concept.isconcept(v.concept) then
+    elseif tvtype == 'table' and concept.isconcept(v.concept) then
       v.concept:enforce(tv)
     end
   end
