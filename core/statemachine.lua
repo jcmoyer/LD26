@@ -1,11 +1,12 @@
 local statemachine = {}
+local mt = { __index = statemachine }
 
 function statemachine.new()
   local instance = {
     states = {},
     base = 0
   }
-  return setmetatable(instance, { __index = statemachine })
+  return setmetatable(instance, mt)
 end
 
 function statemachine:findBaseState()

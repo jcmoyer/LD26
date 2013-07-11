@@ -1,10 +1,11 @@
 local lazy = {}
+local mt = { __index = lazy }
 
 function lazy.new(factory)
   local instance = {
     factory = factory
   }
-  return setmetatable(instance, { __index = lazy })
+  return setmetatable(instance, mt)
 end
 
 function lazy:get()

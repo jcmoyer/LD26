@@ -1,4 +1,5 @@
 local camera = {}
+local mt = { __index = camera }
 
 function camera.new(width, height)
   local instance = {
@@ -12,7 +13,7 @@ function camera.new(width, height)
     w = width,
     h = height
   }
-  return setmetatable(instance, { __index = camera })
+  return setmetatable(instance, mt)
 end
 
 function camera:center(x, y)

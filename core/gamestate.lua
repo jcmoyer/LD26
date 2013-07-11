@@ -1,4 +1,5 @@
 local gamestate = {}
+local mt = { __index = gamestate }
 
 gamestate.isgamestate = true
 
@@ -6,7 +7,7 @@ function gamestate.new()
   local instance = {
     transparent = false
   }
-  return setmetatable(instance, { __index = gamestate })
+  return setmetatable(instance, mt)
 end
 
 function gamestate:onEnter(oldstate)
