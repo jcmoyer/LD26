@@ -1,5 +1,6 @@
 local color = require('core.color')
 local player = {}
+local mt = { __index = player }
 
 function player.new()
   local instance = {
@@ -9,7 +10,7 @@ function player.new()
     h = 64,
     color = color.new(255, 255, 255)
   }
-  return setmetatable(instance, { __index = player })
+  return setmetatable(instance, mt)
 end
 
 function player:draw()

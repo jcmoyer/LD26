@@ -2,6 +2,7 @@ local fontpool = require('core.fontpool')
 local color = require('core.color')
 
 local message = {}
+local mt = { __index = message }
 local defaultFont = fontpool.get(18)
 
 function message.new(text, duration, x, y)
@@ -15,7 +16,7 @@ function message.new(text, duration, x, y)
     dy = y or 0,
     font = defaultFont
   }
-  return setmetatable(instance, { __index = message })
+  return setmetatable(instance, mt)
 end
 
 function message:update(dt)

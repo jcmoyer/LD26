@@ -1,4 +1,5 @@
 local region = {}
+local mt = { __index = region }
 
 function region.new(name, x, w)
   local instance = {
@@ -6,7 +7,7 @@ function region.new(name, x, w)
     x = x,
     w = w
   }
-  return setmetatable(instance, { __index = region })
+  return setmetatable(instance, mt)
 end
 
 function region:contains(x)

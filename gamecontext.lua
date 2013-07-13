@@ -1,4 +1,5 @@
 local gamecontext = {}
+local mt = { __index = gamecontext }
 
 function gamecontext.new()
   local instance = {}
@@ -44,7 +45,7 @@ function gamecontext.new()
   function instance.setVar(name, value)
     vartable[name] = value
   end
-  return setmetatable(instance, { __index = gamecontext })
+  return setmetatable(instance, mt)
 end
 
 return gamecontext

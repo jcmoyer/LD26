@@ -5,6 +5,7 @@ local enemy = require('enemy')
 local color = require('core.color')
 local lazy = require('core.lazy')
 local world = {}
+local mt = { __index = world }
 
 local function safeCallTrigger(tt, name, ...)
   if (tt and tt[name]) then
@@ -31,7 +32,7 @@ end
 function world.new(name, context)
   local data = dofile('worlds/' .. name .. '.lua')
   -- Build a world object from the data
-  local instance = setmetatable({}, { __index = world })
+  local instance = setmetatable({}, mt)
   instance.background = color.new( data.background or { 0, 0, 0 } )
   instance.foreground = data.foreground and color.new(data.foreground) or -instance.background
   instance.name    = name

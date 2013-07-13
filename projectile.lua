@@ -1,5 +1,6 @@
 local color = require('core.color')
 local projectile = {}
+local mt = { __index = projectile }
 
 function projectile.new(x, y, vx, vy)
   local instance = {
@@ -10,7 +11,7 @@ function projectile.new(x, y, vx, vy)
     color = color.new(255, 0, 0),
     size = 8,
   }
-  return setmetatable(instance, { __index = projectile })
+  return setmetatable(instance, mt)
 end
 
 function projectile:update(dt)

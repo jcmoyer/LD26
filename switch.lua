@@ -1,4 +1,5 @@
 local switch = {}
+local mt = { __index = switch }
 
 function switch.new(owner, name, x, ud, gvar)
   local instance = {
@@ -10,7 +11,7 @@ function switch.new(owner, name, x, ud, gvar)
     gvar   = gvar,
     status = false
   }
-  return setmetatable(instance, { __index = switch })
+  return setmetatable(instance, mt)
 end
 
 function switch:draw()

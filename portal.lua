@@ -1,4 +1,5 @@
 local portal = {}
+local mt = { __index = portal }
 
 function portal.new(owner, name, x, destination, dx, color)
   local instance = {
@@ -12,7 +13,7 @@ function portal.new(owner, name, x, destination, dx, color)
     dx = dx,
     color = color
   }
-  return setmetatable(instance, { __index = portal })
+  return setmetatable(instance, mt)
 end
 
 function portal:draw()

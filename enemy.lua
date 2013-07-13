@@ -1,4 +1,5 @@
 local enemy = {}
+local mt = { __index = enemy }
 
 local function calculatePixelSize(e)
   return e.size * 32, e.size * 32
@@ -13,7 +14,7 @@ function enemy.new(owner, x, patrol, size, speed)
     patrol = patrol,
     direction = 'right'
   }
-  return setmetatable(instance, { __index = enemy })
+  return setmetatable(instance, mt)
 end
 
 function enemy:update(dt)
