@@ -1,6 +1,8 @@
 local concept = {}
 local mt      = { __index = concept }
 
+local getmetatable, setmetatable, pcall, pairs, type, error = getmetatable, setmetatable, pcall, pairs, type, error
+
 function concept.new(t)
   return setmetatable(t, mt)
 end

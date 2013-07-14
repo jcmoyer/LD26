@@ -1,6 +1,9 @@
 local camera = {}
 local mt = { __index = camera }
 
+local setmetatable = setmetatable
+local random = math.random
+
 function camera.new(width, height)
   local instance = {
     x = 0,
@@ -36,15 +39,15 @@ function camera:update(dt)
     self.sx = 0
     self.sy = 0
   else
-    self.sx = math.random() * self.sm * (self.st / self.sd)
-    self.sy = math.random() * self.sm * (self.st / self.sd)
+    self.sx = random() * self.sm * (self.st / self.sd)
+    self.sy = random() * self.sm * (self.st / self.sd)
   end
 end
 
 function camera:shake(duration, magnitude)
   self.st = duration
   self.sd = duration
-  self.sm = magnitude or math.random() * 20
+  self.sm = magnitude or random() * 20
 end
 
 function camera:calculatedX()

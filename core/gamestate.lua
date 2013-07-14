@@ -1,6 +1,8 @@
 local gamestate = {}
 local mt = { __index = gamestate }
 
+local setmetatable = setmetatable
+
 gamestate.isgamestate = true
 
 function gamestate.new()

@@ -1,6 +1,8 @@
 local timerpool = {}
 local timers = {}
 
+local remove = table.remove
+
 function timerpool.start(duration, callback)
   local remaining = duration
   local timer = {}
@@ -32,7 +34,7 @@ function timerpool.update(dt)
     if t.finished() then
       local f = t.getCallback()
       if f then f() end
-      table.remove(timers, i)
+      remove(timers, i)
     end
   end
 end

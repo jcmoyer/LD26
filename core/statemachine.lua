@@ -1,6 +1,10 @@
 local statemachine = {}
 local mt = { __index = statemachine }
 
+local setmetatable, error = setmetatable, error
+local max = math.max
+local insert, remove = table.insert, table.remove
+
 function statemachine.new()
   local instance = {
     states = {},
@@ -18,7 +22,7 @@ function statemachine:findBaseState()
       i = i - 1
       s = self.states[i]
     until not s.transparent or i < 1
-    self.base = math.max(i, 1)
+    self.base = max(i, 1)
   end
 end
 
@@ -77,7 +81,7 @@ function statemachine:push(newstate)
   local oldstate = self:top()
   
   newstate:sm(self)
-  table.insert(self.states, newstate)
+  insert(self.states, newstate)
   
   if oldstate then
     oldstate:onLeave(newstate)
@@ -88,7 +92,7 @@ function statemachine:push(newstate)
 end
 
 function statemachine:pop()
-  local popped = table.remove(self.states, newstate)
+  local popped = remove(self.states, newstate)
   
   if popped then
     popped:onLeave(newstate)

@@ -1,6 +1,8 @@
 local color = {}
 local mt = { __index = color }
 
+local getmetatable, setmetatable, type, error = getmetatable, setmetatable, type, error
+
 local function clampcolor(a)
   if a < 0 then
     return 0

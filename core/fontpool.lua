@@ -2,6 +2,8 @@
 local fontpool = {}
 local fonts = {}
 
+local newFont = love.graphics.newFont
+
 -- https://www.love2d.org/wiki/love.graphics.newFont
 --
 -- TODO: Support other overloads:
@@ -15,7 +17,7 @@ function fontpool.get(size)
   
   local f = fonts[size]
   if f == nil then
-    f = love.graphics.newFont(size)
+    f = newFont(size)
     fonts[size] = f
   end
   return f

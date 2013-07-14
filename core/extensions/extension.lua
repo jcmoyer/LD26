@@ -1,5 +1,7 @@
 local extension = {}
 
+local type, error, pairs = type, error, pairs
+
 -- installs the members of table 'ext' into table 't'
 function extension.install(ext, t)
   if type(ext) ~= 'table' then

@@ -1,6 +1,8 @@
 local lazy = {}
 local mt = { __index = lazy }
 
+local setmetatable = setmetatable
+
 function lazy.new(factory)
   local instance = {
     factory = factory,
