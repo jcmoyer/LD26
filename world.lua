@@ -120,22 +120,21 @@ function world:update(dt)
 end
 
 function world:draw()
-  local g = love.graphics
-  g.setLineWidth(self.linewidth)
-  g.setColor(self:oppositeColor())
-  g.line(self.lines)
+  setLineWidth(self.linewidth)
+  setColor(self:oppositeColor())
+  line(self.lines)
 
   for _,p in pairs(self.portals) do
     p:draw()
   end
 
   for _,s in pairs(self.switches) do
-    g.setColor(self:oppositeColor())
+    setColor(self:oppositeColor())
     s:draw()
   end
 
   for _,e in ipairs(self.enemies) do
-    g.setColor(self:oppositeColor())
+    setColor(self:oppositeColor())
     e:draw()
   end
   
