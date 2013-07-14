@@ -2,6 +2,10 @@ local color = require('core.color')
 local projectile = {}
 local mt = { __index = projectile }
 
+local graphics = love.graphics
+local setColor = graphics.setColor
+local rectangle = graphics.rectangle
+
 function projectile.new(x, y, vx, vy)
   local instance = {
     x = x,
@@ -20,11 +24,10 @@ function projectile:update(dt)
 end
 
 function projectile:draw()
-  local g = love.graphics
   local hs = self.size / 2
   
-  g.setColor(self.color)
-  g.rectangle('fill', self.x - hs, self.y - hs, self.size, self.size)
+  setColor(self.color)
+  rectangle('fill', self.x - hs, self.y - hs, self.size, self.size)
 end
 
 return projectile

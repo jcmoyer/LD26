@@ -1,6 +1,10 @@
 local portal = {}
 local mt = { __index = portal }
 
+local graphics = love.graphics
+local setColor = graphics.setColor
+local rectangle = graphics.rectangle
+
 function portal.new(owner, name, x, destination, dx, color)
   local instance = {
     owner = owner,
@@ -17,13 +21,11 @@ function portal.new(owner, name, x, destination, dx, color)
 end
 
 function portal:draw()
-  local g = love.graphics
-
-  g.setColor(self.color)
+  setColor(self.color)
   
   local w = self.w
   local h = self.h
-  g.rectangle('fill', self.x - w / 2, self.y - h, w, h)
+  rectangle('fill', self.x - w / 2, self.y - h, w, h)
 end
 
 function portal:contains(x)

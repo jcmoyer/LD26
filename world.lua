@@ -7,6 +7,11 @@ local lazy = require('core.lazy')
 local world = {}
 local mt = { __index = world }
 
+local dofile, setmetatable, pairs, ipairs = dofile, setmetatable, pairs, ipairs
+local graphics = love.graphics
+local setLineWidth, setColor = graphics.setLineWidth, graphics.setColor
+local line = graphics.line
+
 local function safeCallTrigger(tt, name, ...)
   if (tt and tt[name]) then
     return tt[name](...)

@@ -5,6 +5,10 @@ local message = {}
 local mt = { __index = message }
 local defaultFont = fontpool.get(18)
 
+local graphics = love.graphics
+local setColor, setFont = graphics.setColor, graphics.setFont
+local rectangle, print = graphics.rectangle, graphics.print
+
 function message.new(text, duration, x, y)
   local instance = {
     text = text or '',
@@ -21,25 +25,26 @@ end
 
 function message:update(dt)
   self.duration = self.duration - dt
+  -- TODO: Store in local. Extensions need to be registered before the game starts?
   self.x = math.lerp(self.x, self.dx, dt * 10)
   self.y = math.lerp(self.y, self.dy, dt * 10)
 end
 
 function message:draw()
-  local g = love.graphics
   local ic = -self.color
   ic[4] = 128 -- add an alpha component
 
+  -- TODO: Move into font/text accessors?
   local w = self.font:getWidth(self.text)
   local h = self.font:getHeight()
 
-  g.setColor(ic)
+  setColor(ic)
   -- inflate rectangle 2px on each side
-  g.rectangle('fill', self.x - 2, self.y - 2, w + 4, h + 4)
+  rectangle('fill', self.x - 2, self.y - 2, w + 4, h + 4)
 
-  g.setColor(self.color)
-  g.setFont(self.font)
-  g.print(self.text, self.x, self.y)
+  setColor(self.color)
+  setFont(self.font)
+  print(self.text, self.x, self.y)
 end
 
 function message:visible()

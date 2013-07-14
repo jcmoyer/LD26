@@ -1,6 +1,10 @@
 local enemy = {}
 local mt = { __index = enemy }
 
+local graphics = love.graphics
+local polygon = graphics.polygon
+local abs = math.abs
+
 local function calculatePixelSize(e)
   return e.size * 32, e.size * 32
 end
@@ -34,11 +38,10 @@ function enemy:update(dt)
 end
 
 function enemy:draw()
-  local g = love.graphics
   local y = self.owner:y(self.x)
   local w, h = calculatePixelSize(self)
   local hw = w / 2
-  g.polygon('fill', self.x, y, self.x - hw, y - h, self.x + hw, y - h)
+  polygon('fill', self.x, y, self.x - hw, y - h, self.x + hw, y - h)
 end
 
 function enemy:contains(x)
@@ -48,7 +51,7 @@ end
 
 function enemy:overlaps(x, r)
   local w, _ = calculatePixelSize(self)
-  local d = math.abs(self.x - x)
+  local d = abs(self.x - x)
   return d < r + w / 2
 end
 

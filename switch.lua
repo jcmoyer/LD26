@@ -1,6 +1,10 @@
 local switch = {}
 local mt = { __index = switch }
 
+local graphics = love.graphics
+local rectangle = graphics.rectangle
+local abs = math.abs
+
 function switch.new(owner, name, x, ud, gvar)
   local instance = {
     owner  = owner,
@@ -15,10 +19,9 @@ function switch.new(owner, name, x, ud, gvar)
 end
 
 function switch:draw()
-  local g  = love.graphics
-  local y  = self.owner:y(self.x)
-  local h  = self.status and 2 or 8
-  g.rectangle('fill', self.x - self.w / 2, y - h, self.w, h)
+  local y = self.owner:y(self.x)
+  local h = self.status and 2 or 8
+  rectangle('fill', self.x - self.w / 2, y - h, self.w, h)
 end
 
 function switch:contains(x)
@@ -27,7 +30,7 @@ function switch:contains(x)
 end
 
 function switch:overlaps(x, r)
-  local d = math.abs(self.x - x)
+  local d = abs(self.x - x)
   return d < r + self.w / 2
 end
 

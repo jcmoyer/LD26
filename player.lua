@@ -2,6 +2,10 @@ local color = require('core.color')
 local player = {}
 local mt = { __index = player }
 
+local graphics = love.graphics
+local setColor = graphics.setColor
+local rectangle = graphics.rectangle
+
 function player.new()
   local instance = {
     x = 0,
@@ -14,9 +18,8 @@ function player.new()
 end
 
 function player:draw()
-  local g = love.graphics
-  g.setColor(self.color)
-  g.rectangle('fill', self.x - self.w / 2, self.y - self.h, self.w, self.h)
+  setColor(self.color)
+  rectangle('fill', self.x - self.w / 2, self.y - self.h, self.w, self.h)
 end
 
 return player
