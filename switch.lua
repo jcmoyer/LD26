@@ -1,6 +1,7 @@
 local switch = {}
 local mt = { __index = switch }
 
+local setmetatable = setmetatable
 local graphics = love.graphics
 local rectangle = graphics.rectangle
 local abs = math.abs

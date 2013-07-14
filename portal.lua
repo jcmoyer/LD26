@@ -1,6 +1,7 @@
 local portal = {}
 local mt = { __index = portal }
 
+local setmetatable = setmetatable
 local graphics = love.graphics
 local setColor = graphics.setColor
 local rectangle = graphics.rectangle

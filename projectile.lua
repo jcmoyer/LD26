@@ -2,6 +2,7 @@ local color = require('core.color')
 local projectile = {}
 local mt = { __index = projectile }
 
+local setmetatable = setmetatable
 local graphics = love.graphics
 local setColor = graphics.setColor
 local rectangle = graphics.rectangle

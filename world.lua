@@ -11,6 +11,8 @@ local dofile, setmetatable, pairs, ipairs = dofile, setmetatable, pairs, ipairs
 local graphics = love.graphics
 local setLineWidth, setColor = graphics.setLineWidth, graphics.setColor
 local line = graphics.line
+local mathex = require('core.extensions.math')
+local lerp = mathex.lerp
 
 local function safeCallTrigger(tt, name, ...)
   if (tt and tt[name]) then
@@ -94,7 +96,7 @@ function world:y(x)
       -- calculate the slope of the line
       local m = (y1 - y2) / (x1 - x2)
       -- calculate the base of the line
-      local b = math.lerp(y1, y2, d)
+      local b = lerp(y1, y2, d)
       -- y = mx + b
       return m * d + b
     end

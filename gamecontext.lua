@@ -1,6 +1,8 @@
 local gamecontext = {}
 local mt = { __index = gamecontext }
 
+local setmetatable = setmetatable
+
 function gamecontext.new()
   local instance = {}
   local vartable = {}

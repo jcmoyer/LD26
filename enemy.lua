@@ -1,6 +1,7 @@
 local enemy = {}
 local mt = { __index = enemy }
 
+local setmetatable = setmetatable
 local graphics = love.graphics
 local polygon = graphics.polygon
 local abs = math.abs

@@ -5,9 +5,12 @@ local message = {}
 local mt = { __index = message }
 local defaultFont = fontpool.get(18)
 
+local setmetatable = setmetatable
 local graphics = love.graphics
 local setColor, setFont = graphics.setColor, graphics.setFont
 local rectangle, print = graphics.rectangle, graphics.print
+local mathex = require('core.extensions.math')
+local lerp = mathex.lerp
 
 function message.new(text, duration, x, y)
   local instance = {
@@ -25,9 +28,8 @@ end
 
 function message:update(dt)
   self.duration = self.duration - dt
-  -- TODO: Store in local. Extensions need to be registered before the game starts?
-  self.x = math.lerp(self.x, self.dx, dt * 10)
-  self.y = math.lerp(self.y, self.dy, dt * 10)
+  self.x = lerp(self.x, self.dx, dt * 10)
+  self.y = lerp(self.y, self.dy, dt * 10)
 end
 
 function message:draw()

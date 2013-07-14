@@ -3,6 +3,8 @@ local mt = { __index = camera }
 
 local setmetatable = setmetatable
 local random = math.random
+local mathex = require('core.extensions.math')
+local lerp = mathex.lerp
 
 function camera.new(width, height)
   local instance = {
@@ -28,8 +30,8 @@ function camera:panCenter(x, y, dt)
   local cx = self.x
   local cy = self.y
   self:center(x, y)
-  self.x = math.lerp(cx, self.x, dt * 3)
-  self.y = math.lerp(cy, self.y, dt * 3)
+  self.x = lerp(cx, self.x, dt * 3)
+  self.y = lerp(cy, self.y, dt * 3)
 end
 
 function camera:update(dt)

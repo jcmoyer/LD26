@@ -2,6 +2,7 @@ local color = require('core.color')
 local player = {}
 local mt = { __index = player }
 
+local setmetatable = setmetatable
 local graphics = love.graphics
 local setColor = graphics.setColor
 local rectangle = graphics.rectangle
