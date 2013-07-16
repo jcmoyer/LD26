@@ -37,7 +37,8 @@ function world.getNames()
 end
 
 function world.new(name, context)
-  local data = dofile('worlds/' .. name .. '.lua')
+  local data = love.filesystem.load('worlds/' .. name .. '.lua')()
+
   -- Build a world object from the data
   local instance = setmetatable({}, mt)
   instance.background = color.new( data.background or { 0, 0, 0 } )
