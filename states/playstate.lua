@@ -8,6 +8,12 @@ local gameoverstate = require('states.gameoverstate')
 local playmenustate = require('states.playmenustate')
 
 local gamestate = require('core.gamestate')
+
+local setmetatable = setmetatable
+local graphics = love.graphics
+local setBackgroundColor, clear, translate = graphics.setBackgroundColor, graphics.clear, graphics.translate
+local isDown = love.keyboard.isDown
+
 local playstate = setmetatable({}, { __index = gamestate })
 
 function playstate:changeworld(name)
@@ -150,11 +156,10 @@ function playstate:update(dt)
   local m = self.message
   local context = self.context
   
-  local k = love.keyboard
-  if k.isDown('left') then
+  if isDown('left') then
     p.x = p.x - 300 * dt
   end
-  if k.isDown('right') then
+  if isDown('right') then
     p.x = p.x + 300 * dt
   end
   p.x = math.clamp(p.x, w:left(), w:right())
@@ -195,17 +200,16 @@ function playstate:update(dt)
 end
 
 function playstate:draw()
-  local g = love.graphics
   local p = self.player
   local w = self.world
   local c = self.camera
   local m = self.message
   
-  g.setBackgroundColor(self.bgcolor)
+  setBackgroundColor(self.bgcolor)
   
-  g.clear()
+  clear()
 
-  g.translate(c:calculatedX(), c:calculatedY())
+  translate(c:calculatedX(), c:calculatedY())
   w:draw()
 
   p.color = w:oppositeColor()
