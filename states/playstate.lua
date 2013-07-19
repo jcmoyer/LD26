@@ -13,6 +13,8 @@ local setmetatable = setmetatable
 local graphics = love.graphics
 local setBackgroundColor, clear, translate = graphics.setBackgroundColor, graphics.clear, graphics.translate
 local isDown = love.keyboard.isDown
+local mathex = require('core.extensions.math')
+local lerp, clamp = mathex.lerp, mathex.clamp
 
 local playstate = setmetatable({}, { __index = gamestate })
 
@@ -39,7 +41,7 @@ function playstate:makecontext()
     if name ~= w.name then
       self:changeworld(name)
       w = self.world
-      p.x = math.clamp(p.x, w:left(), w:right())
+      p.x = clamp(p.x, w:left(), w:right())
       p.y = w:y(p.x)
       c:center(p.x, p.y)
     end
@@ -141,7 +143,7 @@ function playstate:keypressed(key, unicode)
         w = self.world
         
         -- Instant pan when the world is different
-        p.x = math.clamp(p.x, w:left(), w:right())
+        p.x = clamp(p.x, w:left(), w:right())
         p.y = w:y(p.x)
         c:center(p.x, p.y)
       end
@@ -162,7 +164,7 @@ function playstate:update(dt)
   if isDown('right') then
     p.x = p.x + 300 * dt
   end
-  p.x = math.clamp(p.x, w:left(), w:right())
+  p.x = clamp(p.x, w:left(), w:right())
   p.y = w:y(p.x)
 
   local r = w:regionAt(p.x)
@@ -194,9 +196,9 @@ function playstate:update(dt)
   c:update(dt)
   c:panCenter(p.x, p.y, dt)
   
-  self.bgcolor[1] = math.lerp(self.bgcolor[1], w.background[1], dt * 10)
-  self.bgcolor[2] = math.lerp(self.bgcolor[2], w.background[2], dt * 10)
-  self.bgcolor[3] = math.lerp(self.bgcolor[3], w.background[3], dt * 10)
+  self.bgcolor[1] = lerp(self.bgcolor[1], w.background[1], dt * 10)
+  self.bgcolor[2] = lerp(self.bgcolor[2], w.background[2], dt * 10)
+  self.bgcolor[3] = lerp(self.bgcolor[3], w.background[3], dt * 10)
 end
 
 function playstate:draw()
