@@ -31,7 +31,8 @@ function playstate:makecontext()
   local ctx = gamecontext.new()
   function ctx.showMessage(text, duration)
     local m = self.message
-    self.message = message.new(text, duration, m.x, m.y)
+    m.duration = duration
+    m:setText(text)
   end
   function ctx.changeWorld(name, x)
     local p = self.player
