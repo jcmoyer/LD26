@@ -29,7 +29,7 @@ data.lines = {
 
 data.portals = {
   { x = 1391, destination = 'puzzleworld2_3_3', dx = -1703 },
-  { x = -100, destination = 'TODO', dx = 0 }
+  { x = -100, destination = 'puzzleworld2_3_1', dx = 900 }
 }
 
 return data
