@@ -21,7 +21,7 @@ data.lines = {
 }
 
 data.portals = {
-  { x = 62, destination = 'puzzleworld2_2_2', dx = 2212 }
+  { x = 62, destination = 'puzzleworld2_2_2', dx = 2212 },
   { x = 631, destination = 'puzzleworld2_3_3', dx = 332 }
 }
 
