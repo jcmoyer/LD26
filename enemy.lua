@@ -5,6 +5,8 @@ local setmetatable = setmetatable
 local graphics = love.graphics
 local polygon = graphics.polygon
 local abs = math.abs
+local mathex = require('core.extensions.math')
+local clamp = mathex.clamp
 
 local function calculatePixelSize(e)
   return e.size * 32, e.size * 32
@@ -35,7 +37,7 @@ function enemy:update(dt)
       self.direction = 'right'
     end
   end
-  self.x = math.clamp(self.x, self.patrol.left, self.patrol.right)
+  self.x = clamp(self.x, self.patrol.left, self.patrol.right)
 end
 
 function enemy:draw()
