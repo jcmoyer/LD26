@@ -11,13 +11,24 @@ local uiscene = require('ui.scene')
 local uistackpanel = require('ui.stackpanel')
 local uibutton = require('ui.button')
 
+local setmetatable = setmetatable
+local random = math.random
+local graphics = love.graphics
+local setBackgroundColor, clear, translate = graphics.setBackgroundColor, graphics.clear, graphics.translate
+local setColor, rectangle = graphics.setColor, graphics.rectangle
+local push, pop = graphics.push, graphics.pop
+local getWidth, getHeight = graphics.getWidth, graphics.getHeight
+
+local mathex = require('core.extensions.math')
+local clamp, lerp = mathex.clamp, mathex.lerp
+
 local menustate = setmetatable({}, { __index = gamestate })
 
 local headerfont = fontpool.get(48)
 
 local function pickWorldName()
   local worldnames = world.getNames()
-  return worldnames[math.random(#worldnames)]
+  return worldnames[random(#worldnames)]
 end
 
 local function drawHeader()
@@ -27,7 +38,7 @@ local function drawHeader()
   local h = headerfont:getHeight()
   g.setColor(255, 255, 255)
   g.setFont(headerfont)
-  g.print(text, g.getWidth() / 2 - w / 2, g.getHeight() / 6 - h / 2)
+  g.print(text, getWidth() / 2 - w / 2, getHeight() / 6 - h / 2)
 end
 
 function menustate.new()
@@ -36,14 +47,14 @@ function menustate.new()
   instance.currentworld = nil
   instance.fadeintimer = nil
   instance.fadeouttimer = nil
-  instance.camera = camera.new(g.getWidth(), g.getHeight())
+  instance.camera = camera.new(getWidth(), getHeight())
   instance.x = 0
   
   -- ui code
   local ui = uiscene.new()
   local stackpanel = uistackpanel.new()
-  stackpanel.x = g.getWidth() / 2 - 75
-  stackpanel.y = g.getHeight() / 2 - 50
+  stackpanel.x = getWidth() / 2 - 75
+  stackpanel.y = getHeight() / 2 - 50
   stackpanel.w = 150
   stackpanel.h = 100
   local btnstart = uibutton.new()
@@ -97,38 +108,37 @@ function menustate:update(dt)
 end
 
 function menustate:draw()
-  local g = love.graphics
-  g.setBackgroundColor(self.currentworld.background)
-  g.clear()
+  setBackgroundColor(self.currentworld.background)
+  clear()
   
-  g.translate(self.camera:calculatedX(), self.camera:calculatedY())
+  translate(self.camera:calculatedX(), self.camera:calculatedY())
   self.currentworld:draw()
   
   -- reverse the translation to draw the overlay
-  g.translate(-self.camera:calculatedX(), -self.camera:calculatedY())
+  translate(-self.camera:calculatedX(), -self.camera:calculatedY())
   
   if self.fadeintimer then
-    local a = math.lerp(0, 255, self.fadeintimer.getRemaining() / self.fadeintimer.getDuration())
-    a = math.clamp(a, 0, 255)
-    g.setColor(0, 0, 0, a)
-    g.rectangle('fill', 0, 0, g.getWidth(), g.getHeight())
+    local a = lerp(0, 255, self.fadeintimer.getRemaining() / self.fadeintimer.getDuration())
+    a = clamp(a, 0, 255)
+    setColor(0, 0, 0, a)
+    rectangle('fill', 0, 0, getWidth(), getHeight())
   end
   if self.fadeouttimer and not self.fadeouttimer.finished() then
-    local a = math.lerp(255, 0, self.fadeouttimer.getRemaining() / self.fadeouttimer.getDuration())
-    a = math.clamp(a, 0, 255)
-    g.setColor(0, 0, 0, a)
-    g.rectangle('fill', 0, 0, g.getWidth(), g.getHeight())
+    local a = lerp(255, 0, self.fadeouttimer.getRemaining() / self.fadeouttimer.getDuration())
+    a = clamp(a, 0, 255)
+    setColor(0, 0, 0, a)
+    rectangle('fill', 0, 0, getWidth(), getHeight())
   end
   
   -- maybe only a temporary solution
-  g.setColor(0, 0, 0, 96)
-  g.rectangle('fill', 0, 0, g.getWidth(), g.getHeight())
+  setColor(0, 0, 0, 96)
+  rectangle('fill', 0, 0, getWidth(), getHeight())
   
   drawHeader()
   
-  g.push()
+  push()
   self.ui:draw()
-  g.pop()
+  pop()
 end
 
 function menustate:setRandomWorld()
