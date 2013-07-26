@@ -4,11 +4,13 @@ local extension = require('core.extensions.extension')
 
 local basicgame = {}
 
-function basicgame.start(initialstate)  
+function basicgame.start(initialstate, withexts)  
   local sm = statemachine.new()
   
-  extension.install(require('core.extensions.math'), math)
-  extension.install(require('core.extensions.table'), table)
+  if withexts == true then
+    extension.install(require('core.extensions.math'), math)
+    extension.install(require('core.extensions.table'), table)
+  end
   
   sm:push(initialstate)
 
