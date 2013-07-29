@@ -48,7 +48,7 @@ function playstate:makecontext()
     end
   end
   function ctx.addPortal(name, x, d, dx, silent)
-    if not silent then
+    if silent ~= true then
       sound.restart(sound.portal)
     end
     self.world:addPortal(name, x, d, dx)
