@@ -42,7 +42,6 @@ local function drawHeader()
 end
 
 function menustate.new()
-  local g = love.graphics
   local instance = setmetatable({}, { __index = menustate })
   instance.currentworld = nil
   instance.fadeintimer = nil
