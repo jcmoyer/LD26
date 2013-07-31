@@ -18,17 +18,19 @@ local setFont, print = graphics.setFont, graphics.print
 local isDown = love.keyboard.isDown
 local mathex = require('core.extensions.math')
 local lerp, clamp = mathex.lerp, mathex.clamp
+local floor = math.floor
+local format = string.format
 
 local playstate = setmetatable({}, { __index = gamestate })
 
 local scorefont = fontpool.get(18)
 
 local function maketimestr(t)
-  local sec = math.floor(t)
+  local sec = floor(t)
   local frac = t - sec
-  local min = math.floor(sec / 60)
-  local hr  = math.floor(min / 60)
-  return string.format('%02d:%02d:%02d.%03d', hr, min % 60, sec % 60, frac * 1000)
+  local min = floor(sec / 60)
+  local hr  = floor(min / 60)
+  return format('%02d:%02d:%02d.%03d', hr, min % 60, sec % 60, frac * 1000)
 end
 
 function playstate:changeworld(name)
