@@ -6,17 +6,30 @@ local gamecontext = require('gamecontext')
 local sound = require('sound')
 local gameoverstate = require('states.gameoverstate')
 local playmenustate = require('states.playmenustate')
+local fontpool = require('core.fontpool')
 
 local gamestate = require('core.gamestate')
 
 local setmetatable = setmetatable
 local graphics = love.graphics
 local setBackgroundColor, clear, translate = graphics.setBackgroundColor, graphics.clear, graphics.translate
+local push, pop, getWidth, getHeight = graphics.push, graphics.pop, graphics.getWidth, graphics.getHeight
+local setFont, print = graphics.setFont, graphics.print
 local isDown = love.keyboard.isDown
 local mathex = require('core.extensions.math')
 local lerp, clamp = mathex.lerp, mathex.clamp
 
 local playstate = setmetatable({}, { __index = gamestate })
+
+local scorefont = fontpool.get(18)
+
+local function maketimestr(t)
+  local sec = math.floor(t)
+  local frac = t - sec
+  local min = math.floor(sec / 60)
+  local hr  = math.floor(min / 60)
+  return string.format('%02d:%02d:%02d.%03d', hr, min % 60, sec % 60, frac * 1000)
+end
 
 function playstate:changeworld(name)
   self.world = world.new(name, self.context)
@@ -108,7 +121,8 @@ function playstate.new()
     message = message.new(),
     lastregion = nil,
     context = nil,
-    bgcolor = nil
+    bgcolor = nil,
+    time = 0
   }
   return setmetatable(instance, { __index = playstate })
 end
@@ -200,6 +214,8 @@ function playstate:update(dt)
   self.bgcolor[1] = lerp(self.bgcolor[1], w.background[1], dt * 10)
   self.bgcolor[2] = lerp(self.bgcolor[2], w.background[2], dt * 10)
   self.bgcolor[3] = lerp(self.bgcolor[3], w.background[3], dt * 10)
+  
+  self.time = self.time + dt
 end
 
 function playstate:draw()
@@ -212,6 +228,8 @@ function playstate:draw()
   
   clear()
 
+  -- draw game
+  push()
   translate(c:calculatedX(), c:calculatedY())
   w:draw()
 
@@ -224,6 +242,13 @@ function playstate:draw()
   end
 
   w:scriptDraw(self.context)
+  pop()
+  
+  -- draw time
+  local timestr = maketimestr(self.time)
+  local timew   = scorefont:getWidth(timestr)
+  setFont(scorefont)
+  print(timestr, getWidth() / 2 - timew / 2, getHeight() / 32)
 end
 
 return playstate
