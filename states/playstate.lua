@@ -4,6 +4,7 @@ local camera = require('core.camera')
 local message = require('message')
 local gamecontext = require('gamecontext')
 local sound = require('sound')
+local time = require('time')
 local gameoverstate = require('states.gameoverstate')
 local playmenustate = require('states.playmenustate')
 local fontpool = require('core.fontpool')
@@ -18,20 +19,10 @@ local setFont, print = graphics.setFont, graphics.print
 local isDown = love.keyboard.isDown
 local mathex = require('core.extensions.math')
 local lerp, clamp = mathex.lerp, mathex.clamp
-local floor = math.floor
-local format = string.format
 
 local playstate = setmetatable({}, { __index = gamestate })
 
 local scorefont = fontpool.get(18)
-
-local function maketimestr(t)
-  local sec = floor(t)
-  local frac = t - sec
-  local min = floor(sec / 60)
-  local hr  = floor(min / 60)
-  return format('%02d:%02d:%02d.%03d', hr, min % 60, sec % 60, frac * 1000)
-end
 
 function playstate:changeworld(name)
   self.world = world.new(name, self.context)
@@ -247,7 +238,7 @@ function playstate:draw()
   pop()
   
   -- draw time
-  local timestr = maketimestr(self.time)
+  local timestr = time.str(self.time)
   local timew   = scorefont:getWidth(timestr)
   setFont(scorefont)
   print(timestr, getWidth() / 2 - timew / 2, getHeight() / 32)
