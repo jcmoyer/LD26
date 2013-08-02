@@ -2,6 +2,7 @@ local fontpool = require('core.fontpool')
 local uiscene = require('ui.scene')
 local uibutton = require('ui.button')
 local sound = require('sound')
+local time = require('time')
 
 local gamestate = require('core.gamestate')
 local gameoverstate = setmetatable({}, { __index = gamestate })
@@ -16,9 +17,10 @@ local messageHeight = gameoverFont:getHeight()
 local submessage = 'Made for LD26 :: https://github.com/jcmoyer'
 local submessageWidth = gameoverSubFont:getWidth(submessage)
 
-function gameoverstate.new(message)
+function gameoverstate.new(message, time)
   local instance = {
     message = message,
+    time = time,
     ui = uiscene.new()
   }
   
@@ -67,6 +69,12 @@ function gameoverstate:draw()
   if self.message then
     local udsw = gameoverSubFont:getWidth(self.message)
     g.print(self.message, w / 2 - udsw / 2, h / 3)
+  end
+  
+  if self.time then
+    local scorestr = 'Your time was ' .. time.str(self.time)
+    local scorew = gameoverSubFont:getWidth(scorestr)
+    g.print(scorestr, w / 2 - scorew / 2, h / 3 + 8 + gameoverSubFont:getHeight())
   end
   
   self.ui:draw()

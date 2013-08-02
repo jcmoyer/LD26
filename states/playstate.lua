@@ -79,7 +79,7 @@ function playstate:makecontext()
   end
   function ctx.win(text)
     self:sm():pop()
-    self:sm():push(gameoverstate.new(text))
+    self:sm():push(gameoverstate.new(text, self.time))
   end
   function ctx.playSwitchSound()
     sound.restart(sound.switch)
