@@ -39,6 +39,17 @@ function gameoverstate.new(message, time)
   return setmetatable(instance, { __index = gameoverstate })
 end
 
+function gameoverstate:onEnter()
+  if love.filesystem.exists('time.dat') then
+    local n = love.filesystem.read('time.dat')
+    self.oldtime = tonumber(n)
+  end
+  
+  if type(self.oldtime) == 'number' and self.time < self.oldtime then
+    love.filesystem.write('time.dat', tostring(self.time))
+  end
+end
+
 function gameoverstate:mousepressed(x, y, button)
   self.ui:mousepressed(x, y, button)
 end
@@ -75,6 +86,12 @@ function gameoverstate:draw()
     local scorestr = 'Your time was ' .. time.str(self.time)
     local scorew = gameoverSubFont:getWidth(scorestr)
     g.print(scorestr, w / 2 - scorew / 2, h / 3 + 8 + gameoverSubFont:getHeight())
+  end
+  
+  if self.oldtime ~= nil then
+    local oldtimestr = 'Previous best was ' .. time.str(self.oldtime)
+    local oldtimew = gameoverSubFont:getWidth(oldtimestr)
+    g.print(oldtimestr, w / 2 - oldtimew / 2, h / 3 + (8 + gameoverSubFont:getHeight()) * 2)
   end
   
   self.ui:draw()
