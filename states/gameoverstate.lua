@@ -78,12 +78,12 @@ function gameoverstate:draw()
   g.setFont(gameoverSubFont)
   g.print(submessage, w / 2 - submessageWidth / 2, h / 2 - messageHeight / 2 + messageHeight + 8)
   
-  if self.message then
+  if self.message ~= nil then
     local udsw = gameoverSubFont:getWidth(self.message)
     g.print(self.message, w / 2 - udsw / 2, h / 3)
   end
   
-  if self.time then
+  if self.time ~= nil then
     local scorestr = 'Your time was ' .. time.str(self.time)
     local scorew = gameoverSubFont:getWidth(scorestr)
     g.print(scorestr, w / 2 - scorew / 2, h / 3 + 8 + gameoverSubFont:getHeight())
