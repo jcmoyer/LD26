@@ -21,6 +21,7 @@ function gameoverstate.new(message, time)
   local instance = {
     message = message,
     time = time,
+    oldtime = nil,
     ui = uiscene.new()
   }
   
