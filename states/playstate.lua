@@ -230,7 +230,7 @@ function playstate:draw()
   p:draw()
 
   if (m and m:visible()) then
-    m.color = w:oppositeColor()
+    m:setColor(w.foreground, w.background)
     m:draw()
   end
 

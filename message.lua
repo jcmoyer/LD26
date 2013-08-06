@@ -17,7 +17,7 @@ function message.new(text, duration, x, y)
     -- now set below
     --text = text or '',
     duration = duration or 0,
-    color = color.new(255, 255, 255),
+    --color = color.new(255, 255, 255),
     x = x or 0,
     y = y or 0,
     dx = x or 0,
@@ -27,6 +27,7 @@ function message.new(text, duration, x, y)
     font = defaultFont
   }
   message.setText(instance, text or '')
+  message.setColor(instance, color.new(255, 255, 255))
   return setmetatable(instance, mt)
 end
 
@@ -37,14 +38,11 @@ function message:update(dt)
 end
 
 function message:draw()
-  local ic = -self.color
-  ic[4] = 128 -- add an alpha component
-
-  setColor(ic)
+  setColor(self.backcolor)
   -- inflate rectangle 2px on each side
   rectangle('fill', self.x - 2, self.y - 2, self.w + 4, self.h + 4)
 
-  setColor(self.color)
+  setColor(self.forecolor)
   setFont(self.font)
   print(self.text, self.x, self.y)
 end
@@ -70,6 +68,17 @@ function message:setText(text)
   self.w = self.font:getWidth(text)
   self.h = self.font:getHeight()
   self.text = text
+end
+
+function message:setColor(fg, bg)
+  self.forecolor = fg
+  if bg ~= nil then
+    self.backcolor = bg
+  else
+    self.backcolor = -self.forecolor
+  end
+  -- add an alpha channel
+  self.backcolor[4] = 128
 end
 
 return message
