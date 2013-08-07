@@ -67,7 +67,14 @@ function data.triggers.onEnter(context)
   end
   
   if context.getVar('pwsound.solved') then
-    context.addPortal('next', -100, 'treasureroom', 50, false)
+    local silent = true
+    
+    if not context.getVar('pwsound.playexitonce') then
+      context.setVar('pwsound.playexitonce', true)
+      silent = false
+    end
+    
+    context.addPortal('next', -100, 'introworld5', 700, silent)
   end
 end
 

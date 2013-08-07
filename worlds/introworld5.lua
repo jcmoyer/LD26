@@ -38,6 +38,13 @@ data.triggers = {}
 function data.triggers.onEnter(context)
   if context.getVar('puzzleworld1.solved') then
     context.removePortal('p2')
+    
+    local silent = true
+    if not context.getVar('pwsound.playonce') then
+      context.setVar('pwsound.playonce', true)
+      silent = false
+    end
+    context.addPortal('pwsound', 700, 'pwsound_entry', -100, silent)
   end
 end
 
