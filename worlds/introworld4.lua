@@ -62,7 +62,12 @@ function data.triggers.onEnter(context)
     context.setVar('introworld4.entered', true)
   end
   if context.getVar('puzzleworld1.solved') then
-    context.addPortal('winroom', -50, 'treasureroom', 50, true)
+    local silent = true
+    if not context.getVar('treasureroom.playonce') then
+      context.setVar('treasureroom.playonce', true)
+      silent = false
+    end
+    context.addPortal('winroom', -50, 'treasureroom', 50, silent)
   end
 end
 
