@@ -73,7 +73,7 @@ function world.new(name, context)
     instance.enemies[i] = enemy.new(instance, e.x, e.patrol, e.size, e.speed)
   end
   for i,c in ipairs(data.counters or {}) do
-    instance.counters[c.name or i] = counter.new(instance, c.name, c.x, c.min, c.max)
+    instance.counters[c.name or i] = counter.new(instance, c.name, c.x, c.min, c.max, nil, instance.foreground * 0.8)
   end
 
   return instance
@@ -137,7 +137,7 @@ function world:draw()
   end
   
   for _,c in pairs(self.counters) do
-    c:draw(self:oppositeColor(), self.background)
+    c:draw()
   end
 
   for _,s in pairs(self.switches) do

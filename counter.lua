@@ -1,4 +1,5 @@
 local fontpool = require('core.fontpool')
+local color = require('core.color')
 
 local counter = {}
 local mt = { __index = counter }
@@ -12,7 +13,7 @@ local rectangle, triangle, print = graphics.rectangle, graphics.triangle, graphi
 local counterFont = fontpool.get(16)
 local counterMidY = 96 / 2
 
-function counter.new(owner, name, x, min, max, value)
+function counter.new(owner, name, x, min, max, value, bgcolor)
   local instance = {
     owner = owner,
     name = name,
@@ -23,6 +24,9 @@ function counter.new(owner, name, x, min, max, value)
   }
   -- sets valuew and valueh on instance
   counter.calculateValueSize(instance)
+  -- sets backcolor and forecolor
+  counter.setColor(instance, bgcolor or color.new(255, 255, 255))
+  
   return setmetatable(instance, mt)
 end
 
@@ -48,11 +52,11 @@ function counter:down()
   end
 end
 
-function counter:draw(bg, fg)
+function counter:draw()
   local x = self.x
   local y = self.owner:y(x)
   
-  setColor(bg)
+  setColor(self.backcolor)
   rectangle('fill', x - 16, y - 96 + 32, 32, 32)
   
   -- up arrow
@@ -68,7 +72,7 @@ function counter:draw(bg, fg)
     x    , y - 48 + 16 + 8 + 16)
   
   setFont(counterFont)
-  setColor(fg)
+  setColor(self.forecolor)
   print(self.value, x - self.valuew / 2, y - counterMidY - self.valueh / 2)
 end
 
@@ -81,6 +85,15 @@ end
 function counter:calculateValueSize()
   self.valuew = counterFont:getWidth(self.value)
   self.valueh = counterFont:getHeight()
+end
+
+function counter:setColor(bg, fg)
+  self.backcolor = bg
+  if fg ~= nil then
+    self.forecolor = fg
+  else
+    self.forecolor = -bg
+  end
 end
 
 return counter
