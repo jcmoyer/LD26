@@ -29,6 +29,8 @@ function gamecontext.new()
   end
   function instance.playSwitchSound()
   end
+  function instance.playSound(name)
+  end
   function instance.shakeCamera(d, m)
   end
   function instance.playerX()

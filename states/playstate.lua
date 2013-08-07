@@ -84,6 +84,9 @@ function playstate:makecontext()
   function ctx.playSwitchSound()
     sound.restart(sound.switch)
   end
+  function ctx.playSound(name)
+    sound.restart(sound[name])
+  end
   function ctx.shakeCamera(d, m)
     sound.tryPlay(sound.pickShiftingSound(m))
     self.camera:shake(d, m)
