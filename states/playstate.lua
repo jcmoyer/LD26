@@ -142,6 +142,13 @@ function playstate:keypressed(key, unicode)
   end
   
   if key == 'up' then
+    local counter = w:counterAt(p.x, p.w / 2)
+    if counter ~= nil then
+      if counter:up() == true then
+        w:onCounterChanged(context, counter)
+      end
+    end
+    
     local portal = w:portalAt(p.x)
     if portal then
       -- handle portal entrance cancellation via script
@@ -157,6 +164,15 @@ function playstate:keypressed(key, unicode)
         p.x = clamp(p.x, w:left(), w:right())
         p.y = w:y(p.x)
         c:center(p.x, p.y)
+      end
+    end
+  end
+  
+  if key == 'down' then
+    local counter = w:counterAt(p.x, p.w / 2)
+    if counter ~= nil then
+      if counter:down() == true then
+        w:onCounterChanged(context, counter)
       end
     end
   end

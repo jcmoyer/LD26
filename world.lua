@@ -2,6 +2,7 @@ local portal = require('portal')
 local region = require('region')
 local switch = require('switch')
 local enemy = require('enemy')
+local counter = require('counter')
 local color = require('core.color')
 local lazy = require('core.lazy')
 local world = {}
@@ -51,6 +52,7 @@ function world.new(name, context)
   instance.switches = {}
   instance.enemies = {}
   instance.projectiles = {}
+  instance.counters = {}
   instance.linewidth = data.linewidth or 1
   -- Create actual portal objects from the data
   for i,p in ipairs(data.portals or {}) do
@@ -69,6 +71,9 @@ function world.new(name, context)
   end
   for i,e in ipairs(data.enemies or {}) do
     instance.enemies[i] = enemy.new(instance, e.x, e.patrol, e.size, e.speed)
+  end
+  for i,c in ipairs(data.counters or {}) do
+    instance.counters[c.name or i] = counter.new(instance, c.x, c.min, c.max)
   end
 
   return instance
@@ -130,6 +135,10 @@ function world:draw()
   for _,p in pairs(self.portals) do
     p:draw()
   end
+  
+  for _,c in pairs(self.counters) do
+    c:draw(self:oppositeColor(), self.background)
+  end
 
   for _,s in pairs(self.switches) do
     setColor(self:oppositeColor())
@@ -169,6 +178,12 @@ end
 function world:enemyAt(x)
   for _,e in ipairs(self.enemies) do
     if e:contains(x) then return e end
+  end
+end
+
+function world:counterAt(x, r)
+  for _,c in ipairs(self.counters) do
+    if c:overlaps(x, r) then return c end
   end
 end
 
@@ -245,6 +260,10 @@ end
 
 function world:onPlayerDeath(context)
   safeCallTrigger(self.triggers, 'onPlayerDeath', context)
+end
+
+function world:onCounterChanged(context, c)
+  safeCallTrigger(self.triggers, 'onCounterChanged', context, c)
 end
 
 return world
