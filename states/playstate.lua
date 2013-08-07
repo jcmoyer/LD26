@@ -15,7 +15,7 @@ local setmetatable = setmetatable
 local graphics = love.graphics
 local setBackgroundColor, clear, translate = graphics.setBackgroundColor, graphics.clear, graphics.translate
 local push, pop, getWidth, getHeight = graphics.push, graphics.pop, graphics.getWidth, graphics.getHeight
-local setFont, print = graphics.setFont, graphics.print
+local setFont, setColor, print = graphics.setFont, graphics.setColor, graphics.print
 local isDown = love.keyboard.isDown
 local mathex = require('core.extensions.math')
 local lerp, clamp = mathex.lerp, mathex.clamp
@@ -263,6 +263,7 @@ function playstate:draw()
   local timestr = time.str(self.time)
   local timew   = scorefont:getWidth(timestr)
   setFont(scorefont)
+  setColor(w.foreground)
   print(timestr, getWidth() / 2 - timew / 2, getHeight() / 32)
 end
 
