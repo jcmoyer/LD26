@@ -11,7 +11,12 @@ local soundlist = {
   shift15 = 'data/Shifting15.ogg',
   shift20 = 'data/Shifting20.ogg',
   death   = 'data/death.ogg',
-  selection = 'data/select.ogg'
+  selection = 'data/select.ogg',
+  
+  squareC2 = 'data/squareC2.ogg',
+  squareC3 = 'data/squareC3.ogg',
+  squareC4 = 'data/squareC4.ogg',
+  squareC5 = 'data/squareC5.ogg'
 }
 
 for k,v in pairs(soundlist) do
