@@ -73,7 +73,7 @@ function world.new(name, context)
     instance.enemies[i] = enemy.new(instance, e.x, e.patrol, e.size, e.speed)
   end
   for i,c in ipairs(data.counters or {}) do
-    instance.counters[c.name or i] = counter.new(instance, c.x, c.min, c.max)
+    instance.counters[c.name or i] = counter.new(instance, c.name, c.x, c.min, c.max)
   end
 
   return instance
@@ -182,7 +182,7 @@ function world:enemyAt(x)
 end
 
 function world:counterAt(x, r)
-  for _,c in ipairs(self.counters) do
+  for _,c in pairs(self.counters) do
     if c:overlaps(x, r) then return c end
   end
 end
@@ -233,6 +233,13 @@ end
 function world:setSwitchStatus(name, status)
   local s = self.switches[name]
   if s then s.status = status end
+end
+
+function world:getCounterValue(name)
+  local c = self.counters[name]
+  if c ~= nil then
+    return c.value
+  end
 end
 
 function world:onEnter(context)

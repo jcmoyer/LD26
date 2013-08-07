@@ -12,9 +12,10 @@ local rectangle, triangle, print = graphics.rectangle, graphics.triangle, graphi
 local counterFont = fontpool.get(16)
 local counterMidY = 96 / 2
 
-function counter.new(owner, x, min, max, value)
+function counter.new(owner, name, x, min, max, value)
   local instance = {
     owner = owner,
+    name = name,
     x = x,
     min = min,
     max = max,

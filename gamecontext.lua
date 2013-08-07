@@ -25,6 +25,8 @@ function gamecontext.new()
   end
   function instance.setSwitchStatus(name, status)
   end
+  function instance.getCounterValue(name)
+  end
   function instance.win(text)
   end
   function instance.playSwitchSound()

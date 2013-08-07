@@ -77,6 +77,9 @@ function playstate:makecontext()
   function ctx.setSwitchStatus(name, status)
     self.world:setSwitchStatus(name, status)
   end
+  function ctx.getCounterValue(name)
+    return self.world:getCounterValue(name)
+  end
   function ctx.win(text)
     self:sm():pop()
     self:sm():push(gameoverstate.new(text, self.time))
