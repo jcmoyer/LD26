@@ -21,6 +21,8 @@ function counter.new(owner, name, x, min, max, value)
     max = max,
     value = value or min
   }
+  -- sets valuew and valueh on instance
+  counter.calculateValueSize(instance)
   return setmetatable(instance, mt)
 end
 
@@ -30,6 +32,7 @@ function counter:up()
     return false
   else
     self.value = target
+    self:calculateValueSize()
     return true
   end
 end
@@ -40,6 +43,7 @@ function counter:down()
     return false
   else
     self.value = target
+    self:calculateValueSize()
     return true
   end
 end
@@ -65,17 +69,18 @@ function counter:draw(bg, fg)
   
   setFont(counterFont)
   setColor(fg)
-  
-  local tw = counterFont:getWidth(self.value)
-  local th = counterFont:getHeight()
-  
-  love.graphics.print(self.value, x - tw / 2, y - counterMidY - th / 2)
+  print(self.value, x - self.valuew / 2, y - counterMidY - self.valueh / 2)
 end
 
 function counter:overlaps(x, r)
   local w = 32
   local d = abs(self.x - x)
   return d < r + w / 2
+end
+
+function counter:calculateValueSize()
+  self.valuew = counterFont:getWidth(self.value)
+  self.valueh = counterFont:getHeight()
 end
 
 return counter
