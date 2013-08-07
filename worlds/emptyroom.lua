@@ -28,7 +28,7 @@ function data.triggers.onEnter(context)
 end
 
 function data.triggers.onSwitchChanged(context, s)
-  if context.getVar('puzzleworld1.solved') then
+  if context.getVar('pwsound.solved') then
     context.showMessage('?!', 5)
     spawnSwitchPalacePortal(context, s)
   else
