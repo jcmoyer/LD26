@@ -252,12 +252,12 @@ function playstate:draw()
   p:draw()
 
   w:scriptDraw(self.context)
-  pop()
   
   if (m and m:visible()) then
     m:setColor(w.foreground, w.background)
     m:draw()
   end
+  pop()
   
   -- draw time
   local timestr = time.str(self.time)
