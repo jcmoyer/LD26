@@ -10,7 +10,7 @@ local graphics = love.graphics
 local setColor, setFont = graphics.setColor, graphics.setFont
 local rectangle, triangle, print = graphics.rectangle, graphics.triangle, graphics.print
 
-local counterFont = fontpool.get(16)
+local counterFont = fontpool.get(22)
 local counterMidY = 96 / 2
 
 function counter.new(owner, name, x, min, max, value, interactive, bgcolor)
