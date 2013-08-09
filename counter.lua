@@ -13,14 +13,15 @@ local rectangle, triangle, print = graphics.rectangle, graphics.triangle, graphi
 local counterFont = fontpool.get(16)
 local counterMidY = 96 / 2
 
-function counter.new(owner, name, x, min, max, value, bgcolor)
+function counter.new(owner, name, x, min, max, value, interactive, bgcolor)
   local instance = {
     owner = owner,
     name = name,
     x = x,
     min = min,
     max = max,
-    value = value or min
+    value = value or min,
+    interactive = interactive or true
   }
   -- sets valuew and valueh on instance
   counter.calculateValueSize(instance)
@@ -31,6 +32,10 @@ function counter.new(owner, name, x, min, max, value, bgcolor)
 end
 
 function counter:up()
+  if self.interactive == false then
+    return false
+  end
+  
   local target = self.value + 1
   if target > self.max then
     return false
@@ -42,6 +47,10 @@ function counter:up()
 end
 
 function counter:down()
+  if self.interactive == false then
+    return false
+  end
+  
   local target = self.value - 1
   if target < self.min then
     return false
@@ -59,17 +68,19 @@ function counter:draw()
   setColor(self.backcolor)
   rectangle('fill', x - 16, y - 96 + 32, 32, 32)
   
-  -- up arrow
-  triangle('fill',
-    x - 8, y - 48 - 16 - 8,
-    x + 8, y - 48 - 16 - 8,
-    x    , y - 48 - 16 - 8 - 16)
-  
-  -- down arrow
-  triangle('fill',
-    x - 8, y - 48 + 16 + 8,
-    x + 8, y - 48 + 16 + 8,
-    x    , y - 48 + 16 + 8 + 16)
+  if self.interactive == true then
+    -- up arrow
+    triangle('fill',
+      x - 8, y - 48 - 16 - 8,
+      x + 8, y - 48 - 16 - 8,
+      x    , y - 48 - 16 - 8 - 16)
+    
+    -- down arrow
+    triangle('fill',
+      x - 8, y - 48 + 16 + 8,
+      x + 8, y - 48 + 16 + 8,
+      x    , y - 48 + 16 + 8 + 16)
+  end
   
   setFont(counterFont)
   setColor(self.forecolor)

@@ -73,7 +73,7 @@ function world.new(name, context)
     instance.enemies[i] = enemy.new(instance, e.x, e.patrol, e.size, e.speed)
   end
   for i,c in ipairs(data.counters or {}) do
-    instance.counters[c.name or i] = counter.new(instance, c.name, c.x, c.min, c.max, nil, instance.foreground * 0.8)
+    instance.counters[c.name or i] = counter.new(instance, c.name, c.x, c.min, c.max, nil, c.interactive, instance.foreground * 0.8)
   end
 
   return instance
