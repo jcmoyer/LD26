@@ -11,7 +11,7 @@ local fontpool = require('core.fontpool')
 
 local gamestate = require('core.gamestate')
 
-local setmetatable = setmetatable
+local setmetatable, getmetatable = setmetatable, getmetatable
 local graphics = love.graphics
 local setBackgroundColor, clear, translate = graphics.setBackgroundColor, graphics.clear, graphics.translate
 local push, pop, getWidth, getHeight = graphics.push, graphics.pop, graphics.getWidth, graphics.getHeight
