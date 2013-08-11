@@ -165,31 +165,41 @@ end
 
 function world:portalAt(x)
   for _,p in pairs(self.portals) do
-    if p:contains(x) then return p end
+    if p:contains(x) then
+      return p  
+    end
   end
 end
 
 function world:regionAt(x)
   for _,r in pairs(self.regions) do
-    if r:contains(x) then return r end
+    if r:contains(x) then
+      return r
+    end
   end
 end
 
 function world:enemyAt(x)
   for _,e in ipairs(self.enemies) do
-    if e:contains(x) then return e end
+    if e:contains(x) then
+      return e
+    end
   end
 end
 
 function world:counterAt(x, r)
   for _,c in pairs(self.counters) do
-    if c:overlaps(x, r) then return c end
+    if c:overlaps(x, r) then
+      return c
+    end
   end
 end
 
 function world:enemyOverlaps(x, r)
   for _,e in ipairs(self.enemies) do
-    if e:overlaps(x, r) then return e end
+    if e:overlaps(x, r) then
+      return e
+    end
   end
 end
 
@@ -232,7 +242,9 @@ end
 
 function world:setSwitchStatus(name, status)
   local s = self.switches[name]
-  if s then s.status = status end
+  if s then
+    s.status = status
+  end
 end
 
 function world:getCounterValue(name)
@@ -254,7 +266,11 @@ end
 -- True means the portal operates as normal after the trigger returns
 function world:onEnterPortal(context, p)
   local r = safeCallTrigger(self.triggers, 'onEnterPortal', context, p)
-  if r ~= nil then return r else return true end
+  if r ~= nil then
+    return r
+  else
+    return true  
+  end
 end
 
 function world:onSwitchChanged(context, s)
