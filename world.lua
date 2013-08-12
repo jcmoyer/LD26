@@ -275,7 +275,7 @@ end
 
 function world:onSwitchChanged(context, s)
   -- update the global variable this switch is linked to
-  if s.gvar then
+  if s.gvar ~= nil then
     context.setVar(s.gvar, s.status)
   end
   safeCallTrigger(self.triggers, 'onSwitchChanged', context, s)
