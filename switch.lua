@@ -11,6 +11,7 @@ function switch.new(owner, name, x, ud, gvar)
     owner  = owner,
     name   = name,
     x      = x,
+    y      = owner:y(x),
     w      = 16,
     ud     = ud,
     gvar   = gvar,
@@ -20,9 +21,8 @@ function switch.new(owner, name, x, ud, gvar)
 end
 
 function switch:draw()
-  local y = self.owner:y(self.x)
   local h = self.status and 2 or 8
-  rectangle('fill', self.x - self.w / 2, y - h, self.w, h)
+  rectangle('fill', self.x - self.w / 2, self.y - h, self.w, h)
 end
 
 function switch:contains(x)
