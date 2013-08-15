@@ -179,6 +179,14 @@ function world:regionAt(x)
   end
 end
 
+function world:regionOverlaps(x, r)
+  for _,reg in pairs(self.regions) do
+    if reg:overlaps(x, r) then
+      return reg
+    end
+  end
+end
+
 function world:enemyAt(x)
   for _,e in ipairs(self.enemies) do
     if e:contains(x) then

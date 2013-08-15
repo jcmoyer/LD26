@@ -197,7 +197,7 @@ function playstate:update(dt)
   p.x = clamp(p.x, w:left(), w:right())
   p.y = w:y(p.x)
 
-  local r = w:regionAt(p.x)
+  local r = w:regionOverlaps(p.x, p.w / 2)
   if r ~= self.lastregion then
     -- if r is nil then we've left a region
     if r then
