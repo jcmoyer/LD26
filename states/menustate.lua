@@ -23,6 +23,7 @@ local mathex = require('core.extensions.math')
 local clamp, lerp = mathex.clamp, mathex.lerp
 
 local menustate = setmetatable({}, { __index = gamestate })
+local mt = { __index = menustate }
 
 local headerfont = fontpool.get(48)
 
@@ -42,7 +43,7 @@ local function drawHeader()
 end
 
 function menustate.new()
-  local instance = setmetatable({}, { __index = menustate })
+  local instance = setmetatable({}, mt)
   instance.currentworld = nil
   instance.fadeintimer = nil
   instance.fadeouttimer = nil

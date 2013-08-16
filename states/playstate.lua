@@ -21,6 +21,7 @@ local mathex = require('core.extensions.math')
 local lerp, clamp = mathex.lerp, mathex.clamp
 
 local playstate = setmetatable({}, { __index = gamestate })
+local mt = { __index = playstate }
 
 local scorefont = fontpool.get(18)
 
@@ -123,7 +124,7 @@ function playstate.new()
     bgcolor = nil,
     time = 0
   }
-  return setmetatable(instance, { __index = playstate })
+  return setmetatable(instance, mt)
 end
 
 function playstate:onEnter(old)

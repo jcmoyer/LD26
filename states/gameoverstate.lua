@@ -6,6 +6,7 @@ local time = require('time')
 
 local gamestate = require('core.gamestate')
 local gameoverstate = setmetatable({}, { __index = gamestate })
+local mt = { __index = gameoverstate }
 
 local gameoverFont = fontpool.get(36)
 local gameoverSubFont = fontpool.get(16)
@@ -37,7 +38,7 @@ function gameoverstate.new(message, time)
     end)
   instance.ui:addchild(btnmenu)
   
-  return setmetatable(instance, { __index = gameoverstate })
+  return setmetatable(instance, mt)
 end
 
 function gameoverstate:onEnter()
