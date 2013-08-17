@@ -15,9 +15,10 @@ local setmetatable = setmetatable
 local random = math.random
 local graphics = love.graphics
 local setBackgroundColor, clear, translate = graphics.setBackgroundColor, graphics.clear, graphics.translate
-local setColor, rectangle = graphics.setColor, graphics.rectangle
+local setColor, setFont, rectangle = graphics.setColor, graphics.setFont, graphics.rectangle
 local push, pop = graphics.push, graphics.pop
-local getWidth, getHeight = graphics.getWidth, graphics.getHeight
+local getWidth, getHeight, getCaption = graphics.getWidth, graphics.getHeight, graphics.getCaption
+local print = graphics.print
 
 local mathex = require('core.extensions.math')
 local clamp, lerp = mathex.clamp, mathex.lerp
@@ -33,13 +34,12 @@ local function pickWorldName()
 end
 
 local function drawHeader()
-  local g = love.graphics
-  local text = g.getCaption()
+  local text = getCaption()
   local w = headerfont:getWidth(text)
   local h = headerfont:getHeight()
-  g.setColor(255, 255, 255)
-  g.setFont(headerfont)
-  g.print(text, getWidth() / 2 - w / 2, getHeight() / 6 - h / 2)
+  setColor(255, 255, 255)
+  setFont(headerfont)
+  print(text, getWidth() / 2 - w / 2, getHeight() / 6 - h / 2)
 end
 
 function menustate.new()
