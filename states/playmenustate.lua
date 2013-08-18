@@ -4,6 +4,12 @@ local uistackpanel = require('ui.stackpanel')
 local sound = require('sound')
 
 local gamestate = require('core.gamestate')
+
+local setmetatable = setmetatable
+local graphics = love.graphics
+local getWidth, getHeight = graphics.getWidth, graphics.getHeight
+local setColor, rectangle = graphics.setColor, graphics.rectangle
+
 local playmenustate = setmetatable({}, { __index = gamestate })
 playmenustate.mt = { __index = playmenustate }
 
@@ -15,8 +21,8 @@ function playmenustate.new()
   -- ui code
   local ui = uiscene.new()
   local stackpanel = uistackpanel.new()
-  stackpanel.x = love.graphics.getWidth() / 2 - 75
-  stackpanel.y = love.graphics.getHeight() / 2 - 75
+  stackpanel.x = getWidth() / 2 - 75
+  stackpanel.y = getHeight() / 2 - 75
   stackpanel.w = 150
   stackpanel.h = 150
   local btnstart = uibutton.new()
@@ -71,9 +77,8 @@ function playmenustate:update(dt)
 end
 
 function playmenustate:draw()
-  local g = love.graphics
-  g.setColor(0, 0, 0, 128)
-  g.rectangle('fill', 0, 0, g.getWidth(), g.getHeight())
+  setColor(0, 0, 0, 128)
+  rectangle('fill', 0, 0, g.getWidth(), g.getHeight())
   
   self.ui:draw()
 end
