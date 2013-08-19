@@ -117,7 +117,7 @@ function playstate.new()
   local instance = {
     player = player.new(),
     world = nil,
-    camera = camera.new(love.graphics.getWidth(), love.graphics.getHeight()),
+    camera = camera.new(getWidth(), getHeight()),
     message = message.new(),
     lastregion = nil,
     context = nil,
