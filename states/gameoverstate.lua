@@ -5,6 +5,13 @@ local sound = require('sound')
 local time = require('time')
 
 local gamestate = require('core.gamestate')
+
+local setmetatable, tonumber, type = setmetatable, tonumber, type
+local graphics = love.graphics
+local getWidth, getHeight = graphics.getWidth, graphics.getHeight
+local setBackgroundColor, setColor, setFont = graphics.setBackgroundColor, graphics.setColor, graphics.setFont
+local clear, print = graphics.clear, graphics.print
+
 local gameoverstate = setmetatable({}, { __index = gamestate })
 local mt = { __index = gameoverstate }
 
@@ -65,35 +72,34 @@ function gameoverstate:update(dt)
 end
 
 function gameoverstate:draw()
-  local g = love.graphics
-  local w = g.getWidth()
-  local h = g.getHeight()
+  local w = getWidth()
+  local h = getHeight()
   
-  g.setBackgroundColor(0, 0, 0)
-  g.clear()
+  setBackgroundColor(0, 0, 0)
+  clear()
   
-  g.setColor(255, 255, 255)
-  g.setFont(gameoverFont)
-  g.print(message, w / 2 - messageWidth / 2, h / 2 - messageHeight / 2)
+  setColor(255, 255, 255)
+  setFont(gameoverFont)
+  print(message, w / 2 - messageWidth / 2, h / 2 - messageHeight / 2)
 
-  g.setFont(gameoverSubFont)
-  g.print(submessage, w / 2 - submessageWidth / 2, h / 2 - messageHeight / 2 + messageHeight + 8)
+  setFont(gameoverSubFont)
+  print(submessage, w / 2 - submessageWidth / 2, h / 2 - messageHeight / 2 + messageHeight + 8)
   
   if self.message ~= nil then
     local udsw = gameoverSubFont:getWidth(self.message)
-    g.print(self.message, w / 2 - udsw / 2, h / 3)
+    print(self.message, w / 2 - udsw / 2, h / 3)
   end
   
   if self.time ~= nil then
     local scorestr = 'Your time was ' .. time.str(self.time)
     local scorew = gameoverSubFont:getWidth(scorestr)
-    g.print(scorestr, w / 2 - scorew / 2, h / 3 + 8 + gameoverSubFont:getHeight())
+    print(scorestr, w / 2 - scorew / 2, h / 3 + 8 + gameoverSubFont:getHeight())
   end
   
   if self.oldtime ~= nil then
     local oldtimestr = 'Previous best was ' .. time.str(self.oldtime)
     local oldtimew = gameoverSubFont:getWidth(oldtimestr)
-    g.print(oldtimestr, w / 2 - oldtimew / 2, h / 3 + (8 + gameoverSubFont:getHeight()) * 2)
+    print(oldtimestr, w / 2 - oldtimew / 2, h / 3 + (8 + gameoverSubFont:getHeight()) * 2)
   end
   
   self.ui:draw()
