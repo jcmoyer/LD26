@@ -6,7 +6,7 @@ local time = require('time')
 
 local gamestate = require('core.gamestate')
 
-local setmetatable, tonumber, type = setmetatable, tonumber, type
+local setmetatable, tonumber, tostring, type = setmetatable, tonumber, tostring, type
 local graphics = love.graphics
 local getWidth, getHeight = graphics.getWidth, graphics.getHeight
 local setBackgroundColor, setColor, setFont = graphics.setBackgroundColor, graphics.setColor, graphics.setFont
