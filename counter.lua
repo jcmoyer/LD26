@@ -18,6 +18,7 @@ function counter.new(owner, name, x, min, max, value, interactive, bgcolor)
     owner = owner,
     name = name,
     x = x,
+    y = owner:y(x),
     min = min,
     max = max,
     value = value or min,
@@ -63,7 +64,7 @@ end
 
 function counter:draw()
   local x = self.x
-  local y = self.owner:y(x)
+  local y = self.y
   
   setColor(self.backcolor)
   rectangle('fill', x - 16, y - 96 + 32, 32, 32)
