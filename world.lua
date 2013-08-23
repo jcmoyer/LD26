@@ -42,7 +42,7 @@ function world.new(name, context)
 
   -- Build a world object from the data
   local instance = setmetatable({}, mt)
-  instance.background = color.new( data.background or { 0, 0, 0 } )
+  instance.background = color.new(data.background or { 0, 0, 0 })
   instance.foreground = data.foreground and color.new(data.foreground) or -instance.background
   instance.name    = name
   instance.lines   = data.lines
