@@ -1,11 +1,11 @@
-local fontpool = require('core.fontpool')
+local fontpool = require('hug.fontpool')
 local sound = require('sound')
 local world = require('world')
-local camera = require('core.camera')
+local camera = require('hug.camera')
 local gamecontext = require('gamecontext')
-local timerpool = require('core.timerpool')
+local timerpool = require('hug.timerpool')
 local playstate = require('states.playstate')
-local gamestate = require('core.gamestate')
+local gamestate = require('hug.gamestate')
 
 local uiscene = require('ui.scene')
 local uistackpanel = require('ui.stackpanel')
@@ -20,7 +20,7 @@ local push, pop = graphics.push, graphics.pop
 local getWidth, getHeight, getCaption = graphics.getWidth, graphics.getHeight, graphics.getCaption
 local print = graphics.print
 
-local mathex = require('core.extensions.math')
+local mathex = require('hug.extensions.math')
 local clamp, lerp = mathex.clamp, mathex.lerp
 
 local menustate = setmetatable({}, { __index = gamestate })
@@ -111,11 +111,11 @@ function menustate:draw()
   setBackgroundColor(self.currentworld.background)
   clear()
   
-  translate(self.camera:calculatedX(), self.camera:calculatedY())
+  translate(-self.camera:calculatedX(), -self.camera:calculatedY())
   self.currentworld:draw()
   
   -- reverse the translation to draw the overlay
-  translate(-self.camera:calculatedX(), -self.camera:calculatedY())
+  translate(self.camera:calculatedX(), self.camera:calculatedY())
   
   if self.fadeintimer then
     local a = lerp(0, 255, self.fadeintimer.getRemaining() / self.fadeintimer.getDuration())

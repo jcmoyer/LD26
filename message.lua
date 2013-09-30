@@ -1,5 +1,5 @@
-local fontpool = require('core.fontpool')
-local color = require('core.color')
+local fontpool = require('hug.fontpool')
+local color = require('hug.color')
 
 local message = {}
 local mt = { __index = message }
@@ -9,7 +9,7 @@ local setmetatable = setmetatable
 local graphics = love.graphics
 local setColor, setFont = graphics.setColor, graphics.setFont
 local rectangle, print = graphics.rectangle, graphics.print
-local mathex = require('core.extensions.math')
+local mathex = require('hug.extensions.math')
 local lerp = mathex.lerp
 
 function message.new(text, duration, x, y)

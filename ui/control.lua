@@ -1,4 +1,4 @@
-local fontpool = require('core.fontpool')
+local fontpool = require('hug.fontpool')
 local event = require('ui.event')
 local control = {}
 

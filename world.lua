@@ -3,8 +3,8 @@ local region = require('region')
 local switch = require('switch')
 local enemy = require('enemy')
 local counter = require('counter')
-local color = require('core.color')
-local lazy = require('core.lazy')
+local color = require('hug.color')
+local lazy = require('hug.lazy')
 local world = {}
 local mt = { __index = world }
 
@@ -12,7 +12,7 @@ local dofile, setmetatable, pairs, ipairs = dofile, setmetatable, pairs, ipairs
 local graphics = love.graphics
 local setLineWidth, setColor = graphics.setLineWidth, graphics.setColor
 local line = graphics.line
-local mathex = require('core.extensions.math')
+local mathex = require('hug.extensions.math')
 local lerp = mathex.lerp
 
 local function safeCallTrigger(tt, name, ...)

@@ -1,4 +1,4 @@
-local color = require('core.color')
+local color = require('hug.color')
 local player = {}
 local mt = { __index = player }
 

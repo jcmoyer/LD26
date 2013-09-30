@@ -5,7 +5,7 @@ local setmetatable = setmetatable
 local graphics = love.graphics
 local polygon = graphics.polygon
 local abs = math.abs
-local mathex = require('core.extensions.math')
+local mathex = require('hug.extensions.math')
 local clamp = mathex.clamp
 
 local function calculatePixelSize(e)

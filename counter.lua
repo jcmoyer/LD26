@@ -1,5 +1,5 @@
-local fontpool = require('core.fontpool')
-local color = require('core.color')
+local fontpool = require('hug.fontpool')
+local color = require('hug.color')
 
 local counter = {}
 local mt = { __index = counter }

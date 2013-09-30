@@ -1,10 +1,10 @@
-local fontpool = require('core.fontpool')
+local fontpool = require('hug.fontpool')
 local uiscene = require('ui.scene')
 local uibutton = require('ui.button')
 local sound = require('sound')
 local time = require('time')
 
-local gamestate = require('core.gamestate')
+local gamestate = require('hug.gamestate')
 
 local setmetatable, tonumber, tostring, type = setmetatable, tonumber, tostring, type
 local graphics = love.graphics

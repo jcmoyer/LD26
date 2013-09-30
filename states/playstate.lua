@@ -1,15 +1,15 @@
 local player = require('player')
 local world = require('world')
-local camera = require('core.camera')
+local camera = require('hug.camera')
 local message = require('message')
 local gamecontext = require('gamecontext')
 local sound = require('sound')
 local time = require('time')
 local gameoverstate = require('states.gameoverstate')
 local playmenustate = require('states.playmenustate')
-local fontpool = require('core.fontpool')
+local fontpool = require('hug.fontpool')
 
-local gamestate = require('core.gamestate')
+local gamestate = require('hug.gamestate')
 
 local setmetatable, getmetatable = setmetatable, getmetatable
 local graphics = love.graphics
@@ -17,7 +17,7 @@ local setBackgroundColor, clear, translate = graphics.setBackgroundColor, graphi
 local push, pop, getWidth, getHeight = graphics.push, graphics.pop, graphics.getWidth, graphics.getHeight
 local setFont, setColor, print = graphics.setFont, graphics.setColor, graphics.print
 local isDown = love.keyboard.isDown
-local mathex = require('core.extensions.math')
+local mathex = require('hug.extensions.math')
 local lerp, clamp = mathex.lerp, mathex.clamp
 
 local playstate = setmetatable({}, { __index = gamestate })
@@ -246,7 +246,7 @@ function playstate:draw()
 
   -- draw game
   push()
-  translate(c:calculatedX(), c:calculatedY())
+  translate(-c:calculatedX(), -c:calculatedY())
   w:draw()
 
   p.color = w:oppositeColor()

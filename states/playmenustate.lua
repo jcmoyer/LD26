@@ -3,7 +3,7 @@ local uibutton = require('ui.button')
 local uistackpanel = require('ui.stackpanel')
 local sound = require('sound')
 
-local gamestate = require('core.gamestate')
+local gamestate = require('hug.gamestate')
 
 local setmetatable = setmetatable
 local graphics = love.graphics
