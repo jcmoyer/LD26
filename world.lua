@@ -22,7 +22,7 @@ local function safeCallTrigger(tt, name, ...)
 end
 
 local worldnames = lazy.new(function()
-  local worldfiles = love.filesystem.enumerate('worlds')
+  local worldfiles = love.filesystem.getDirectoryItems('worlds')
   local names = {}
   for i = 1, #worldfiles do
     local _, _, name = worldfiles[i]:find('([%a%d_]+)%.lua$')

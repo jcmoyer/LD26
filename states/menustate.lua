@@ -17,7 +17,8 @@ local graphics = love.graphics
 local setBackgroundColor, clear, translate = graphics.setBackgroundColor, graphics.clear, graphics.translate
 local setColor, setFont, rectangle = graphics.setColor, graphics.setFont, graphics.rectangle
 local push, pop = graphics.push, graphics.pop
-local getWidth, getHeight, getCaption = graphics.getWidth, graphics.getHeight, graphics.getCaption
+local getWidth, getHeight = graphics.getWidth, graphics.getHeight
+local getTitle = love.window.getTitle
 local print = graphics.print
 
 local mathex = require('hug.extensions.math')
@@ -34,7 +35,7 @@ local function pickWorldName()
 end
 
 local function drawHeader()
-  local text = getCaption()
+  local text = getTitle()
   local w = headerfont:getWidth(text)
   local h = headerfont:getHeight()
   setColor(255, 255, 255)

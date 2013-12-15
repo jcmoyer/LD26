@@ -8,7 +8,7 @@ local setmetatable = setmetatable
 local abs = math.abs
 local graphics = love.graphics
 local setColor, setFont = graphics.setColor, graphics.setFont
-local rectangle, triangle, print = graphics.rectangle, graphics.triangle, graphics.print
+local rectangle, polygon, print = graphics.rectangle, graphics.polygon, graphics.print
 
 local counterFont = fontpool.get(22)
 local counterMidY = 96 / 2
@@ -71,13 +71,13 @@ function counter:draw()
   
   if self.interactive == true then
     -- up arrow
-    triangle('fill',
+    polygon('fill',
       x - 8, y - 48 - 16 - 8,
       x + 8, y - 48 - 16 - 8,
       x    , y - 48 - 16 - 8 - 16)
     
     -- down arrow
-    triangle('fill',
+    polygon('fill',
       x - 8, y - 48 + 16 + 8,
       x + 8, y - 48 + 16 + 8,
       x    , y - 48 + 16 + 8 + 16)
