@@ -3,6 +3,7 @@ local region = require('region')
 local switch = require('switch')
 local enemy = require('enemy')
 local counter = require('counter')
+local timerpool = require('hug.timerpool')
 local color = require('hug.color')
 local lazy = require('hug.lazy')
 local world = {}
@@ -38,10 +39,22 @@ function world.getNames()
 end
 
 function world.new(name, context)
-  local data = love.filesystem.load('worlds/' .. name .. '.lua')()
+  local timerpool = timerpool.new()
+  
+  local chunk = love.filesystem.load('worlds/' .. name .. '.lua')
+  
+  local env = {timerpool = timerpool}
+  for k,v in pairs(_G) do
+    env[k] = v
+  end
+  
+  setfenv(chunk, env)
+  
+  local data = chunk()
 
   -- Build a world object from the data
   local instance = setmetatable({}, mt)
+  instance.timerpool = timerpool
   instance.background = color.new(data.background or { 0, 0, 0 })
   instance.foreground = data.foreground and color.new(data.foreground) or -instance.background
   instance.name    = name
@@ -118,6 +131,8 @@ function world:right()
 end
 
 function world:update(dt)
+  self.timerpool:update(dt)
+  
   for _,e in ipairs(self.enemies) do
     e:update(dt)
   end

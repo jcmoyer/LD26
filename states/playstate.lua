@@ -7,7 +7,7 @@ local sound = require('sound')
 local time = require('time')
 local gameoverstate = require('states.gameoverstate')
 local playmenustate = require('states.playmenustate')
-local fontpool = require('hug.fontpool')
+local fontpool = require('fontpool')
 
 local gamestate = require('hug.gamestate')
 
@@ -127,7 +127,7 @@ function playstate.new()
   return setmetatable(instance, mt)
 end
 
-function playstate:onEnter(old)
+function playstate:enter(old)
   if getmetatable(old) ~= playmenustate.mt then
     self.context = self:makecontext()
     self:changeworld('start')
@@ -225,7 +225,7 @@ function playstate:update(dt)
   w:scriptUpdate(context, dt)
 
   c:update(dt)
-  c:panCenter(p.x, p.y, dt)
+  c:pan(p.x, p.y, dt * 3)
   
   self.bgcolor[1] = lerp(self.bgcolor[1], w.background[1], dt * 10)
   self.bgcolor[2] = lerp(self.bgcolor[2], w.background[2], dt * 10)
@@ -239,6 +239,7 @@ function playstate:draw()
   local w = self.world
   local c = self.camera
   local m = self.message
+  local cx, cy = c:position()
   
   setBackgroundColor(self.bgcolor)
   
@@ -246,7 +247,7 @@ function playstate:draw()
 
   -- draw game
   push()
-  translate(-c:calculatedX(), -c:calculatedY())
+  translate(-cx, -cy)
   w:draw()
 
   p.color = w:oppositeColor()

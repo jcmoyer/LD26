@@ -1,4 +1,4 @@
-local fontpool = require('hug.fontpool')
+local fontpool = require('fontpool')
 local uiscene = require('ui.scene')
 local uibutton = require('ui.button')
 local sound = require('sound')
@@ -48,7 +48,7 @@ function gameoverstate.new(message, time)
   return setmetatable(instance, mt)
 end
 
-function gameoverstate:onEnter()
+function gameoverstate:enter()
   if love.filesystem.exists('time.dat') then
     local n = love.filesystem.read('time.dat')
     self.oldtime = tonumber(n)

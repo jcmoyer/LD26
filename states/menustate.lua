@@ -1,4 +1,4 @@
-local fontpool = require('hug.fontpool')
+local fontpool = require('fontpool')
 local sound = require('sound')
 local world = require('world')
 local camera = require('hug.camera')
@@ -50,6 +50,7 @@ function menustate.new()
   instance.fadeouttimer = nil
   instance.camera = camera.new(getWidth(), getHeight())
   instance.x = 0
+  instance.timerpool = timerpool.new()
   
   -- ui code
   local ui = uiscene.new()
@@ -79,7 +80,7 @@ function menustate.new()
   return instance
 end
 
-function menustate:onEnter()
+function menustate:enter()
   self:setRandomWorld()
 end
 
@@ -92,16 +93,17 @@ function menustate:mousereleased(x, y, button)
 end
 
 function menustate:update(dt)
+  self.timerpool:update(dt)
   self.ui:update(dt)
   
   self.camera:update(dt)
   
-  self.camera:panCenter(self.x, self.currentworld:y(self.x) - 100, dt)
+  self.camera:pan(self.x, self.currentworld:y(self.x) - 100, dt)
   self.x = self.x + 50 * dt
   
   if self.x > self.currentworld:right() then
-    if (not self.fadeouttimer or self.fadeouttimer.finished()) then
-      self.fadeouttimer = timerpool.start(3, function()
+    if (not self.fadeouttimer or self.fadeouttimer:status() == 'finished') then
+      self.fadeouttimer = self.timerpool:start(3, function()
         self:setRandomWorld()
       end)
     end
@@ -112,20 +114,21 @@ function menustate:draw()
   setBackgroundColor(self.currentworld.background)
   clear()
   
-  translate(-self.camera:calculatedX(), -self.camera:calculatedY())
+  local cx, cy = self.camera:position()
+  translate(-cx, -cy)
   self.currentworld:draw()
   
   -- reverse the translation to draw the overlay
-  translate(self.camera:calculatedX(), self.camera:calculatedY())
+  translate(cx, cy)
   
   if self.fadeintimer then
-    local a = lerp(0, 255, self.fadeintimer.getRemaining() / self.fadeintimer.getDuration())
+    local a = lerp(0, 255, self.fadeintimer:remaining() / self.fadeintimer:duration())
     a = clamp(a, 0, 255)
     setColor(0, 0, 0, a)
     rectangle('fill', 0, 0, getWidth(), getHeight())
   end
-  if self.fadeouttimer and not self.fadeouttimer.finished() then
-    local a = lerp(255, 0, self.fadeouttimer.getRemaining() / self.fadeouttimer.getDuration())
+  if self.fadeouttimer and self.fadeouttimer:status() ~= 'finished' then
+    local a = lerp(255, 0, self.fadeouttimer:remaining() / self.fadeouttimer:duration())
     a = clamp(a, 0, 255)
     setColor(0, 0, 0, a)
     rectangle('fill', 0, 0, getWidth(), getHeight())
@@ -152,7 +155,7 @@ function menustate:setRandomWorld()
   self.currentworld = world.new(newname, emptycontext)
   self.x = self.currentworld:left()
   self.camera:center(self.x, self.currentworld:y(self.x) - 100)
-  self.fadeintimer = timerpool.start(3)
+  self.fadeintimer = self.timerpool:start(3)
 end
 
 return menustate

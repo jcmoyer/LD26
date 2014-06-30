@@ -1,4 +1,3 @@
-local timerpool = require('hug.timerpool')
 local data = {}
 
 data.lines = {
@@ -68,7 +67,7 @@ function data.triggers.onSwitchChanged(context, s)
     end
   else
     -- wrong choice
-    timerpool.start(1, function()
+    timerpool:start(1, function()
       setAllSwitches(context, false)
       switchIndex = 1
       end)

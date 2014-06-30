@@ -1,4 +1,3 @@
-local timerpool = require('hug.timerpool')
 local data = {}
 
 data.lines = {

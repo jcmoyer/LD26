@@ -1,4 +1,3 @@
-local timerpool = require('hug.timerpool')
 local data = {}
 
 data.lines = {
@@ -163,7 +162,7 @@ function processGroupTwoSwitch(context, s)
 end
 
 function processGroupThreeSwitch(context, s)
-  timerpool.start(1, function()
+  timerpool:start(1, function()
       context.playSwitchSound()
       context.setSwitchStatus(s.name, false)
     end)

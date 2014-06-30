@@ -1,4 +1,4 @@
-local fontpool = require('hug.fontpool')
+local fontpool = require('fontpool')
 local color = require('hug.color')
 
 local counter = {}
