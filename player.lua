@@ -13,7 +13,7 @@ function player.new()
     y = 0,
     w = 32,
     h = 64,
-    color = color.new(255, 255, 255)
+    color = color.fromrgba(255, 255, 255)
   }
   return setmetatable(instance, mt)
 end

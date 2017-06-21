@@ -3,7 +3,7 @@ local color = require('hug.color')
 
 local message = {}
 local mt = { __index = message }
-local defaultFont = fontpool.get(18)
+local defaultFont = fontpool:get(18)
 
 local setmetatable = setmetatable
 local graphics = love.graphics
@@ -27,7 +27,7 @@ function message.new(text, duration, x, y)
     font = defaultFont
   }
   message.setText(instance, text or '')
-  message.setColor(instance, color.new(255, 255, 255))
+  message.setColor(instance, color.fromrgba(255, 255, 255))
   return setmetatable(instance, mt)
 end
 

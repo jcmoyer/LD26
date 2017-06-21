@@ -1,6 +1,6 @@
 function love.conf(t)
   t.identity = "Linewalker"
-  t.version  = "0.9.0"
+  t.version  = "0.10.0"
   
   t.window.title      = "Linewalker"
   t.window.width      = 800

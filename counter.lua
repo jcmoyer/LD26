@@ -10,7 +10,7 @@ local graphics = love.graphics
 local setColor, setFont = graphics.setColor, graphics.setFont
 local rectangle, polygon, print = graphics.rectangle, graphics.polygon, graphics.print
 
-local counterFont = fontpool.get(22)
+local counterFont = fontpool:get(22)
 local counterMidY = 96 / 2
 
 function counter.new(owner, name, x, min, max, value, interactive, bgcolor)
@@ -27,7 +27,7 @@ function counter.new(owner, name, x, min, max, value, interactive, bgcolor)
   -- sets valuew and valueh on instance
   counter.calculateValueSize(instance)
   -- sets backcolor and forecolor
-  counter.setColor(instance, bgcolor or color.new(255, 255, 255))
+  counter.setColor(instance, bgcolor or color.fromrgba(255, 255, 255))
   
   return setmetatable(instance, mt)
 end

@@ -22,7 +22,7 @@ function button.new()
       instance.mouseinbutton = false
     end)
   instance.events.mousedown:add(function(x, y, button)
-      if button == 'l' then
+      if button == 1 then
         instance.mousewasdown = true
       end
     end)

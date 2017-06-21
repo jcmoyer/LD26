@@ -27,7 +27,7 @@ local clamp, lerp = mathex.clamp, mathex.lerp
 local menustate = setmetatable({}, { __index = gamestate })
 local mt = { __index = menustate }
 
-local headerfont = fontpool.get(48)
+local headerfont = fontpool:get(48)
 
 local function pickWorldName()
   local worldnames = world.getNames()

@@ -15,8 +15,8 @@ local clear, print = graphics.clear, graphics.print
 local gameoverstate = setmetatable({}, { __index = gamestate })
 local mt = { __index = gameoverstate }
 
-local gameoverFont = fontpool.get(36)
-local gameoverSubFont = fontpool.get(16)
+local gameoverFont = fontpool:get(36)
+local gameoverSubFont = fontpool:get(16)
 
 local message = 'Thanks for playing!'
 local messageWidth = gameoverFont:getWidth(message)

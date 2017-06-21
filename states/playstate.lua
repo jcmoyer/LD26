@@ -23,7 +23,7 @@ local lerp, clamp = mathex.lerp, mathex.clamp
 local playstate = setmetatable({}, { __index = gamestate })
 local mt = { __index = playstate }
 
-local scorefont = fontpool.get(18)
+local scorefont = fontpool:get(18)
 
 function playstate:changeworld(name)
   self.world = world.new(name, self.context)
@@ -241,9 +241,7 @@ function playstate:draw()
   local m = self.message
   local cx, cy = c:position()
   
-  setBackgroundColor(self.bgcolor)
-  
-  clear()
+  clear(self.bgcolor)
 
   -- draw game
   push()
