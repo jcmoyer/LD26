@@ -8,6 +8,7 @@ local time = require('time')
 local gameoverstate = require('states.gameoverstate')
 local playmenustate = require('states.playmenustate')
 local fontpool = require('fontpool')
+local textrender = require('textrender')
 
 local gamestate = require('hug.gamestate')
 
@@ -15,7 +16,7 @@ local setmetatable, getmetatable = setmetatable, getmetatable
 local graphics = love.graphics
 local setBackgroundColor, clear, translate = graphics.setBackgroundColor, graphics.clear, graphics.translate
 local push, pop, getWidth, getHeight = graphics.push, graphics.pop, graphics.getWidth, graphics.getHeight
-local setFont, setColor, print = graphics.setFont, graphics.setColor, graphics.print
+local setFont, setColor = graphics.setFont, graphics.setColor
 local isDown = love.keyboard.isDown
 local mathex = require('hug.extensions.math')
 local lerp, clamp = mathex.lerp, mathex.clamp
@@ -264,7 +265,7 @@ function playstate:draw()
   local timew   = scorefont:getWidth(timestr)
   setFont(scorefont)
   setColor(w.foreground)
-  print(timestr, getWidth() / 2 - timew / 2, getHeight() / 32)
+  textrender.print(timestr, getWidth() / 2 - timew / 2, getHeight() / 32)
 end
 
 return playstate

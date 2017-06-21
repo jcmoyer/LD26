@@ -1,5 +1,6 @@
 local fontpool = require('fontpool')
 local color = require('hug.color')
+local textrender = require('textrender')
 
 local counter = {}
 local mt = { __index = counter }
@@ -8,7 +9,7 @@ local setmetatable = setmetatable
 local abs = math.abs
 local graphics = love.graphics
 local setColor, setFont = graphics.setColor, graphics.setFont
-local rectangle, polygon, print = graphics.rectangle, graphics.polygon, graphics.print
+local rectangle, polygon = graphics.rectangle, graphics.polygon
 
 local counterFont = fontpool:get(22)
 local counterMidY = 96 / 2
@@ -85,7 +86,7 @@ function counter:draw()
   
   setFont(counterFont)
   setColor(self.forecolor)
-  print(self.value, x - self.valuew / 2, y - counterMidY - self.valueh / 2)
+  textrender.print(self.value, x - self.valuew / 2, y - counterMidY - self.valueh / 2)
 end
 
 function counter:overlaps(x, r)

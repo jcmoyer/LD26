@@ -6,6 +6,7 @@ local gamecontext = require('gamecontext')
 local timerpool = require('hug.timerpool')
 local playstate = require('states.playstate')
 local gamestate = require('hug.gamestate')
+local textrender = require('textrender')
 
 local uiscene = require('ui.scene')
 local uistackpanel = require('ui.stackpanel')
@@ -19,7 +20,6 @@ local setColor, setFont, rectangle = graphics.setColor, graphics.setFont, graphi
 local push, pop = graphics.push, graphics.pop
 local getWidth, getHeight = graphics.getWidth, graphics.getHeight
 local getTitle = love.window.getTitle
-local print = graphics.print
 
 local mathex = require('hug.extensions.math')
 local clamp, lerp = mathex.clamp, mathex.lerp
@@ -40,7 +40,7 @@ local function drawHeader()
   local h = headerfont:getHeight()
   setColor(255, 255, 255)
   setFont(headerfont)
-  print(text, getWidth() / 2 - w / 2, getHeight() / 6 - h / 2)
+  textrender.print(text, getWidth() / 2 - w / 2, getHeight() / 6 - h / 2)
 end
 
 function menustate.new()

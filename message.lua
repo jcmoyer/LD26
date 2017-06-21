@@ -1,5 +1,6 @@
 local fontpool = require('fontpool')
 local color = require('hug.color')
+local textrender = require('textrender')
 
 local message = {}
 local mt = { __index = message }
@@ -8,7 +9,7 @@ local defaultFont = fontpool:get(18)
 local setmetatable = setmetatable
 local graphics = love.graphics
 local setColor, setFont = graphics.setColor, graphics.setFont
-local rectangle, print = graphics.rectangle, graphics.print
+local rectangle = graphics.rectangle
 local mathex = require('hug.extensions.math')
 local lerp = mathex.lerp
 
@@ -44,7 +45,7 @@ function message:draw()
 
   setColor(self.forecolor)
   setFont(self.font)
-  print(self.text, self.x, self.y)
+  textrender.print(self.text, self.x, self.y)
 end
 
 function message:visible()

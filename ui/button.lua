@@ -1,5 +1,6 @@
 local control = require('ui.control')
 local event = require('ui.event')
+local textrender = require('textrender')
 
 local button = setmetatable({}, { __index = control })
 
@@ -58,7 +59,7 @@ function button:draw()
   
   g.setFont(self.font)
   g.setColor(self.forecolor)
-  g.print(self.text, centerX - textW / 2, centerY - textH / 2)
+  textrender.print(self.text, centerX - textW / 2, centerY - textH / 2)
   
   g.setColor(self.bordercolor)
   g.setLineWidth(self.borderwidth)

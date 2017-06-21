@@ -3,6 +3,7 @@ local uiscene = require('ui.scene')
 local uibutton = require('ui.button')
 local sound = require('sound')
 local time = require('time')
+local textrender = require('textrender')
 
 local gamestate = require('hug.gamestate')
 
@@ -10,7 +11,7 @@ local setmetatable, tonumber, tostring, type = setmetatable, tonumber, tostring,
 local graphics = love.graphics
 local getWidth, getHeight = graphics.getWidth, graphics.getHeight
 local setBackgroundColor, setColor, setFont = graphics.setBackgroundColor, graphics.setColor, graphics.setFont
-local clear, print = graphics.clear, graphics.print
+local clear = graphics.clear
 
 local gameoverstate = setmetatable({}, { __index = gamestate })
 local mt = { __index = gameoverstate }
@@ -80,26 +81,26 @@ function gameoverstate:draw()
   
   setColor(255, 255, 255)
   setFont(gameoverFont)
-  print(message, w / 2 - messageWidth / 2, h / 2 - messageHeight / 2)
+  textrender.print(message, w / 2 - messageWidth / 2, h / 2 - messageHeight / 2)
 
   setFont(gameoverSubFont)
-  print(submessage, w / 2 - submessageWidth / 2, h / 2 - messageHeight / 2 + messageHeight + 8)
+  textrender.print(submessage, w / 2 - submessageWidth / 2, h / 2 - messageHeight / 2 + messageHeight + 8)
   
   if self.message ~= nil then
     local udsw = gameoverSubFont:getWidth(self.message)
-    print(self.message, w / 2 - udsw / 2, h / 3)
+    textrender.print(self.message, w / 2 - udsw / 2, h / 3)
   end
   
   if self.time ~= nil then
     local scorestr = 'Your time was ' .. time.str(self.time)
     local scorew = gameoverSubFont:getWidth(scorestr)
-    print(scorestr, w / 2 - scorew / 2, h / 3 + 8 + gameoverSubFont:getHeight())
+    textrender.print(scorestr, w / 2 - scorew / 2, h / 3 + 8 + gameoverSubFont:getHeight())
   end
   
   if self.oldtime ~= nil then
     local oldtimestr = 'Previous best was ' .. time.str(self.oldtime)
     local oldtimew = gameoverSubFont:getWidth(oldtimestr)
-    print(oldtimestr, w / 2 - oldtimew / 2, h / 3 + (8 + gameoverSubFont:getHeight()) * 2)
+    textrender.print(oldtimestr, w / 2 - oldtimew / 2, h / 3 + (8 + gameoverSubFont:getHeight()) * 2)
   end
   
   self.ui:draw()
