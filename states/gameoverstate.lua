@@ -79,7 +79,7 @@ function gameoverstate:draw()
   setBackgroundColor(0, 0, 0)
   clear()
   
-  setColor(255, 255, 255)
+  setColor(1, 1, 1)
   setFont(gameoverFont)
   textrender.print(message, w / 2 - messageWidth / 2, h / 2 - messageHeight / 2)
 

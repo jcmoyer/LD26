@@ -38,7 +38,7 @@ local function drawHeader()
   local text = getTitle()
   local w = headerfont:getWidth(text)
   local h = headerfont:getHeight()
-  setColor(255, 255, 255)
+  setColor(1, 1, 1)
   setFont(headerfont)
   textrender.print(text, getWidth() / 2 - w / 2, getHeight() / 6 - h / 2)
 end
@@ -122,27 +122,30 @@ function menustate:draw()
   translate(cx, cy)
   
   if self.fadeintimer then
-    local a = lerp(0, 255, self.fadeintimer:remaining() / self.fadeintimer:duration())
-    a = clamp(a, 0, 255)
+    local a = lerp(0, 1, self.fadeintimer:remaining() / self.fadeintimer:duration())
+    a = clamp(a, 0, 1)
     setColor(0, 0, 0, a)
     rectangle('fill', 0, 0, getWidth(), getHeight())
   end
   if self.fadeouttimer and self.fadeouttimer:status() ~= 'finished' then
-    local a = lerp(255, 0, self.fadeouttimer:remaining() / self.fadeouttimer:duration())
-    a = clamp(a, 0, 255)
+    local a = lerp(1, 0, self.fadeouttimer:remaining() / self.fadeouttimer:duration())
+    a = clamp(a, 0, 1)
     setColor(0, 0, 0, a)
     rectangle('fill', 0, 0, getWidth(), getHeight())
   end
   
   -- maybe only a temporary solution
-  setColor(0, 0, 0, 96)
+  setColor(0, 0, 0, 0.4)
   rectangle('fill', 0, 0, getWidth(), getHeight())
   
   drawHeader()
   
-  push()
-  self.ui:draw()
-  pop()
+
+  if self:sm():top() == self then
+    push()
+    self.ui:draw()
+    pop()
+  end
 end
 
 function menustate:setRandomWorld()

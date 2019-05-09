@@ -469,7 +469,7 @@ function data.triggers.onEnter(context)
 end
 
 function data.triggers.onUpdate(context, dt)
-  flash = math.max(flash - dt * 512, 0)
+  flash = math.max(flash - dt * 2, 0)
   context.setBackground({ flash, flash, flash })
 end
 
@@ -478,7 +478,7 @@ function data.triggers.onSwitchChanged(context, s)
   context.shakeCamera(5, m * 250)
 
   count = count + 1
-  flash = 128
+  flash = 0.5
   context.showMessage(count .. ' COMBO', 10)
 end
 

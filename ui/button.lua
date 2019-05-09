@@ -6,9 +6,9 @@ local button = setmetatable({}, { __index = control })
 
 function button.new()
   local instance = control.new()
-  instance.hoverbackcolor = { 140, 140, 140 }
-  instance.pressedbackcolor = { 100, 100, 100 }
-  instance.bordercolor = { 150, 150, 150 }
+  instance.hoverbackcolor = { 0.5, 0.5, 0.5 }
+  instance.pressedbackcolor = { 0.4, 0.4, 0.4 }
+  instance.bordercolor = { 0.6, 0.6, 0.6 }
   instance.borderwidth = 2
   instance.text = 'button'
   

@@ -28,7 +28,7 @@ function counter.new(owner, name, x, min, max, value, interactive, bgcolor)
   -- sets valuew and valueh on instance
   counter.calculateValueSize(instance)
   -- sets backcolor and forecolor
-  counter.setColor(instance, bgcolor or color.fromrgba(255, 255, 255))
+  counter.setColor(instance, bgcolor or color.fromrgba(1, 1, 1))
   
   return setmetatable(instance, mt)
 end

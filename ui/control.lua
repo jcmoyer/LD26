@@ -13,8 +13,8 @@ function control.new(x, y, w, h)
     visible = true,
     focusable = false,
     focused = false,
-    backcolor = { 128, 128, 128 },
-    forecolor = { 255, 255, 255 },
+    backcolor = { 0.5, 0.5, 0.5 },
+    forecolor = { 1, 1, 1 },
     text = 'control',
     
     font = defaultFont,

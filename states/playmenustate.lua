@@ -77,7 +77,7 @@ function playmenustate:update(dt)
 end
 
 function playmenustate:draw()
-  setColor(0, 0, 0, 128)
+  setColor(0, 0, 0, 0.5)
   rectangle('fill', 0, 0, getWidth(), getHeight())
   
   self.ui:draw()

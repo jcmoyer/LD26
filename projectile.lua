@@ -13,7 +13,7 @@ function projectile.new(x, y, vx, vy)
     y = y,
     vx = vx,
     vy = vy,
-    color = color.new(255, 0, 0),
+    color = color.new(1, 0, 0),
     size = 8,
   }
   return setmetatable(instance, mt)

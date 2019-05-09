@@ -28,7 +28,7 @@ function message.new(text, duration, x, y)
     font = defaultFont
   }
   message.setText(instance, text or '')
-  message.setColor(instance, color.fromrgba(255, 255, 255))
+  message.setColor(instance, color.fromrgba(1, 1, 1))
   return setmetatable(instance, mt)
 end
 
@@ -79,7 +79,7 @@ function message:setColor(fg, bg)
     self.backcolor = -self.forecolor
   end
   -- add an alpha channel
-  self.backcolor[4] = 128
+  self.backcolor[4] = 0.5
 end
 
 return message
