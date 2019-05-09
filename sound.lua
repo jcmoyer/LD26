@@ -1,7 +1,7 @@
 local sound = {}
 
 local newSource = love.audio.newSource
-local exists = love.filesystem.exists
+local getInfo = love.filesystem.getInfo
 
 local soundlist = {
   switch  = 'data/switch.ogg',
@@ -20,7 +20,7 @@ local soundlist = {
 }
 
 for k,v in pairs(soundlist) do
-  if exists(v) then
+  if getInfo(v) then
     sound[k] = newSource(v, 'static')
   end
 end
