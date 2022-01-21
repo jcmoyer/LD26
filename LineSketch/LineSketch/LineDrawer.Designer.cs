@@ -67,14 +67,14 @@
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteClick);
             // 
             // insertToolStripMenuItem
             // 
             this.insertToolStripMenuItem.Name = "insertToolStripMenuItem";
             this.insertToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.insertToolStripMenuItem.Text = "Insert";
-            this.insertToolStripMenuItem.Click += new System.EventHandler(this.insertToolStripMenuItem_Click);
+            this.insertToolStripMenuItem.Click += new System.EventHandler(this.insertLeftClick);
             // 
             // toolStripMenuItem1
             // 
@@ -86,35 +86,35 @@
             this.noiseToolStripMenuItem.Name = "noiseToolStripMenuItem";
             this.noiseToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.noiseToolStripMenuItem.Text = "Noise";
-            this.noiseToolStripMenuItem.Click += new System.EventHandler(this.noiseToolStripMenuItem_Click);
+            this.noiseToolStripMenuItem.Click += new System.EventHandler(this.noiseClick);
             // 
             // flattenToolStripMenuItem
             // 
             this.flattenToolStripMenuItem.Name = "flattenToolStripMenuItem";
             this.flattenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.flattenToolStripMenuItem.Text = "Flatten";
-            this.flattenToolStripMenuItem.Click += new System.EventHandler(this.flattenToolStripMenuItem_Click);
+            this.flattenToolStripMenuItem.Click += new System.EventHandler(this.flattenClick);
             // 
             // tessellateToolStripMenuItem
             // 
             this.tessellateToolStripMenuItem.Name = "tessellateToolStripMenuItem";
             this.tessellateToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.tessellateToolStripMenuItem.Text = "Tessellate";
-            this.tessellateToolStripMenuItem.Click += new System.EventHandler(this.tessellateToolStripMenuItem_Click);
+            this.tessellateToolStripMenuItem.Click += new System.EventHandler(this.tessellateClick);
             // 
             // stairsLeftToolStripMenuItem
             // 
             this.stairsLeftToolStripMenuItem.Name = "stairsLeftToolStripMenuItem";
             this.stairsLeftToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.stairsLeftToolStripMenuItem.Text = "Stairs Up (Right)";
-            this.stairsLeftToolStripMenuItem.Click += new System.EventHandler(this.stairsLeftToolStripMenuItem_Click);
+            this.stairsLeftToolStripMenuItem.Click += new System.EventHandler(this.stairsUpRightClick);
             // 
             // stairsLeftToolStripMenuItem1
             // 
             this.stairsLeftToolStripMenuItem1.Name = "stairsLeftToolStripMenuItem1";
             this.stairsLeftToolStripMenuItem1.Size = new System.Drawing.Size(167, 22);
             this.stairsLeftToolStripMenuItem1.Text = "Stairs Up (Left)";
-            this.stairsLeftToolStripMenuItem1.Click += new System.EventHandler(this.stairsLeftToolStripMenuItem1_Click);
+            this.stairsLeftToolStripMenuItem1.Click += new System.EventHandler(this.stairsUpLeftClick);
             // 
             // toolStripMenuItem2
             // 
@@ -133,14 +133,14 @@
             this.stairsDownRightToolStripMenuItem.Name = "stairsDownRightToolStripMenuItem";
             this.stairsDownRightToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.stairsDownRightToolStripMenuItem.Text = "Stairs Down (Right)";
-            this.stairsDownRightToolStripMenuItem.Click += new System.EventHandler(this.stairsDownRightToolStripMenuItem_Click);
+            this.stairsDownRightToolStripMenuItem.Click += new System.EventHandler(this.stairsDownRightClick);
             // 
             // stairsDownLeftToolStripMenuItem
             // 
             this.stairsDownLeftToolStripMenuItem.Name = "stairsDownLeftToolStripMenuItem";
             this.stairsDownLeftToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.stairsDownLeftToolStripMenuItem.Text = "Stairs Down (Left)";
-            this.stairsDownLeftToolStripMenuItem.Click += new System.EventHandler(this.stairsDownLeftToolStripMenuItem_Click);
+            this.stairsDownLeftToolStripMenuItem.Click += new System.EventHandler(this.stairsDownLeftClick);
             // 
             // locationToolStripMenuItem
             // 

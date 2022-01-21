@@ -21,12 +21,14 @@ namespace LineSketch {
 
         private bool _isRightDown;
 
-        private List<Point> _points = new List<Point>();
+        private PointList _points = new PointList();
         private List<Point> _portals = new List<Point>();
 
+        Random rng = new Random();
+
         public List<Point> Points {
-            get { return _points; }
-            set { _points = value; AlignPortals(); Invalidate(); }
+            get { return _points.Points; }
+            set { _points.Points = value; AlignPortals(); Invalidate(); }
         }
 
         public List<Point> Portals {
@@ -41,14 +43,14 @@ namespace LineSketch {
         protected override void OnPaint(PaintEventArgs e) {
             e.Graphics.TranslateTransform(_offset.X, _offset.Y);
 
-            foreach (var point in _points) {
+            foreach (var point in Points) {
                 e.Graphics.DrawRectangle(Pens.Red, point.X - 2, point.Y - 2, 4, 4);
             }
 
-            if (_points.Count >= 2) {
-                e.Graphics.DrawLines(Pens.Black, _points.ToArray());
+            if (Points.Count >= 2) {
+                e.Graphics.DrawLines(Pens.Black, Points.ToArray());
             }
-            
+
             foreach (var portal in _portals) {
                 e.Graphics.DrawRectangle(Pens.CornflowerBlue, portal.X - 32, portal.Y - 96, 64, 96);
             }
@@ -57,7 +59,7 @@ namespace LineSketch {
         protected override void OnMouseMove(MouseEventArgs e) {
             if (_draggingPoint) {
                 if (_lastDrag.HasValue) {
-                    _points[_draggingIndex] = new Point(e.X - _offset.X, e.Y - _offset.Y);
+                    Points[_draggingIndex] = new Point(e.X - _offset.X, e.Y - _offset.Y);
                     _lastDrag = new Point(e.X, e.Y);
                     Invalidate();
                     OnPointsChanged(new EventArgs());
@@ -79,9 +81,9 @@ namespace LineSketch {
 
         protected override void OnMouseDown(MouseEventArgs e) {
             if (e.Button == MouseButtons.Left) {
-                for (int i = 0; i < _points.Count; i++) {
+                for (int i = 0; i < Points.Count; i++) {
                     var localCursor = e.Location;
-                    var localPoint = new Point(_points[i].X + _offset.X, _points[i].Y + _offset.Y);
+                    var localPoint = new Point(Points[i].X + _offset.X, Points[i].Y + _offset.Y);
                     if (IsVicinity(localCursor, localPoint, 5)) {
                         _draggingPoint = true;
                         _draggingIndex = i;
@@ -91,12 +93,12 @@ namespace LineSketch {
                 if (!_draggingPoint) {
                     bool addedBetween = false;
                     int mx = e.Location.X;
-                    for (int i = 0; i < _points.Count; i++) {
-                        if (i + 1 < _points.Count) {
-                            var lpA = new Point(_points[i].X + _offset.X, _points[i].Y + _offset.Y);
-                            var lpB = new Point(_points[i + 1].X + _offset.X, _points[i + 1].Y + _offset.Y);
+                    for (int i = 0; i < Points.Count; i++) {
+                        if (i + 1 < Points.Count) {
+                            var lpA = new Point(Points[i].X + _offset.X, Points[i].Y + _offset.Y);
+                            var lpB = new Point(Points[i + 1].X + _offset.X, Points[i + 1].Y + _offset.Y);
                             if (mx >= lpA.X && mx <= lpB.X) {
-                                _points.Insert(i + 1, new Point(e.X - _offset.X, e.Y - _offset.Y));
+                                Points.Insert(i + 1, new Point(e.X - _offset.X, e.Y - _offset.Y));
                                 OnPointsChanged(new EventArgs());
                                 _draggingPoint = true;
                                 _draggingIndex = i + 1;
@@ -107,10 +109,10 @@ namespace LineSketch {
                     }
 
                     if (!addedBetween) {
-                        _points.Add(new Point(e.X - _offset.X, e.Y - _offset.Y));
+                        Points.Add(new Point(e.X - _offset.X, e.Y - _offset.Y));
                         OnPointsChanged(new EventArgs());
                         _draggingPoint = true;
-                        _draggingIndex = _points.Count - 1;
+                        _draggingIndex = Points.Count - 1;
                     }
                     Invalidate();
                 }
@@ -159,118 +161,75 @@ namespace LineSketch {
             }
         }
 
-        private void deleteToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void deleteClick(object sender, EventArgs e) {
             var p = (Point)contextMenuStrip1.Tag;
-            _points.Remove(p);
+            int i = Points.FindIndex(a => a == p);
+            _points.RemoveAt(i);
             OnPointsChanged(new EventArgs());
             Invalidate();
         }
 
-        private void insertToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void insertLeftClick(object sender, EventArgs e) {
             var p = (Point)contextMenuStrip1.Tag;
-            int i = _points.FindIndex(a => a == p);
-            _points.Insert(i, new Point(p.X - 16, p.Y));
+            int i = Points.FindIndex(a => a == p);
+            _points.InsertLeft(i);
             OnPointsChanged(new EventArgs());
             Invalidate();
         }
 
-        private void noiseToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void noiseClick(object sender, EventArgs e) {
             var p = (Point)contextMenuStrip1.Tag;
-            int i = _points.FindIndex(a => a == p);
-            Random r = new Random();
+            int i = Points.FindIndex(a => a == p);
 
-            for (int j = Math.Min(_points.Count - 1, i + 5); j >= Math.Max(0, i - 5); j--) {
-                var pp = _points[j];
-                pp.X = (int)(pp.X + r.Next(10) - r.Next(10) + Math.Cos((j + r.Next(10) / 1000.0f) / 1000.0f));
-                pp.Y = (int)(pp.Y + r.Next(10) - r.Next(10) + Math.Sin((j + r.Next(10) / 1000.0f) / 1000.0f));
-                _points[j] = pp;
-            }
+            _points.Noise(i, rng);
 
             OnPointsChanged(new EventArgs());
             Invalidate();
         }
 
-        private void flattenToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void flattenClick(object sender, EventArgs e) {
             var p = (Point)contextMenuStrip1.Tag;
-            int i = _points.FindIndex(a => a == p);
-            
-            for (int j = Math.Min(_points.Count - 1, i + 1); j >= Math.Max(0, i - 1); j--) {
-                var pp = _points[j];
-                pp.X = pp.X;
-                pp.Y = p.Y;
-                _points[j] = pp;
-            }
+            int i = Points.FindIndex(a => a == p);
+
+            _points.Flatten(i);
 
             OnPointsChanged(new EventArgs());
             Invalidate();
         }
 
-        private void tessellateToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void tessellateClick(object sender, EventArgs e) {
             var p = (Point)contextMenuStrip1.Tag;
-            int i = _points.FindIndex(a => a == p);
+            int i = Points.FindIndex(a => a == p);
 
-            if (i - 1 >= 0) {
-                var lastPoint = _points[i - 1];
-                _points.Insert(i, new Point((lastPoint.X + p.X) / 2, (lastPoint.Y + p.Y) / 2));
-                i++;
-            }
-            if (i + 1 < _points.Count) {
-                var nextPoint = _points[i + 1];
-                _points.Insert(i + 1, new Point((nextPoint.X + p.X) / 2, (nextPoint.Y + p.Y) / 2));
-            }
-            OnPointsChanged(new EventArgs());
-            Invalidate();
-        }
-
-        private void stairsLeftToolStripMenuItem_Click(object sender, EventArgs e) {
-            var p = (Point)contextMenuStrip1.Tag;
-            int i = _points.FindIndex(a => a == p);
-            _points.Remove(p);
-            _points.Insert(i, new Point(p.X, p.Y));
-            _points.Insert(i+1, new Point(p.X, p.Y - 4));
-            _points.Insert(i + 2, new Point(p.X + 8, p.Y - 4));
-
-            // REALLY HACKY PLS REMOVE
-            var count = sender as int?;
-            if (count == null) {
-                contextMenuStrip1.Tag = _points[i + 2];
-                // OH GOD
-                stairsLeftToolStripMenuItem_Click(5, e);
-            } else {
-                // OOOOOOOOH GOD WHY
-                if (count > 0) {
-                    contextMenuStrip1.Tag = _points[i + 2];
-                    stairsLeftToolStripMenuItem_Click(count - 1, e);
-                }
-            }
-            // i am sorry for this
+            _points.Tessellate(i);
 
             OnPointsChanged(new EventArgs());
             Invalidate();
         }
 
-        private void stairsLeftToolStripMenuItem1_Click(object sender, EventArgs e) {
+        private void stairsUpRightClick(object sender, EventArgs e) {
             var p = (Point)contextMenuStrip1.Tag;
-            int i = _points.FindIndex(a => a == p);
-            _points.Remove(p);
-            _points.Insert(i, new Point(p.X, p.Y));
-            _points.Insert(i, new Point(p.X, p.Y - 4));
-            _points.Insert(i, new Point(p.X - 8, p.Y - 4));
+            int i = Points.FindIndex(a => a == p);
 
-            // REALLY HACKY PLS REMOVE
-            var count = sender as int?;
-            if (count == null) {
-                contextMenuStrip1.Tag = _points[i];
-                // OH GOD
-                stairsLeftToolStripMenuItem1_Click(5, e);
-            } else {
-                // OOOOOOOOH GOD WHY
-                if (count > 0) {
-                    contextMenuStrip1.Tag = _points[i];
-                    stairsLeftToolStripMenuItem1_Click(count - 1, e);
-                }
-            }
-            // i am sorry for this
+            _points.MakeStairs(i, new StairCreationParameters {
+                Steps = 5,
+                XD = XDirection.Right,
+                YD = YDirection.Up,
+            });
+
+            OnPointsChanged(new EventArgs());
+            Invalidate();
+        }
+
+        private void stairsUpLeftClick(object sender, EventArgs e) {
+            var p = (Point)contextMenuStrip1.Tag;
+            int i = Points.FindIndex(a => a == p);
+
+            _points.MakeStairs(i, new StairCreationParameters {
+                Steps = 5,
+                XD = XDirection.Left,
+                YD = YDirection.Up,
+            });
 
             OnPointsChanged(new EventArgs());
             Invalidate();
@@ -284,9 +243,9 @@ namespace LineSketch {
         }
 
         private int Y(int x) {
-            for (int i = 0; i < _points.Count - 1; i++) {
-                var p1 = _points[i];
-                var p2 = _points[i + 1];
+            for (int i = 0; i < Points.Count - 1; i++) {
+                var p1 = Points[i];
+                var p2 = Points[i + 1];
                 if (x >= p1.X && x <= p2.X) {
                     float d = (x - p1.X) / (float)(p2.X - p1.X);
                     float m = (p1.Y - p2.Y) / (float)(p1.X - p2.X);
@@ -304,55 +263,29 @@ namespace LineSketch {
             }
         }
 
-        private void stairsDownRightToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void stairsDownRightClick(object sender, EventArgs e) {
             var p = (Point)contextMenuStrip1.Tag;
-            int i = _points.FindIndex(a => a == p);
-            _points.Remove(p);
-            _points.Insert(i, new Point(p.X, p.Y));
-            _points.Insert(i + 1, new Point(p.X, p.Y + 4));
-            _points.Insert(i + 2, new Point(p.X + 8, p.Y + 4));
+            int i = Points.FindIndex(a => a == p);
 
-            // REALLY HACKY PLS REMOVE
-            var count = sender as int?;
-            if (count == null) {
-                contextMenuStrip1.Tag = _points[i + 2];
-                // OH GOD
-                stairsDownRightToolStripMenuItem_Click(5, e);
-            } else {
-                // OOOOOOOOH GOD WHY
-                if (count > 0) {
-                    contextMenuStrip1.Tag = _points[i + 2];
-                    stairsDownRightToolStripMenuItem_Click(count - 1, e);
-                }
-            }
-            // i am sorry for this
+            _points.MakeStairs(i, new StairCreationParameters {
+                Steps = 5,
+                XD = XDirection.Right,
+                YD = YDirection.Down,
+            });
 
             OnPointsChanged(new EventArgs());
             Invalidate();
         }
 
-        private void stairsDownLeftToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void stairsDownLeftClick(object sender, EventArgs e) {
             var p = (Point)contextMenuStrip1.Tag;
-            int i = _points.FindIndex(a => a == p);
-            _points.Remove(p);
-            _points.Insert(i, new Point(p.X, p.Y));
-            _points.Insert(i, new Point(p.X, p.Y + 4));
-            _points.Insert(i, new Point(p.X - 8, p.Y + 4));
+            int i = Points.FindIndex(a => a == p);
 
-            // REALLY HACKY PLS REMOVE
-            var count = sender as int?;
-            if (count == null) {
-                contextMenuStrip1.Tag = _points[i];
-                // OH GOD
-                stairsDownLeftToolStripMenuItem_Click(5, e);
-            } else {
-                // OOOOOOOOH GOD WHY
-                if (count > 0) {
-                    contextMenuStrip1.Tag = _points[i];
-                    stairsDownLeftToolStripMenuItem_Click(count - 1, e);
-                }
-            }
-            // i am sorry for this
+            _points.MakeStairs(i, new StairCreationParameters {
+                Steps = 5,
+                XD = XDirection.Left,
+                YD = YDirection.Down,
+            });
 
             OnPointsChanged(new EventArgs());
             Invalidate();
