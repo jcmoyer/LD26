@@ -53,10 +53,12 @@ namespace LineSketch {
 
         public void Tessellate(int where) {
             int left = where - 1;
-            int right = where + 1;
             if (left >= 0) {
-                _points.Insert(left, PointMath.Middle(_points[left], _points[where]));
+                _points.Insert(where, PointMath.Middle(_points[left], _points[where]));
+                // adjust offset since we inserted an element to the left
+                ++where;
             }
+            int right = where + 1;
             if (right < _points.Count) {
                 _points.Insert(right, PointMath.Middle(_points[right], _points[where]));
             }
