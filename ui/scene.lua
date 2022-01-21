@@ -33,6 +33,7 @@ function scene:update(dt)
         end
         hit.events.mouseenter:dispatch()
         self.lasthit = hit
+        break
       end
     end
     
